@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
           .catch(error => message.reply(` ❌ **ERROR:** Couldn't delete messages because of: ${error}`));
 
 }
-
+// commented 
 module.exports.help = {
   name: "clear"
 }
