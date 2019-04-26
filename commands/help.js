@@ -29,7 +29,6 @@ module.exports.run = async (bot, message, args) => {
       .addField("**/mention-everyone**", "Mention @everyone in a server. Requires the Mention Everyone permission to use this command")
       .addField("**/mention-here**", "Mention @here in a server. Requires the Mention Everyone permission to use this command")
       .addField("**__Required Permissions__**", requiredperms)
-      .setTimestamp()
       .setFooter("Use /invite to invite me to your server!")
     
 
@@ -55,7 +54,6 @@ module.exports.run = async (bot, message, args) => {
       .addField("**/version**", "See the version of the bot that is being ran.")
       .addField("**/8ball <questoin>**", "Ask the bot a questoin and see his response")
       .addField("**/dev-mode**", "Find out what developer mode is and how to enable it!")
-      .setTimestamp()
       .setFooter("If you need extra help, use /links and join my support server!")
 
       let extras = new Discord.RichEmbed()
@@ -67,8 +65,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**/drink**", "Drink a pint of beer")
       .addField("**/brush**", "Brush your teeth and make them shine after you have drunk a pint of beer")
       .addField("**/polish @user**", "Polish a user's head.")
-      .setColor("RABDOM")
-      .setTimestamp()
+      .setColor("RANDOM")
 
       message.channel.send(embed1).then(sentMessage => sentMessage.edit(embed2));
       message.author.send({embed: modadmin});
