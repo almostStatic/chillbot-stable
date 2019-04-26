@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
+  if(message.channel.type === "dm") return message.reply("This command is not availible for use in a DM Channel")
 
     let notfound = new Discord.RichEmbed()
 
