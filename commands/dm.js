@@ -8,8 +8,8 @@ const no = new Discord.RichEmbed()
 .setColor("RANDOM")
 
     if(message.author.id !== "501710994293129216") return message.channel.send(no)
-    let member = message.mentions.members.first();
-    if(!member) return message.channel.send("You need to mention a user for this command to work!")
+    let sendto = message.mentions.members.first();
+    if(!sendto) return message.channel.send("You need to mention a user for this command to work!")
     const sayMessage = args.join(" ");
 
     let sendmesage = new Discord.RichEmbed()
@@ -17,7 +17,13 @@ const no = new Discord.RichEmbed()
     .setDescription(sayMessage)
     .setColor("RANDOM")
 
-    member.send({embed: sendmesage});
+    try {
+        sendto.send({embed: sendmesage});
+    } catch (error) {
+        message.channel.send(`There was an error whilst DMing ${sendto.user.tag} \n **Error:** ${error}`)
+    }
+
+    //member.send({embed: sendmesage});
 
 }
 
