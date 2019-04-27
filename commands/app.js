@@ -11,6 +11,7 @@ module.exports.run = (client, message, args, level) => {
     .setURL("https://dashboard.heroku.com/apps/bot-hosted-using-heroku/deploy/github")
 
     message.author.send({embed: appEmbed});
+    message.channel.send("Message Sent!")
         
 }
 
