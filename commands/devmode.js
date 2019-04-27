@@ -2,7 +2,10 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-    
+    let sendto = message.mentions.members.first();
+
+
+
 
     const devembed = new Discord.RichEmbed()
 
@@ -14,8 +17,10 @@ module.exports.run = async (bot, message, args) => {
     .addField("How to enable Dev Mode on **IOS**?", "If you have iOS, you can enable Developer Mode by opening your Discord settings  in the bottom-right corner of the screen, tapping on Appearance, and flicking the switch labeled Developer Mode.")
     .addField("**Usage:**", "Developer Mode adds a simple Copy ID option to your context menu. Right click or long press on any server, user, message or channel to get its unique ID.")
     .setFooter("Use /invite to invite me to your server!")
-
-    message.channel.send({embed: devembed});
+    message.delete(0);
+    
+    sendto.send({embed: devembed});
+    message.channel.send("Your message has been sent!")
 
   }
 

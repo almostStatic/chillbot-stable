@@ -10,6 +10,7 @@ module.exports.run = (client, message, args, level) => {
     .setTitle("Link to app hosted on Heroku")
     .setURL("https://dashboard.heroku.com/apps/bot-hosted-using-heroku/deploy/github")
     .setColor("RANDOM")
+    
     message.author.send({embed: appEmbed});
     message.channel.send("Message Sent!")
         
