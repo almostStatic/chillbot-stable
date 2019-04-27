@@ -1,9 +1,10 @@
 const Discord = require("discord.js");
 const os = require('os');
+client = new Discord.Client();
 
 module.exports.run = async (bot, message, args) => {
 
-    let ms = bot.uptime;
+    let ms = client.uptime;
     let cd = 24 * 60 * 60 * 1000; // Calc days
     let ch = 60 * 60 * 1000; // Calc hours
     let cm = 60 * 1000; // Calc minutes
@@ -58,7 +59,7 @@ module.exports.run = async (bot, message, args) => {
         dateString += 'and ';
     }
     dateString += dateStrings[dateStrings.length - 1];
-    let myDate = new Date(bot.readyTimestamp);
+    let myDate = new Date(client.readyTimestamp);
     const embed = new Discord.RichEmbed()
   .setThumbnail(message.author.iconURL)
   .setFooter(`Ready Timestamp: ${myDate.toString()}`, true)
