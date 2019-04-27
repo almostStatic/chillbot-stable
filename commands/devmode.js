@@ -3,9 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 
     let sendto = message.mentions.members.first();
-
-
-
+    if(!sendto) return message.channel.send("Please mention someone who you want me to send these instructions")
 
     const devembed = new Discord.RichEmbed()
 
@@ -25,5 +23,5 @@ module.exports.run = async (bot, message, args) => {
   }
 
 module.exports.help = {
-  name: "devmode"
+  name: "send-devmode"
 }
