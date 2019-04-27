@@ -4,7 +4,7 @@ client = new Discord.Client();
 
 module.exports.run = async (bot, message, args) => {
 
-  /*  let ms = client.uptime;
+  /let ms = client.uptime;
     let cd = 24 * 60 * 60 * 1000; // Calc days
     let ch = 60 * 60 * 1000; // Calc hours
     let cm = 60 * 1000; // Calc minutes
@@ -67,9 +67,9 @@ module.exports.run = async (bot, message, args) => {
   .setColor("RANDOM");
     message.channel.send({embed})
   .catch(console.error); 
-  */
+  
 
-  message.channel.send("??");
+  //message.channel.send("??");
 
 };
 
