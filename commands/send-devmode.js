@@ -4,7 +4,6 @@ module.exports.run = async (bot, message, args) => {
 
     let sendto = message.mentions.members.first();
     if(!sendto) return message.channel.send("Please mention someone who you want me to send these instructions")
-    let sentby = message.member.user.tag; 
 
     const devembed = new Discord.RichEmbed()
 
@@ -15,7 +14,6 @@ module.exports.run = async (bot, message, args) => {
     .addField("How to enable Dev Mode on **Android**?", "On Android, you can enable Developer Mode by going to your Discord settings (the ⚙️️️ next to your name at the bottom left) and tap on Behavior. There you will find Developer Mode. Tap the toggle to enable it.")
     .addField("How to enable Dev Mode on **IOS**?", "If you have iOS, you can enable Developer Mode by opening your Discord settings  in the bottom-right corner of the screen, tapping on Appearance, and flicking the switch labeled Developer Mode.")
     .addField("**Usage:**", "Developer Mode adds a simple Copy ID option to your context menu. Right click or long press on any server, user, message or channel to get its unique ID.")
-    .addField(`These instructions were sent to you on the order of`, `${sentby}`)
     .setFooter("Use /invite to invite me to your server!")
     message.delete(0);
 
