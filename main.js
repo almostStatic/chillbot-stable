@@ -175,6 +175,7 @@ if(cmd === `${message.author.id}`){
 
 });
 bot.login(process.env.BOT_TOKEN);
+
 // END OF CODE !!
 
 // ============================ EXTRA INFO AND STUFFS ==============================
