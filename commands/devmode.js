@@ -18,12 +18,12 @@ module.exports.run = async (bot, message, args) => {
     .addField("**Usage:**", "Developer Mode adds a simple Copy ID option to your context menu. Right click or long press on any server, user, message or channel to get its unique ID.")
     .setFooter("Use /invite to invite me to your server!")
     message.delete(0);
-    
+
     sendto.send({embed: devembed});
     message.channel.send("Your message has been sent!")
 
   }
 
 module.exports.help = {
-  name: "dev-mode"
+  name: "devmode"
 }
