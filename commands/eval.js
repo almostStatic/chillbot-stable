@@ -13,6 +13,13 @@ module.exports.run = async (bot, message, args) => {
     const code = args.join(" ");
     let evaled = eval(code);
 
+      let nocode = new Discord.RichEmbed()
+
+      .setDescription("Plese provide some code for me to run!")
+      .setColor(`RANDOM`)
+
+    if(!code) return message.channel.send({embed: nocode});
+
     if (typeof evaled !== "string")
       evaled = require("util").inspect(evaled);
 
