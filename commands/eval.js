@@ -3,7 +3,12 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 
   if(message.author.id !== "501710994293129216") return message.channel.send("This is an owner-only command!")
-
+  function clean(text) {
+    if (typeof(text) === "string")
+      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    else
+        return text;
+  }
   try {
     const code = args.join(" ");
     let evaled = eval(code);
@@ -14,8 +19,9 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(clean(evaled), {code:"xl"});
   } catch (err) {
     message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
-  } 
+  }
 }
+
 
 module.exports.help = {
   name: "eval"
