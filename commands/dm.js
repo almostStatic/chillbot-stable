@@ -10,7 +10,7 @@ const no = new Discord.RichEmbed()
     if(message.author.id !== "501710994293129216") return message.channel.send(no)
     let sendto = message.mentions.members.first();
     if(!sendto) return message.channel.send("You need to mention a user for this command to work!")
-    const sayMessage = args.join(" ");
+    const sayMessage = args.join(" ").slice(22);
 
     let sendmesage = new Discord.RichEmbed()
 
