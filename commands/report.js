@@ -12,6 +12,7 @@ module.exports.run = async (bot, message, args) => {
     .setColor("#ff0000")
     .addField("Reported User", `${rUser}, (${rUser.id})`, true)
     .addField("Reported By", `${message.author}, (${message.author.id})`, true)
+    .addField("Reported In", servername)
     .addField("Channel", message.channel, true)
     .addField("Time", message.createdAt, true)
     .addField("Reason", rreason)

@@ -13,6 +13,10 @@ module.exports.run = async (bot, message, args) => {
   //if (!member.guild.member(client.user).hasPermission('BAN_MEMBERS')) return;
       let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     if(!bUser) return message.channel.send(" ❌ **Can't find user!**");
+    if(!bUser.banable){
+      return message.reply(`I cannot ban that user! Do they have a higher rolethan e? Do I have ban members permissions?`);
+    };
+
     let bReason = args.join(" ").slice(22);
     if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send("❌ You dcan't do that!");
     if(bUser.hasPermission("BAN_MEMBERS")) return message.channel.send("❌ That person can't be banned! They have the BAN MEMVERS permission.");
