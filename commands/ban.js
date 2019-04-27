@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
       let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     if(!bUser) return message.channel.send(" ❌ **Can't find user!**");
     if(!bUser.banable){
-      return message.reply(`I cannot ban that user! Do they have a higher rolethan e? Do I have ban members permissions?`);
+      return message.reply(`I cannot ban that user! Do they have a higher role than me? Do I have ban members permissions?`);
     };
 
     let bReason = args.join(" ").slice(22);

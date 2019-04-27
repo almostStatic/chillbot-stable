@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
         invurl = "https://discordapp.com/oauth2/authorize?client_id=517730016520568853&scope=bot&permissions=8";
         let bicon = bot.user.displayAvatarURL;
         const inviteEmbed = new Discord.RichEmbed()
-        .setDescription("**__Useful Links!__**")
+        .setTitle("Useful Links!")
         .setColor('RANDOM')
         .setThumbnail(bicon)
         .addField("Invite Bot: ", invurl)
@@ -18,5 +18,5 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-  name: `invite`
+  name: `links`
 }
