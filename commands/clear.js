@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
         // This command removes all messages from all users in the channel, up to 100.
         
         // get the delete count, as an actual number.
-        const deleteCount = parseInt(args[0], 10);
+        const deleteCount = parseInt(args[0], 10)+ 1;
         
         // Ooooh nice, combined conditions. <3
         if(!deleteCount || deleteCount < 1 || deleteCount > 100)
