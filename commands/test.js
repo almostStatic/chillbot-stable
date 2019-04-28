@@ -1,3 +1,18 @@
+/*module.exports = class test {
+constructor(){
+  this.name = "test",
+  this.alias = ['t'],
+  this.usage = "/test | /t"
+}
+}
+
+run(bot, message, args);{
+
+  message.channel.send("New command Handler works!");
+
+}
+*/
+
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {

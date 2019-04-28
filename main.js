@@ -5,9 +5,8 @@ const fs = require("fs");
 const ms = require("ms");
 const bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
-let coins = require("./coins.json")
-let xp = require("./xp.json")
-
+let coins = require("./coins.json");
+let xp = require("./xp.json");
 fs.readdir("./commands/", (err, files) => {
 
   if(err) console.log(err);
@@ -23,6 +22,7 @@ fs.readdir("./commands/", (err, files) => {
     console.log(`${f} sucsessfully loaded!`);
     bot.commands.set(props.help.name, props);
   });
+
 });
 bot.on("ready", async () => {
   bot.user.setPresence({status: 'Do Not Disturb' })
@@ -51,7 +51,8 @@ bot.user.setActivity(`/help | /invite | Serving ${bot.guilds.size} servers`);
     const messageArray = message.content.split(" ");
     const cmd = messageArray[0];
     const args = messageArray.slice(1);
-    let commandfile = bot.commands.get(cmd.slice(prefix.length));
+
+  let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if(!message.content.startsWith(prefix)) return;
 
   if(!coins[message.author.id]){
