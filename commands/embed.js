@@ -8,8 +8,8 @@ module.exports.run = async (bot, message, args) => {
 //21
 // user id length : 19
     let hex = args(" ").slice(7);
-    let content = args(" ").slice(21);
-    let channel = args(" ").slice(22);
+    let content = slice(21);
+    let channel = slice(22);
     if(!channel) return message.reply("Invalid Syntax. Usage: `/embed <hex> <channel> <content>`")
 
 try {
@@ -18,8 +18,8 @@ try {
     .setDescription(content)
     .setColor(hex)
 
-} catch (e) {
-message.channel.send(e)
+} catch (err) {
+message.channel.send(`Invalid Syntax: \n \`\`\`js ${clean(err)}\`\`\``)
 }
 
 }
