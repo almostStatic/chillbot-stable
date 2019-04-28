@@ -8,11 +8,17 @@ module.exports.run = async (bot, message, args) => {
   .setDescription("I have not got the ban Members Permission. Please check my roles and permissoins. If you are stilll encountering this problem, join my support server. (https://discord.gg/2dbQt8d)")
   .setColor("#ff0000")
 
+  let usage = new Discord.RichEmbed()
+
+.setColor("#4c85e0")
+.setTitle("Usage:")
+.setDescription("**Command** /ban \n \n /ban @user <reason> \n /ban @Noob being rude to me \n /ban @someone spamming")
+
 
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
   //if (!member.guild.member(client.user).hasPermission('BAN_MEMBERS')) return;
       let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!bUser) return message.channel.send(" ❌ **Can't find user!**");
+    if(!bUser) return message.channel.send(usage);
     if(!bUser.banable){
       return message.reply(`I cannot ban that user! Do they have a higher role than me? Do I have ban members permissions?`);
     };

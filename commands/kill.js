@@ -4,8 +4,8 @@ const client = new Discord.Client();
 module.exports.run = async (bot, message, args) => {
 
     try {
+        message.channel.send("Goodbye!")
         process.exit(2)
-        message.channel.send("Attempting to destroy client instance...")
     } catch (error) {
         message.channel.send(`Failed to destroy client instance. \n \` \` \`js ${error}\`\`\``);
     }

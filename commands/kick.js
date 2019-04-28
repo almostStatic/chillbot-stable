@@ -12,15 +12,26 @@ module.exports.run = async (bot, message, args) => {
 
           .setDescription("I have not got the ban Members Permission. Please check my roles and permissoins. If you are stilll encountering this problem, join my support server. (https://discord.gg/2dbQt8d)")
           .setColor("#ff0000")
+
+          let usage = new Discord.RichEmbed()
+
+.setColor("#4c85e0")
+.setTitle("Usage:")
+.setDescription("**Command** /kick \n \n /kick @user <reason> \n /kick @Noob being rude to me \n /kick @someone spamming")
+
           if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
-        if(!client.guild.me.hasPermission("KICK_MEMBERS")) return message.channel.send(cantdo);        
+        //if(!client.guild.me.hasPermission("KICK_MEMBERS")) return message.channel.send(cantdo);        
         let servername = message.guild.name;
         let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-        if(!kUser) return message.channel.send(nokickuser);
+        if(!kUser) return message.channel.send(usage);
         let kReason = args.join(" ").slice(22);
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send(" ❌ **You do not have permissoins to use ths command**!");
-        if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(" ❌**ERROR:** The user is mod/admin, or has a higher role than me. I can't do that.");
-    // Declare the var, create embed:::
+
+        if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(" ❌ **You do not have permissoins to use ths command**!");
+        if(kUser.hasPermission("KICK_MEMBERS")) return message.channel.send(" ❌**ERROR:** The user is mod/admin, or has a higher role than me. I can't do that.");
+        if(!kUser.kickable){
+          message.reply("I canno kick tht user! Do they have a higher role thn me? Do I have kick members permission?")
+        }
+        // Declare the var, create embed:::
         let kickEmbed = new Discord.RichEmbed()
         .setDescription("*Kick*")
         .setColor("#bf4848")
@@ -29,6 +40,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Kicked In", message.channel)
         .addField("Kicked At", message.createdAt)
         .addField("Reason", kReason)
+        .setTimestamp()
         .setFooter("Use /invite to invite me to your server!")
     
         let kickChannel = message.guild.channels.find(`name`, "incidents");

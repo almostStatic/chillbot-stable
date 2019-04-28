@@ -6,12 +6,17 @@ module.exports.run = async (bot, message, args) => {
   // Correct Usage:
   // /warn @user <reason>
 
+  let usage = new Discord.RichEmbed()
+
+  .setColor("#4c85e0")
+  .setTitle("Usage:")
+  .setDescription("**Command** /warn \n \n /warn @user <reason> \n /warn @Noob being rude to me \n /warn @someone spamming")
   
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
     let servername = message.guild.name;
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply("You need the manage server permission to use this command!");
     let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
-    if(!wUser) return message.reply("User not found!");
+    if(!wUser) return message.reply({embed: usage});
     if(wUser.hasPermission("ADMINISTRATOR")) return message.reply("They waaaay too kewl #Can'tWarnThem!");
     let reason = args.join(" ").slice(22);
 

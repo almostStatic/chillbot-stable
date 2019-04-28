@@ -1,7 +1,12 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
+let usage = new Discord.RichEmbed()
+  .setColor("#4c85e0")
+  .setTitle("Usage:")
+  .setDescription("**Command** /eval <code> \n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n /eval <code> \n /eval message.channel.send(var)")
 
+  
   if(message.author.id !== "501710994293129216") return message.channel.send("This is an owner-only command!")
   function clean(text) {
     if (typeof(text) === "string")
@@ -13,12 +18,8 @@ module.exports.run = async (bot, message, args) => {
     const code = args.join(" ");
     let evaled = eval(code);
 
-      let nocode = new Discord.RichEmbed()
 
-      .setDescription("Plese provide some code for me to run!")
-      .setColor(`RANDOM`)
-
-    if(!code) return message.channel.send({embed: nocode});
+    if(!code) return message.channel.send({embed: usage});
 
     if (typeof evaled !== "string")
       evaled = require("util").inspect(evaled);

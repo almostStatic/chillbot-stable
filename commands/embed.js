@@ -7,9 +7,9 @@ module.exports.run = async (bot, message, args) => {
 //<#570585605763891214>
 //21
 // user id length : 19
-    let hex = args(" ").slice(7);
-    let content = slice(21);
-    let channel = slice(22);
+    let hex = "#"+ args.join(" ").slice(7);
+    let content = args.join(" ").slice(21);
+    let channel = args.join(" ").slice(22);
     if(!channel) return message.reply("Invalid Syntax. Usage: `/embed <hex> <channel> <content>`")
 
 try {

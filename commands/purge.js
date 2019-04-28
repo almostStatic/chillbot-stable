@@ -5,10 +5,16 @@ client.on('error', console.error);
 
 module.exports.run = async (bot, message, args) => {
 
+  let usage = new Discord.RichEmbed()
+
+  .setTitle(`Usage:`)
+  .setColor("#4e88e5")
+  .setDescription(`\n **Command** \`/purge \` \n \n \n /purge 98 \n /purge 346`)
         // This command removes all messages from all users in the channel, up to 100.
         
         // get the delete count, as an actual number.
         const deleteCount = parseInt(args[0], 10)+ 1;
+        if(!deleteCount) return message.channel.send({embed: usage})
         if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
 
         // Ooooh nice, combined conditions. <3

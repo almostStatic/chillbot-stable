@@ -175,7 +175,8 @@ if(cmd === `${message.author.id}`){
 
 
 });
-bot.login(process.env.BOT_TOKEN);
+bot.login("NTE3NzMwMDE2NTIwNTY4ODUz.XMXUuw.2V3W57xAJzH-d6c67jnI1w4Yx4k")
+//bot.login(process.env.BOT_TOKEN);
 
 // END OF CODE !!
 

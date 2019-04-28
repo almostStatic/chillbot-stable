@@ -2,10 +2,17 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
+let usage = new Discord.RichEmbed()
+
+.setColor("#4c85e0")
+.setTitle("Usage:")
+.setDescription("**Command** /report \n \n /report @user <reason> \n /report @Noob being rude to me \n /report @someone spamming")
+
+
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
     let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!rUser) return message.channel.send("❌ **Couldn't find user.**");
     let rreason = args.join(" ").slice(22);
+    if(!rUser) return message.channel.send({embed: usage});
     let servername = message.guild.name;
     let reportEmbed = new Discord.RichEmbed()
     .setDescription("~~---------~~ **__NEW REPORT!__**~~---------~~")
