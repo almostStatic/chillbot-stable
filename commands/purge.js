@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) => {
         // This command removes all messages from all users in the channel, up to 100.
         
         // get the delete count, as an actual number.
-        const deleteCount = parseInt(args[0], 10);
+        const deleteCount = parseInt(args[0], 10)+ 1;
         if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
 
         // Ooooh nice, combined conditions. <3
