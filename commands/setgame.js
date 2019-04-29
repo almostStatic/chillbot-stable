@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) => {
 
 
     if(message.author.id !== "501710994293129216") return message.channel.send("You cannnot use this command!")
-    let toset = args.join(" ").slice(22)
+    let toset = args.join(" ")
 
         let set = new Discord.RichEmbed()
 
@@ -13,12 +13,12 @@ module.exports.run = async (bot, message, args) => {
         .setColor("RANDOM")
 
     bot.user.setActivity(toset);
-    message.channel.send(set, "Happy now?")
+    message.channel.send(set);
 
 }
 
 module.exports.help = {
 
     name: "setgame"
-    
+
 }
