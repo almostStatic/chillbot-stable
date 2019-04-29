@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
         let set = new Discord.RichEmbed()
 
         .setTitle("Activity Set!")
-        .setDescription(`Bot User Actvity has been changed to ${toset}`)
+        .setDescription(`Bot User Actvity has been changed to: ${toset}`)
         .setColor("RANDOM")
 
     bot.user.setActivity(toset);
