@@ -43,10 +43,12 @@ module.exports.run = async (bot, message, args) => {
         .setTimestamp()
         .setFooter("Use /invite to invite me to your server!")
     
+        message.delete(0);
         let kickChannel = message.guild.channels.find(`name`, "incidents");
         if(!kickChannel) return message.channel.send("❌ Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
         kUser.send(`You have been kicked from ${servername}. Here are some details:`, kickEmbed);
         message.guild.member(kUser).kick(kReason);
+        message.channel.send(`${kUser.user.tag} has been kicked from the server!`)
         kickChannel.send(kickEmbed);
 
     // ^^^^^^ End of cmd ^^^^^

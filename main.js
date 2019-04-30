@@ -51,8 +51,9 @@ bot.user.setActivity(`/help | /invite | Serving ${bot.guilds.size} servers`);
     const messageArray = message.content.split(" ");
     const cmd = messageArray[0];
     const args = messageArray.slice(1);
+    const owner = "sad (Eclipse)#3728"
 
-  let commandfile = bot.commands.get(cmd.slice(prefix.length));
+    let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if(!message.content.startsWith(prefix)) return;
 
   if(!coins[message.author.id]){
