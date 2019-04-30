@@ -38,8 +38,8 @@ module.exports.run = async (bot, message, args) => {
     .addField("Reason", bReason);
 
         bUser.send(`You have been banned from ${servername}. Here are some details:`, banEmbed);
-          let incidentchannel = message.guild.channels.find(`name`, "incidents");
-            if(!incidentchannel) return message.channel.send("Can't find incidents channel. I will log the ban in this channel.", banEmbed);
+        let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
+            if(!kickChannel) return message.channel.send("Can't find incidents channel. I will log the ban in this channel.", banEmbed);
               message.channel.send(`**${bUser.user.tag} did ${bReason} and got the ban hammer!**`)
                 message.guild.member(bUser).ban(bReason);
                   incidentchannel.send(banEmbed);

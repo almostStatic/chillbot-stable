@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-  if(message.author.id !== "501710994293129216") return message.reply("Only the owner**s** can use this command!")
+ // if(message.author.id !== "501710994293129216") return message.reply("Only the owner**s** can use this command!")
 
         // makes the bot say something and delete the message. 
         // To get the "message" itself we join the `args` back into a string with spaces: 

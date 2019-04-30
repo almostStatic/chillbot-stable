@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
           // Correct Usage:
           // /eat pizza & chips 
           
-        const food = args.join(" ").slice(22);
+        const food = args.join(" ");
       
         const embed = new Discord.RichEmbed()
       
