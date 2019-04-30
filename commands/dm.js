@@ -19,8 +19,8 @@ const no = new Discord.RichEmbed()
 
     try {
         sendto.send({embed: sendmesage});
-    } catch(err) {
-        message.channel.send(`There was an error whilst DMing ${sendto.user.tag} \n **Error:** ${err}`)
+    } catch(e) {
+        message.channel.send(`There was an error whilst DMing ${sendto.user.tag} \n **Error:** ${e}`)
     }
 
     message.channel.send(`Your message has been sent to ${sendto.user.tag}`)
