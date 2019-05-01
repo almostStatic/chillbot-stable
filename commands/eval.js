@@ -1,8 +1,9 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
+
 let usage = new Discord.RichEmbed()
-  .setColor("#4c85e0")
+  .setColor("##00ff00")
   .setTitle("Usage:")
   .setDescription("**Command** c.eval <code> \n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n c.eval <code> \n c.eval message.channel.send(\"hiya\")")
 
@@ -19,7 +20,7 @@ let usage = new Discord.RichEmbed()
     let evaled = eval(code);
 
 
-    if(!code || args[0]) return message.channel.send({embed: usage});
+    if(!code) return message.channel.send({embed: usage});
 
     if (typeof evaled !== "string")
       evaled = require("util").inspect(evaled);

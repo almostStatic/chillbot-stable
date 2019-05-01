@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) => {
 
   let usage = new Discord.RichEmbed()
 
-  .setColor("#4bf442")
+  .setColor("##00ff00")
   .setTitle("Usage:")
   .setDescription("**Command** c.warn \n \n c.warn @user <reason> \n c.warn @Noob being rude to me \n c.warn @someone spamming")
   

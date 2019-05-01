@@ -15,14 +15,14 @@ module.exports.run = async (bot, message, args) => {
 
           let usage = new Discord.RichEmbed()
 
-.setColor("#4bf442")
+.setColor("#00ff00")
 .setTitle("Usage:")
 .setDescription("**Command** c.kick \n \n c.kick @user <reason> \n c.kick @Noob being rude to me \n c.kick @someone spamming")
 
           if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
         //if(!client.guild.me.hasPermission("KICK_MEMBERS")) return message.channel.send(cantdo);        
         let servername = message.guild.name;
-        if(args[0]) return message.channel.send({embed: usage});
+       // if(args[0]) return message.channel.send({embed: usage});
         let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
         if(!kUser) return message.channel.send("user not found!");
         let kReason = args.join(" ").slice(22);

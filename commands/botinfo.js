@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
     bicon = bot.user.avatar_url
 
     let botembed = new Discord.RichEmbed()
-    .setDescription("**__Bot Information__**")
+    .setTitle("Bot Information")
     .setColor("RANDOM")
     .setThumbnail(bicon)
     .addField("Bot Name", bot.user.username)
@@ -21,7 +21,6 @@ module.exports.run = async (bot, message, args) => {
     .addField("Servers", bot.guilds.size)
     .addField("Method of coding", "Visual Studio Code | Discord.js (JavaScript)")
     .setTimestamp()
-    .setFooter("Use /invite to invite me to your server!");
 
     return message.channel.send(botembed);
 
