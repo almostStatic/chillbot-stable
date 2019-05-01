@@ -4,7 +4,7 @@ let warns = JSON.parse(fs.readFileSync("./warnings.json", "utf8"));
 
 module.exports.run = async (bot, message, args) => {
   // Correct Usage:
-  // /warn @user <reason>
+  // c.warn @user <reason>
 
   let usage = new Discord.RichEmbed()
 
@@ -36,6 +36,7 @@ module.exports.run = async (bot, message, args) => {
     .setColor("#ff0000")
     .addField("Warned User", `<@${wUser.id}> (${wUser.id})`, true)
     .addField("Warned In", message.channel, true)
+    .addField("Warned By", `${wUser} (${wUser.id})`)
     .addField("Number of Warnings", warns[wUser.id].warns)
     .addField("Reason", reason);
 

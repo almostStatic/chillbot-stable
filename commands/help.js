@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) => {
 
   const embed2 = new Discord.RichEmbed()
 
-  .setDescription("Check your DMs for a list of commands. (If you have your DMs locked, use `/show-help`)")
+  .setDescription("Check your DMs for a list of commands. (If you have your DMs locked, use `c.show-help`)")
   .setColor(`#42f480`)
 
       reporthelp = "Report a user. Requires a channel named `reports`to work! If there is no reports channel, the bot will post the report in the current channel";
@@ -62,7 +62,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.drink**", "Drink a pint of beer")
       .addField("**c.brush**", "Brush your teeth and make them shine after you have drunk a pint of beer")
       .addField("**c.polish @user**", "Polish a user's head.")
-      .setColor("RABDOM")
+      .setColor("RANDOM")
       //if(message.author.hasPermission("KICK_MEMBERS")) return message.channel.send(modadminm, cmds, extras);
 
       message.channel.send(embed1).then(sentMessage => sentMessage.edit(embed2));
