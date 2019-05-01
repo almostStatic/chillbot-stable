@@ -178,7 +178,7 @@ if(cmd === `${message.author.id}`){
 
 });
 
-const token = "NTE3NzMwMDE2NTIwNTY4ODUz.XMh2jQ.KIkKLv5PwoOLdCVt0MT7ASyEUUg";
+const token = "NTcyNzMzMDA0MjU0OTM3MDg4.XMmLCg.Yrak0lk7DG7qGZIl3TeVP_x0-uA";
 bot.login(token)
 
 //bot.login(process.env.BOT_TOKEN);

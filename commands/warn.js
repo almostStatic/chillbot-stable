@@ -8,15 +8,14 @@ module.exports.run = async (bot, message, args) => {
 
   let usage = new Discord.RichEmbed()
 
-  .setColor("##00ff00")
-  .setTitle("Usage:")
-  .setDescription("**Command** c.warn \n \n c.warn @user <reason> \n c.warn @Noob being rude to me \n c.warn @someone spamming")
+    .setColor("#00ff00")
+    .setTitle("Usage:")
+    .setDescription("**Command** c.warn \n \n c.warn @user <reason> \n c.warn @Noob being rude to me \n c.warn @someone spamming")
   
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
     let servername = message.guild.name;
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply("You need the manage server permission to use this command!");
     let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
-    if(args[0]) return message.channel.send({embed: usage});
     if(!wUser) return message.reply("User not found!");
     if(wUser.hasPermission("ADMINISTRATOR")) return message.reply("They waaaay too kewl #Can'tWarnThem!");
     let reason = args.join(" ").slice(22);
@@ -40,17 +39,16 @@ module.exports.run = async (bot, message, args) => {
     .addField("Number of Warnings", warns[wUser.id].warns)
     .addField("Reason", reason);
 
-  let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
-  if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
-  message.delete(0);
-  message.channel.send(`:white_check_mark: Warned ${wUser.tag}`)
-  warnchannel.send(warnEmbed);
-        wUser.send(`You have been warned in ${servername}. Here are some details:`, warnEmbed);
+    let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
+      if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
+      message.delete(0);
+      message.channel.send(`:white_check_mark: Warned ${wUser.user.tag}`)
+      warnchannel.send(warnEmbed);
+        wUser.send(`You have been warned in ${servername}`, warnEmbed);
 
 
 }
 
 module.exports.help = {
-  name: "warn",
-  //aliases: ['']
-}
+  name: "warn"
+};
