@@ -1,9 +1,7 @@
-const Discord = require("discord.js");
-const os = require('os');
-client = new Discord.Client();
+const Discord = require ("\discord.js")
+const client = new Discord.Client();
 
-module.exports.run = async (bot, message, args) => {
-
+exports.run = (client, message) => {
     let ms = client.uptime;
     let cd = 24 * 60 * 60 * 1000; // Calc days
     let ch = 60 * 60 * 1000; // Calc hours
@@ -59,22 +57,18 @@ module.exports.run = async (bot, message, args) => {
         dateString += 'and ';
     }
     dateString += dateStrings[dateStrings.length - 1];
-    let myDate = new Date(client.readyTimestamp);
     const embed = new Discord.RichEmbed()
+  .setTimestamp()
   .setThumbnail(message.author.iconURL)
-  .setFooter(`Ready Timestamp: ${myDate.toString()}`, true)
-  .addField(':white_check_mark: Uptime:', dateString, true)
+  .addField(':runner: Servers:', `**${client.guilds.size.toLocaleString()}**`, true)
+  .addField(':information_desk_person: Users:', `**${client.guilds.reduce((p, c) => p + c.memberCount, 0).toLocaleString()}**`, true)
+  .addField(':clipboard: Channels:', `**${client.channels.size.toLocaleString()}**`, true)
+  .addField(':white_check_mark: Uptime:', dateString)
   .setColor("RANDOM");
     message.channel.send({embed})
   .catch(console.error); 
   
-
-  //message.channel.send("??");
-
 };
-
-
-
-module.exports.help = {
-  name: "uptime"
-}
+  exports.help = {
+    name: "uptime"
+  };

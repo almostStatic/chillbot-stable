@@ -1,9 +1,9 @@
 const botconfig = require("./botconfig.json");
 const tokenfile = require("./token.json");
-const Discord = require("discord.js");
+global.Discord = require("discord.js");
 const fs = require("fs");
 const ms = require("ms");
-const bot = new Discord.Client({disableEveryone: false});
+global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
@@ -27,14 +27,14 @@ fs.readdir("./commands/", (err, files) => {
 bot.on("ready", async () => {
   bot.user.setPresence({status: 'Do Not Disturb' })
 console.log(`${bot.user.username} is online in ${bot.guilds.size} Servers`)
+bot.user.setActivity(`c.help | Watching you...`);
 bot.guilds.forEach((guild) => {
-  console.log(" " + guild.name)
+  console.log(" >" + guild.name)
 })
 
 //console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`); 
 // Example of changing the bot's playing game to something useful. `client.user` is what the
 // docs refer to as the "ClientUser".
-bot.user.setActivity(`/help | /invite | Serving ${bot.guilds.size} servers`);
 
 });
 
@@ -176,7 +176,10 @@ if(cmd === `${message.author.id}`){
 
 
 });
-bot.login("NTE3NzMwMDE2NTIwNTY4ODUz.XMXUuw.2V3W57xAJzH-d6c67jnI1w4Yx4k")
+
+const token = "NTE3NzMwMDE2NTIwNTY4ODUz.XMh2jQ.KIkKLv5PwoOLdCVt0MT7ASyEUUg";
+bot.login(token)
+
 //bot.login(process.env.BOT_TOKEN);
 
 // END OF CODE !!
@@ -184,7 +187,6 @@ bot.login("NTE3NzMwMDE2NTIwNTY4ODUz.XMXUuw.2V3W57xAJzH-d6c67jnI1w4Yx4k")
 // ============================ EXTRA INFO AND STUFFS ==============================
 /* Bot token:
 
-NTE3NzMwMDE2NTIwNTY4ODUz.D3jYog.v5G0Y-91Fy_HISuoDDDDSZm4KnM
 
 */
 

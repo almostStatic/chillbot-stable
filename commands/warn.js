@@ -16,7 +16,8 @@ module.exports.run = async (bot, message, args) => {
     let servername = message.guild.name;
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply("You need the manage server permission to use this command!");
     let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
-    if(!wUser) return message.reply({embed: usage});
+    if(args[0]) return message.channel.send({embed: usage});
+    if(!wUser) return message.reply("User not found!");
     if(wUser.hasPermission("ADMINISTRATOR")) return message.reply("They waaaay too kewl #Can'tWarnThem!");
     let reason = args.join(" ").slice(22);
 
@@ -39,8 +40,8 @@ module.exports.run = async (bot, message, args) => {
     .addField("Number of Warnings", warns[wUser.id].warns)
     .addField("Reason", reason);
 
-  let warnchannel = message.guild.channels.find(`name`, "incidents");
-  if(!warnchannel) return message.reply("Couldn't find incidents channel, I have logged the warning in **__this channel.__**", warnEmbed);
+  let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
+  if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
   message.delete(0);
   message.channel.send(`:white_check_mark: Warned ${wUser.tag}`)
   warnchannel.send(warnEmbed);
