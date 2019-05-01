@@ -10,9 +10,10 @@ let usage = new Discord.RichEmbed()
 
 
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
+    if(args[0]) return message.channel.send(usage);
     let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     let rreason = args.join(" ").slice(22);
-    if(!rUser) return message.channel.send({embed: usage});
+    if(!rUser) return message.channel.send("Error 404: user not found... :(");
     let servername = message.guild.name;
     let reportEmbed = new Discord.RichEmbed()
     .setDescription("~~---------~~ **__NEW REPORT!__**~~---------~~")
@@ -32,7 +33,7 @@ let usage = new Discord.RichEmbed()
 
     message.delete().catch(O_o=>{});
     reportschannel.send(reportEmbed);
-    message.channel.send("User has been reported.")
+    message.reply("User has been reported.")
     rUser.send(`You have been reported in ${servername}. Here are the details:`, reportEmbed)
 
 }

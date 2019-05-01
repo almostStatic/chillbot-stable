@@ -8,9 +8,9 @@ module.exports.run = async (bot, message, args) => {
 
   let usage = new Discord.RichEmbed()
 
-  .setColor("#4c85e0")
+  .setColor("#4bf442")
   .setTitle("Usage:")
-  .setDescription("**Command** /warn \n \n /warn @user <reason> \n /warn @Noob being rude to me \n /warn @someone spamming")
+  .setDescription("**Command** c.warn \n \n c.warn @user <reason> \n c.warn @Noob being rude to me \n c.warn @someone spamming")
   
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
     let servername = message.guild.name;

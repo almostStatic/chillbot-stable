@@ -7,7 +7,8 @@ module.exports.run = async (bot, message, args) => {
           // /eat pizza & chips 
           
         const food = args.join(" ");
-      
+        if(args[0]) return message.channel.send("What do you want to eat? Please provide a food.")      
+
         const embed = new Discord.RichEmbed()
       
         .setDescription(`${message.member.user.tag} has eaten some ${food}`)

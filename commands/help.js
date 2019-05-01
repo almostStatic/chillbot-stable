@@ -63,6 +63,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.brush**", "Brush your teeth and make them shine after you have drunk a pint of beer")
       .addField("**c.polish @user**", "Polish a user's head.")
       .setColor("RABDOM")
+      //if(message.author.hasPermission("KICK_MEMBERS")) return message.channel.send(modadminm, cmds, extras);
 
       message.channel.send(embed1).then(sentMessage => sentMessage.edit(embed2));
       message.author.send({embed: modadmin});

@@ -15,33 +15,34 @@ module.exports.run = async (bot, message, args) => {
 
           let usage = new Discord.RichEmbed()
 
-.setColor("#4c85e0")
+.setColor("#4bf442")
 .setTitle("Usage:")
-.setDescription("**Command** /kick \n \n /kick @user <reason> \n /kick @Noob being rude to me \n /kick @someone spamming")
+.setDescription("**Command** c.kick \n \n c.kick @user <reason> \n c.kick @Noob being rude to me \n c.kick @someone spamming")
 
           if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
         //if(!client.guild.me.hasPermission("KICK_MEMBERS")) return message.channel.send(cantdo);        
         let servername = message.guild.name;
+        if(args[0]) return message.channel.send({embed: usage});
         let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-        if(!kUser) return message.channel.send(usage);
+        if(!kUser) return message.channel.send("user not found!");
         let kReason = args.join(" ").slice(22);
 
         if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(" ❌ **You do not have permissoins to use ths command**!");
         if(kUser.hasPermission("KICK_MEMBERS")) return message.channel.send(" ❌**ERROR:** The user is mod/admin, or has a higher role than me. I can't do that.");
         if(!kUser.kickable){
-          message.reply("I canno kick tht user! Do they have a higher role thn me? Do I have kick members permission?")
+          message.reply("I cannot kick tht user! Do they have a higher role thn me? Do I have kick members permission?")
         }
         // Declare the var, create embed:::
         let kickEmbed = new Discord.RichEmbed()
         .setDescription("*Kick*")
         .setColor("#bf4848")
-        .addField("Kicked User", `${kUser} (${kUser.id})`)
-        .addField("Kicked By", `<@${message.author.id}> (${message.author.id})`)
-        .addField("Kicked In", message.channel)
-        .addField("Kicked At", message.createdAt)
+        .addField("Kicked User", `${kUser} (${kUser.id})`, true)
+        .addField("Kicked By", `<@${message.author.id}> (${message.author.id})`, true)
+        .addField("Kicked In", message.channel, true)
+        .addField("Kicked At", message.createdAt, true)
         .addField("Reason", kReason)
         .setTimestamp()
-        .setFooter("Use /invite to invite me to your server!")
+        .setFooter("RIP that guy got the boot")
     
         message.delete(0);
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");

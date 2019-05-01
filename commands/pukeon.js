@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 
 
-module.exports.run = (client, message, args, level) => {
+module.exports.run = (bot, message, args) => {
     if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
 
     let member = message.mentions.members.first()

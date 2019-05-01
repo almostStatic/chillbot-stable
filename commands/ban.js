@@ -10,15 +10,16 @@ module.exports.run = async (bot, message, args) => {
 
   let usage = new Discord.RichEmbed()
 
-.setColor("#4c85e0")
+.setColor("#4bf442")
 .setTitle("Usage:")
-.setDescription("**Command** /ban \n \n /ban @user <reason> \n /ban @Noob being rude to me \n /ban @someone spamming")
+.setDescription("**Command** c.ban \n \n c.ban @user <reason> \n c.ban @Noob being rude to me \n c.ban @someone spamming")
 
 
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
   //if (!member.guild.member(client.user).hasPermission('BAN_MEMBERS')) return;
       let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!bUser) return message.channel.send(usage);
+    if(!bUser) return message.channel.send("User not found!");
+    if(args[0]) return message.channel.send({embed: usage});
     if(!bUser.banable){
       return message.reply(`I cannot ban that user! Do they have a higher role than me? Do I have ban members permissions?`);
     };
@@ -35,7 +36,8 @@ module.exports.run = async (bot, message, args) => {
     .addField("Banned In", message.channel, true)
     .addField("Time", message.createdAt, true)
     .addField("Banned From", servername)
-    .addField("Reason", bReason);
+    .addField("Reason", bReason)
+    .setFooter(`Banned User ID: ${bUse.id}`)
 
         bUser.send(`You have been banned from ${servername}. Here are some details:`, banEmbed);
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");

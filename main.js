@@ -127,6 +127,7 @@ if(cmd === `${prefix}xp`){
 
 }
 
+
 if(cmd === `${prefix}$$r`){
 
 if(message.author.id !== ownerid) return message.reply("You may not use this command!");
