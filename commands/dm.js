@@ -23,6 +23,7 @@ const no = new Discord.RichEmbed()
         message.channel.send(`There was an error whilst DMing ${sendto.user.tag} \n **Error:** ${e}`)
     }
 
+    message.delete(0);
     message.channel.send(`Your message has been sent to ${sendto.user.tag}`)
     
 

@@ -30,10 +30,6 @@ module.exports.run = async (bot, message, args) => {
     .setDescription("❌ That user already yhas that role!")
     .setColor("#f4aa42");
 
-  let congrats = new Discord.RichEmbed()
-
-    .setDescription(` :white_check_mark: <@${rMember.id}> has been promtoed to Admin!`)
-    .setColor("RANDOM")
 
   if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(nopermsforu);
   let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
@@ -42,6 +38,10 @@ module.exports.run = async (bot, message, args) => {
   //(!role) return message.channel.send(norolespecified);
   let gRole = message.guild.roles.find(`name`, "Administrator");
   if(!gRole) return message.channel.send(norole);
+  let congrats = new Discord.RichEmbed()
+
+    .setDescription(` :white_check_mark: <@${rMember.id}> has been promtoed to Admin!`)
+    .setColor("RANDOM")
 
   if(rMember.roles.has(gRole.id)) return message.channel.send(already);
   await(rMember.addRole(gRole.id));
