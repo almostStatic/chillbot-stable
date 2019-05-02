@@ -7,6 +7,7 @@ global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
+let userData = JSON.parse(fs.readFileSync("Storage/userData.json", "utf8"));
 fs.readdir("./commands/", (err, files) => {
 
   if(err) console.log(err);
@@ -21,6 +22,7 @@ fs.readdir("./commands/", (err, files) => {
     let props = require(`./commands/${f}`);
     console.log(`${f} sucsessfully loaded!`);
     bot.commands.set(props.help.name, props);
+
   });
 
 });
@@ -91,7 +93,6 @@ lol = "ross is single xD"
       level: 1
     };
   }
-
 
   var curxp = xp[message.author.id].xp;
   let curlvl = xp[message.author.id].level;
