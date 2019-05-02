@@ -7,7 +7,6 @@ global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
-let userData = JSON.parse(fs.readFileSync("Storage/userData.json", "utf8"));
 fs.readdir("./commands/", (err, files) => {
 
   if(err) console.log(err);
@@ -39,9 +38,6 @@ bot.guilds.forEach((guild) => {
 // docs refer to as the "ClientUser".
 
 });
-
-loser = "ross";
-lol = "ross is single xD"
 
   //bot.user.setGame("Lookin' out for ya!");
 
