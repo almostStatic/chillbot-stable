@@ -38,7 +38,8 @@ bot.guilds.forEach((guild) => {
 
 });
 
-
+loser = "ross";
+lol = "ross is single xD"
 
   //bot.user.setGame("Lookin' out for ya!");
 
@@ -92,10 +93,11 @@ bot.guilds.forEach((guild) => {
   }
 
 
-  let curxp = xp[message.author.id].xp;
+  var curxp = xp[message.author.id].xp;
   let curlvl = xp[message.author.id].level;
   let nxtLvl = xp[message.author.id].level * 300;
   xp[message.author.id].xp =  curxp + xpAdd;
+  //let toAdd = message.length() 
   if(nxtLvl <= xp[message.author.id].xp){
     xp[message.author.id].level = curlvl + 1;
     let lvlup = new Discord.RichEmbed()
@@ -137,7 +139,7 @@ if(message.author.id !== ownerid) return message.reply("You may not use this com
   .setDescription("The bot is being restarted... **Please Wait..**")
   .setColor('RANDOM')
   .setTimestamp()
-  .setFooter("Use /invite to invite me to your server!");
+  process.restart();
   message.delete(0);
 
 
