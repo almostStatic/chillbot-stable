@@ -8,17 +8,18 @@ module.exports.run = async (bot, message, args) => {
     let servername = message.guild.name;
     let suggestor = message.author;
     let suggestion = args.join(" ");
-    if(!suggestion) return message.channel.send("Please tell me your suggestion!")
+    if(!suggestion) return message.channel.send(`WRONG FORMAT! Make sure you include your suggestion!`)
 
 
     let suggestEmbed = new Discord.RichEmbed()
     .setTitle("~~-------~~ NEW SUGGESTION !! ~~-------~~")
     .setDescription(`**READ ON  ...**`)
     .setColor("RANDOM")
-    .addField("Suggestion By", `${suggestor} (${suggestor.id})`, true)
+    .addField("Suggestion By", `${suggestor} | (${suggestor.id})`, true)
     .addField("Suggestion At", message.createdAt, true)
     .addField("Suggestion In", message.channel, true)
     .addField("Suggestion", suggestion);
+
 
     let suggestionChannel = message.guild.channels.find(`name`, "suggestions");
       if(!suggestionChannel) return message.reply("Couldn't find suggestions channel, I have logged the suggestion in **__this channel.__**", suggestEmbed);
