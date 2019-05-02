@@ -24,11 +24,11 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.warn @user <reason>**", warnhelp)
       .addField("**c.kick @user <reason>**", kickhelp)
       .addField("**c.ban @user <reason>**", banhelp)
+      .addField("**c.ma**", "Get the bot to mention @Announcements")
       .addField("**c.mention-everyone**", "Mention @everyone in a server. Requires the Mention Everyone permission to use this command")
       .addField("**c.mention-here**", "Mention @here in a server. Requires the Mention Everyone permission to use this command")
       .addField("**__Required Permissions__**", requiredperms)
       .setTimestamp()
-      .setFooter("Use /invite to invite me to your server!")
     
         // Let's make another cool embed....
 
@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, args) => {
       .setColor("RANDOM")
       .setTitle(`Commands`)
       .addField("**c.report @user <reason>**", reporthelp)
-     // .addField("**c.suggest <suggestion>**", "Get the bot to send your suggestion in #suggestions.")
+      .addField("**c.suggest <suggestion>**", "Get the bot to send your suggestion in <#536185309000630284>.")
       .addField("**c.id** @user | /id", "Shows you **your** discoord username#discrim and your user ID. You can mention another user to get their ID / Discrim.")
       .addField("**c.av @user**", "Mentoin a user to get their avatar as an Embed.")
       .addField("**c.purge <number>** Alias: `C.clear`", "Get the bot to delete 1 - 100 messages in a channel. Requires Manage messages permission")

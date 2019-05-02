@@ -8,6 +8,7 @@ module.exports.run = async (bot, message, args) => {
     let servername = message.guild.name;
     let suggestor = message.author;
     let suggestion = args.join(" ");
+    if(!suggestion) return message.channel.send("Please tell me your suggestion!")
 
 
     let suggestEmbed = new Discord.RichEmbed()

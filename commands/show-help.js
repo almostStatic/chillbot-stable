@@ -26,6 +26,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("**c.warn @user <reason>**", warnhelp)
         .addField("**c.kick @user <reason>**", kickhelp)
         .addField("**c.ban @user <reason>**", banhelp)
+        .addField("**c.ma**", "Mentions @Announcements")
         .addField("**c.mention-everyone**", "Mention @everyone in a server. Requires the Mention Everyone permission to use this command")
         .addField("**c.mention-here**", "Mention @here in a server. Requires the Mention Everyone permission to use this command")
         .addField("**__Required Permissions__**", requiredperms)
@@ -37,6 +38,7 @@ module.exports.run = async (bot, message, args) => {
         .setColor("RANDOM")
         .setTitle(`Commands`)
         .addField("**c.report @user <reason>**", reporthelp)
+        .addField("**c.suggest <suggestion>**", "Get the bot to post your suggestion in <#>!")
         .addField("**c.id** @user | /id", "Shows you **your** discoord username#discrim and your user ID. You can mentoin another user to get their ID / Discrim.")
         .addField("**c.av @user**", "Mentoin a user to get their avatar as an Embed.")
         .addField("**c.purge <number>** Alias: `/clear`", "Get the bot to delete 1 - 100 messages in a channel. Requires Manage messages permission")
@@ -62,7 +64,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("**c.drink**", "Drink a pint of beer")
         .addField("**c.brush**", "Brush your teeth and make them shine after you have drunk a pint of beer")
         .addField("**c.polish @user**", "Polish a user's head.")
-        .setColor("RABDOM")
+        .setColor("RANDOM")
 
         message.channel.send(embed1).then(sentMessage => sentMessage.edit(embed2));
         message.channel.send({embed: modadmin});
