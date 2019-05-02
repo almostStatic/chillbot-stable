@@ -1,20 +1,26 @@
 {
-  "name": "mybot",
-  "version": "1.0.0",
-  "description": "a",
+  "name": "hostedonheroku",
+  "version": "9.9.9",
+  "description": "This is the bot for my server ONLY, this is very important and will soon be the main manager of the server :D",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "c.help"
   },
-  "author": "asad",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asadhum2005/hosted-on-heroku.git"
+  },
+  "keywords": [
+    "Bot"
+  ],
+  "author": "sad (Eclipse)",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asadhum2005/hosted-on-heroku/issues"
+  },
+  "homepage": "https://github.com/asadhum2005/hosted-on-heroku#readme",
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "djs-commands": "^1.2.2",
-    "ffmpeg-binaries": "^4.0.0",
-    "file-system": "^2.2.2",
-    "ms": "^2.1.1",
-    "os": "^0.1.1"
+    "canvas": "^2.4.1",
+    "discord.js": "^11.4.2"
   }
 }
