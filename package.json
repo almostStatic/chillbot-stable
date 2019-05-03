@@ -21,6 +21,7 @@
   "homepage": "https://github.com/asadhum2005/hosted-on-heroku#readme",
   "dependencies": {
     "canvas": "^2.4.1",
+    "dependencies": "0.0.1",
     "discord.js": "^11.4.2",
     "ms": "^2.1.1"
   }
