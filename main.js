@@ -19,16 +19,19 @@ fs.readdir("./commands/", (err, files) => {
 
   jsfile.forEach((f, i) =>{
     let props = require(`./commands/${f}`);
-    console.log(`${f} sucsessfully loaded!`);
+    console.log(`${f} loaded!`);
     bot.commands.set(props.help.name, props);
 
   });
 
 });
 bot.on("ready", async () => {
-  bot.user.setPresence({status: 'Do Not Disturb' })
+ // bot.user.setPresence({status: 'dnd' })
 console.log(`${bot.user.username} is online in ${bot.guilds.size} Servers`)
-bot.user.setActivity(`c.help | Watching you...`);
+bot.user.setStatus('dnd', 'Watching over 105 users!')
+//bot.user.setStatus('dnd', 'c. | Watching 105 users!', {type: "WATCHING"});
+//bot.user.setStatus("dnd", `c. | Watching 105 users!`, {type: "WATCHING"});
+
 bot.guilds.forEach((guild) => {
   console.log(" >" + guild.name)
 })
@@ -94,7 +97,7 @@ bot.guilds.forEach((guild) => {
   let curlvl = xp[message.author.id].level;
   let nxtLvl = xp[message.author.id].level * 300;
   xp[message.author.id].xp =  curxp + xpAdd;
-  //let toAdd = message.length() 
+
   if(nxtLvl <= xp[message.author.id].xp){
     xp[message.author.id].level = curlvl + 1;
     let lvlup = new Discord.RichEmbed()
@@ -159,7 +162,31 @@ if(cmd === `${message.author.id}`){
 
   }
 
+if(cmd === "invite"){
+  return message.channel.send(`**Invite people to this server using:** \n https://discord.gg/WJCP3GK`)
+}
 
+/*  => {
+
+
+  }
+
+    function name(params) {
+      
+    }
+    */
+
+    // TRYCATCH
+
+    /*
+    
+        try {
+      
+    } catch (error) {
+      
+    }
+    */
+   
   if(cmd === `${prefix}owneronly`){
 
     if(message.author.id !== "501710994293129216")return message.reply("You can't use this command!")
@@ -171,9 +198,6 @@ if(cmd === `${message.author.id}`){
     return message.channel.send(aa);
 
   }
-
-  
-
 
 });
 
