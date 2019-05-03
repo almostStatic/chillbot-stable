@@ -21,6 +21,7 @@ fs.readdir("./commands/", (err, files) => {
     let props = require(`./commands/${f}`);
     console.log(`${f} sucsessfully loaded!`);
     bot.commands.set(props.help.name, props);
+
   });
 
 });
@@ -37,9 +38,6 @@ bot.guilds.forEach((guild) => {
 // docs refer to as the "ClientUser".
 
 });
-
-loser = "ross";
-lol = "ross is single xD"
 
   //bot.user.setGame("Lookin' out for ya!");
 
@@ -91,7 +89,6 @@ lol = "ross is single xD"
       level: 1
     };
   }
-
 
   var curxp = xp[message.author.id].xp;
   let curlvl = xp[message.author.id].level;
