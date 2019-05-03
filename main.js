@@ -28,7 +28,7 @@ fs.readdir("./commands/", (err, files) => {
 bot.on("ready", async () => {
  // bot.user.setPresence({status: 'dnd' })
 console.log(`${bot.user.username} is online in ${bot.guilds.size} Servers`)
-bot.user.setStatus('dnd', 'Made by KwinkyWolf')
+bot.user.setStatus('dnd', 'Watching over 105 users!')
 //bot.user.setStatus('dnd', 'c. | Watching 105 users!', {type: "WATCHING"});
 //bot.user.setStatus("dnd", `c. | Watching 105 users!`, {type: "WATCHING"});
 
@@ -162,7 +162,27 @@ if(cmd === `${message.author.id}`){
 
   }
 
+/*  => {
 
+
+  }
+
+    function name(params) {
+      
+    }
+    */
+
+    // TRYCATCH
+
+    /*
+    
+        try {
+      
+    } catch (error) {
+      
+    }
+    */
+   
   if(cmd === `${prefix}owneronly`){
 
     if(message.author.id !== "501710994293129216")return message.reply("You can't use this command!")
@@ -174,9 +194,6 @@ if(cmd === `${message.author.id}`){
     return message.channel.send(aa);
 
   }
-
-  
-
 
 });
 
