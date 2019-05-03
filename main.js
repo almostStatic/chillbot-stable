@@ -19,16 +19,19 @@ fs.readdir("./commands/", (err, files) => {
 
   jsfile.forEach((f, i) =>{
     let props = require(`./commands/${f}`);
-    console.log(`${f} sucsessfully loaded!`);
+    console.log(`${f} loaded!`);
     bot.commands.set(props.help.name, props);
 
   });
 
 });
 bot.on("ready", async () => {
-  bot.user.setPresence({status: 'Do Not Disturb' })
+ // bot.user.setPresence({status: 'dnd' })
 console.log(`${bot.user.username} is online in ${bot.guilds.size} Servers`)
-bot.user.setActivity(`c.help | Watching you...`);
+bot.user.setStatus('dnd', 'Made by KwinkyWolf')
+//bot.user.setStatus('dnd', 'c. | Watching 105 users!', {type: "WATCHING"});
+//bot.user.setStatus("dnd", `c. | Watching 105 users!`, {type: "WATCHING"});
+
 bot.guilds.forEach((guild) => {
   console.log(" >" + guild.name)
 })
