@@ -97,7 +97,7 @@ bot.guilds.forEach((guild) => {
   let curlvl = xp[message.author.id].level;
   let nxtLvl = xp[message.author.id].level * 300;
   xp[message.author.id].xp =  curxp + xpAdd;
-  //let toAdd = message.length() 
+
   if(nxtLvl <= xp[message.author.id].xp){
     xp[message.author.id].level = curlvl + 1;
     let lvlup = new Discord.RichEmbed()
@@ -161,6 +161,10 @@ if(cmd === `${message.author.id}`){
   return message.channel.send(iq);
 
   }
+
+if(cmd === "invite"){
+  return message.channel.send(`**Invite people to this server using:** \n https://discord.gg/WJCP3GK`)
+}
 
 /*  => {
 

@@ -11,5 +11,5 @@ message.channel.send(`Attempted to log \`${tolog}\` on the console!`)
 }
 
 module.exports.help = {
-    name: "clog"
-}
+    name: "clog",
+};
