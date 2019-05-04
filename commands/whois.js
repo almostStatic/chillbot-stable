@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 
       let embed2 = new Discord.RichEmbed()
+      
       .setColor('RANDOM')
       .setThumbnail(message.author.avatarURL)
       .addField("Username ", `${message.author.tag} (ID: ${message.author.id})`, true)

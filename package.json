@@ -4,7 +4,7 @@
   "description": "This is the bot for my server ONLY, this is very important and will soon be the main manager of the server :D",
   "main": "main.js",
   "scripts": {
-    "test": "c.help"
+    "test": "c.test"
   },
   "repository": {
     "type": "git",

@@ -34,7 +34,7 @@ bot.guilds.forEach((guild) => {
 //console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`); 
 // Example of changing the bot's playing game to something useful. `client.user` is what the
 // docs refer to as the "ClientUser".
-bot.user.setActivity('over 105 Users!', {type: "WATCHING"});
+bot.user.setActivity('over 107 Users!', {type: "WATCHING"});
 
 });
 
@@ -185,17 +185,16 @@ if(cmd === "invite"){
    
   if(cmd === `${prefix}owneronly`){
 
-    if(message.author.id !== "501710994293129216")return message.reply("You can't use this command!")
+    if(message.author.id !== "501710994293129216") return message.reply("You can't use this command!")
 
     let aa = new Discord.RichEmbed()
 
     .setDescription("Yes, you are my owner!")
     .setColor("RANDOM")
     return message.channel.send(aa);
-
   }
-
-});
+  
+  });
 
 const token = "NTcyNzMzMDA0MjU0OTM3MDg4.XMmLCg.Yrak0lk7DG7qGZIl3TeVP_x0-uA";
 bot.login(token)
