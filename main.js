@@ -34,7 +34,11 @@ bot.guilds.forEach((guild) => {
 //console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`); 
 // Example of changing the bot's playing game to something useful. `client.user` is what the
 // docs refer to as the "ClientUser".
+<<<<<<< HEAD
 bot.user.setActivity('over 107 Users!', {type: "WATCHING"});
+=======
+bot.user.setActivity('over 106 Users!', {type: "WATCHING"});
+>>>>>>> ae12827ef74fa9c358cba9f42827fab19db9d454
 
 });
 
