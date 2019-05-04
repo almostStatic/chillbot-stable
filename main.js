@@ -26,12 +26,7 @@ fs.readdir("./commands/", (err, files) => {
 
 });
 bot.on("ready", async () => {
- // bot.user.setPresence({status: 'dnd' })
-console.log(`${bot.user.username} is online in ${bot.guilds.size} Servers`)
-bot.user.setStatus('dnd', 'Watching over 105 users!')
-//bot.user.setStatus('dnd', 'c. | Watching 105 users!', {type: "WATCHING"});
-//bot.user.setStatus("dnd", `c. | Watching 105 users!`, {type: "WATCHING"});
-
+  console.log(`${bot.user.username} has started moderating ChilZone!`)
 bot.guilds.forEach((guild) => {
   console.log(" >" + guild.name)
 })
@@ -39,6 +34,7 @@ bot.guilds.forEach((guild) => {
 //console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`); 
 // Example of changing the bot's playing game to something useful. `client.user` is what the
 // docs refer to as the "ClientUser".
+bot.user.setActivity('over 105 Users!', {type: "WATCHING"});
 
 });
 

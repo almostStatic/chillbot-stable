@@ -9,7 +9,8 @@ module.exports.run = async (bot, message, args) => {
     if(!rUser) return message.channel.send("Error 404: user not found... :(");
     let servername = message.guild.name;
     let reportEmbed = new Discord.RichEmbed()
-    .setDescription("~~---------~~ **__NEW REPORT!__**~~---------~~")
+    
+    .setDescription("~~---------~~ **__MEMBER REPORTED!__**~~---------~~")
     .setColor("#ff0000")
     .addField("Reported User", `${rUser}, (${rUser.id})`, true)
     .addField("Reported By", `${message.author}, (${message.author.id})`, true)

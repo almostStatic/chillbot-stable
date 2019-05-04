@@ -31,7 +31,8 @@ module.exports.run = async (bot, message, args) => {
     .setColor("#f4aa42");
 
 
-  if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(nopermsforu);
+  if(message.author.id !== "501710994293129216") return message.reply("only the guild owner can use this command!")
+    //if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(nopermsforu);
   let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
   if(!rMember) return message.channnel.send(nomember);
   //let role = args.join(" ").slice(22);

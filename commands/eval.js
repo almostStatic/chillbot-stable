@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 
 let usage = new Discord.RichEmbed()
-  .setColor("##00ff00")
+  .setColor("#00ff00")
   .setTitle("Usage:")
   .setDescription("**Command** c.eval <code> \n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n c.eval <code> \n c.eval message.channel.send(\"hiya\")")
 
