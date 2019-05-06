@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, args) => {
 
     let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
       if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
-      message.delete(0);
+      message.delete(56);
       message.channel.send(`:white_check_mark: Warned ${wUser.user.tag}`)
       warnchannel.send(warnEmbed);
         wUser.send(`You have been warned in ${servername}`, warnEmbed);
