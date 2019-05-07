@@ -14,6 +14,8 @@ module.exports.run = async (bot, message, args) => {
 
     bot.user.setActivity(toset, {type: "WATCHING"});
     message.channel.send(set);
+    console.log(`${message.member.user.tag} has changed bot's activity to: ${toset}`)
+    console.log("Be careful!")
 
 }
 
