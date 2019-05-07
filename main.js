@@ -46,7 +46,7 @@ bot.guilds.forEach((guild) => {
   .setTimestamp()
  .setColor("RANDOM")
  
-bot.channels.get("575244431096020992").send(startEmbed);
+bot.channels.get("575388934456999947").send(startEmbed);
 
 bot.user.setActivity('over 111 Users!', {type: "WATCHING"});
 
