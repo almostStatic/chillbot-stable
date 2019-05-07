@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.help = async (bot, message, args) => {
+module.exports.run = async (bot, message, args) => {
     let toping = args.join(" ");
 
     message.channel.send(`${toping}, you have been summoned!`)
