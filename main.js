@@ -7,9 +7,12 @@ global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
+const logChannel = bot.channels.get("575244431096020992");
 fs.readdir("./commands/", (err, files) => {
 
-  if(err) console.log(err);
+            if(err) console.log(err);
+             bot.channels.get("575244431096020992").send(`Loaded ${files.length} commands successfully!`)
+
 
   let jsfile = files.filter(f => f.split(".").pop() === "js")
   if(jsfile.length <= 0){
@@ -34,6 +37,16 @@ bot.guilds.forEach((guild) => {
 //console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`); 
 // Example of changing the bot's playing game to something useful. `client.user` is what the
 // docs refer to as the "ClientUser".
+  
+  // WORK ON THIS LATER OR WHEN POSSIBLE
+ let startEmbed = new Discord.RichEmbed()
+ 
+ .setTitle(`${bot.user.username} started!`)
+ .setDescription(`Bot sucsessfully started at **${message.createdAt}**.`)
+  .setTimestamp()
+ .setColor("RANDOM")
+ 
+logChannel.send(startEmbed);
 
 bot.user.setActivity('over 111 Users!', {type: "WATCHING"});
 
