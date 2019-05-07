@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args) => {
         .setDescription(`Bot User Actvity has been changed to: ${toset}`)
         .setColor("RANDOM")
 
-    bot.user.setActivity(toset);
+    bot.user.setGame(toset);
     message.channel.send(set);
 
 }
