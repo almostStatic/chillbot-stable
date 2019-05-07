@@ -7,8 +7,9 @@ let usage = new Discord.RichEmbed()
   .setTitle("Usage:")
   .setDescription("**Command** c.eval <code> \n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n c.eval <code> \n c.eval message.channel.send(\"hiya\")")
 
-  
-  if(message.author.id !== "501710994293129216") return message.channel.send("This is an owner-only command!")
+  var owners = ["501710994293129216", "437255943181565962"] //(you can repeat this unlimiteed)
+if(!owners.includes(message.author.id)) return message.channel.send("This is an owner-only command!")
+
   function clean(text) {
     if (typeof(text) === "string")
       return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));

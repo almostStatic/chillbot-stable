@@ -13,8 +13,9 @@ const no = new Discord.RichEmbed()
     const sayMessage = args.join(" ").slice(22);
 
     let sendmesage = new Discord.RichEmbed()
-
+ 
     .setDescription(sayMessage)
+    .setFooter("This message was sent to you by: sad (Eclipse)#3728")
     .setColor("RANDOM")
 
     try {
