@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
 
     .setDescription(tolog)
     .setColor("RANDOM")
-    .setImage(message.author.avatarURL)
+ //   .setImage(message.author.avatarURL)
     .setTimestamp()
 
     let logChannel = message.guild.channels.find(`name`, "bot-logs");
