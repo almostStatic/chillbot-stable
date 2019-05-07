@@ -11,7 +11,7 @@ const logChannel = bot.channels.get("575244431096020992");
 fs.readdir("./commands/", (err, files) => {
 
             if(err) console.log(err);
-             bot.channels.get("575244431096020992").send(`Loaded ${files.length} commands successfully!`)
+       //      bot.channels.get("575244431096020992").send(`Loaded ${files.length} commands successfully!`)
 
 
   let jsfile = files.filter(f => f.split(".").pop() === "js")
@@ -42,7 +42,7 @@ bot.guilds.forEach((guild) => {
  let startEmbed = new Discord.RichEmbed()
  
  .setTitle(`${bot.user.username} started!`)
- .setDescription(`Bot sucsessfully started at **${message.createdAt}**.`)
+ .setDescription(`Bot sucsessfully started!`)
   .setTimestamp()
  .setColor("RANDOM")
  
