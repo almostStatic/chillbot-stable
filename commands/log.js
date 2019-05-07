@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 
     
-    if(message.author.id !== "") return message.reply("This is an owner-only command!")
+    if(message.author.id !== "501710994293129216") return message.reply("This is an owner-only command!")
     let tolog = args.join(" ");
     const logEmbed = new Discord.RichEmbed()
 
