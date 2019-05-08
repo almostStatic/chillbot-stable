@@ -29,7 +29,15 @@ let servername = message.guild.name;
             bUser.send(`Hey! You got banned from ${servername}`, banEmbed)
             incidentchannel.send(banEmbed);
             message.channel.send(`${bUser.user.tag} has been banned!`)
-            message.guild.member(bUser).ban(bReason);   
+            message.guild.member(bUser).ban(bReason);  
+                const used = new Discord.RichEmbed()
+
+                .setTitle("Command Used:")
+                .setDescription(`c.ban was used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id}) to ban ${bUser.user.tag}`)
+                .setColor("RANDOM")
+    bot.channels.get("575619138576318484").send(used);
+
+
 
 
 }
