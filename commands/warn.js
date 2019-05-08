@@ -46,6 +46,13 @@ module.exports.run = async (bot, message, args) => {
       message.channel.send(`:white_check_mark: Warned ${wUser.user.tag}`)
       warnchannel.send(warnEmbed);
         wUser.send(`You have been warned in ${servername}`, warnEmbed);
+      const used = new Discord.RichEmbed()
+
+    .setTitle("Command Used:")
+    .setDescription(`c.warn used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+      bot.channels.get("575619138576318484").send(used);
+
 
 
 }
