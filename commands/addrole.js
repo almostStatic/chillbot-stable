@@ -48,6 +48,14 @@ module.exports.run = async (bot, message, args) => {
 
   try{
     await message.channel.send(congrats)
+  const used = new Discord.RichEmbed()
+
+    .setTitle("Command Used:")
+    .setDescription(`c.addrole used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+    bot.channels.get("575619138576318484").send(used);
+
+
   }catch(e){
     console.log(e.stack);
   }
