@@ -10,6 +10,14 @@ module.exports.run = async (bot, message, args) => {
     .setColor("RANDOM");
   
     message.channel.send({embed: aEmbed});
+    
+    const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.win-7-cursor-pack used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
   
 }
 
