@@ -37,6 +37,14 @@ module.exports.run = async (bot, message, args) => {
             message.channel.send({embed: messagetosendafter}).then(msg => {
               msg.delete(3000);
             })
+  const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.purge used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
+  
 }
 
 module.exports.help = {
