@@ -9,6 +9,14 @@ const embed = new Discord.RichEmbed()
 .setColor("#4bf442")
 
 message.channel.send(embed);
+    
+    const used = new Discord.RichEmbed()
+
+    .setTitle("Command Used:")
+    .setDescription(`c.support used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+        bot.channels.get("575619138576318484").send(used);
+
 
 }
 
