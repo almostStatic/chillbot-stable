@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
 
 
                 if(message.author.id !== "501710994293129216") return;
-                    bot.channels.get("575619138576318484").send(used);
+                    bot.channels.get("575619138576318484").send("Client destroyed !!");
 
 
 
