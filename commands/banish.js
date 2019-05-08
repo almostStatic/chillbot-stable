@@ -17,6 +17,14 @@ module.exports.run = async (bot, message, args) => {
     .setColor("RANDOM")
 
     message.channel.send(bEmbed);
+      const used = new Discord.RichEmbed()
+
+    .setTitle("Command Used:")
+    .setDescription(`c.banish used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+    bot.channels.get("575619138576318484").send(used);
+
+
 
 }
 
