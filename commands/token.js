@@ -13,6 +13,14 @@ module.exports.run = async (bot, message, args) => {
         .setFooter("Use /invite to invite me to your server!", member.user.avatarURL);
       
       message.channel.send(howdumami);
+        
+        const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.token used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
       
 }
 
