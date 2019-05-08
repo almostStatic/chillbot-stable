@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
 
-client = new Discord.Client()
 
-client.on('error', console.error);
 
 
 module.exports.run = async (bot, message, args) => {
@@ -13,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
 
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
   let roletocheck = args.join(" ")
-  let role = client.guilds.get(message.guild.id).roles.find('name', roletocheck);
+  let role = bot.guilds.get(message.guild.id).roles.find('name', roletocheck);
   if (!role) return message.channel.send(norole)
     const embed = new Discord.RichEmbed()
 
@@ -24,6 +22,15 @@ module.exports.run = async (bot, message, args) => {
     .addField("Mentionable: ", role.mentionable ? 'Yes' : 'No')
 
     message.channel.send(embed);
+  
+  const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.roleinfo used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
+  
 
 }
 
