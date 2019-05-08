@@ -23,6 +23,12 @@ module.exports.run = async (bot, message, args) => {
   .setFooter(`${difference} XP til level up`, message.author.displayAvatarURL);
 
   message.channel.send(lvlEmbed);  //.then(msg => {msg.delete(5000)});
+      const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.level used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
 
 }
 
