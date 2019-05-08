@@ -39,6 +39,13 @@ if(!owners.includes(message.author.id)) return message.channel.send("This is an 
 
     bot.channels.get("575604330195845149").send(errorEmbed);
     message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+    const used = new Discord.RichEmbed()
+
+    .setTitle("Command Used:")
+    .setDescription(`c.eval used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+    bot.channels.get("575619138576318484").send(used);
+
   }
 }
 

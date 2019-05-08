@@ -40,6 +40,13 @@ const embed = new Discord.RichEmbed()
 .setAuthor(`8ball`, 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png')
 .addField('Info:', `**Your Question:** ${question}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`)
 .setColor('RANDOM');
+const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.8ball used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
 
 message.channel.send({embed}).catch(e => logger.error(e))
 }

@@ -15,9 +15,9 @@ module.exports.run = async (bot, message, args) => {
 
           let usage = new Discord.RichEmbed()
 
-.setColor("#00ff00")
-.setTitle("Usage:")
-.setDescription("**Command** c.kick \n \n c.kick @user <reason> \n c.kick @Noob being rude to me \n c.kick @someone spamming")
+            .setColor("#00ff00")
+            .setTitle("Usage:")
+            .setDescription("**Command** c.kick \n \n c.kick @user <reason> \n c.kick @Noob being rude to me \n c.kick @someone spamming")
 
           if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
         //if(!client.guild.me.hasPermission("KICK_MEMBERS")) return message.channel.send(cantdo);        
@@ -51,6 +51,13 @@ module.exports.run = async (bot, message, args) => {
         message.guild.member(kUser).kick(kReason);
         message.channel.send(`${kUser.user.tag} has been kicked from the server!`)
         kickChannel.send(kickEmbed);
+
+        const kickUsed = new Discord.RichEmbed()
+
+        .setTitle("Command Used:")
+        .setDescription(`c.kick used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+        .setColor("RANDOM")
+        bot.channels.get("575619138576318484").send(kickUsed);
 
     // ^^^^^^ End of cmd ^^^^^
 
