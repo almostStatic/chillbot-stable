@@ -14,9 +14,15 @@ let serverembed = new Discord.RichEmbed()
 .addField("You Joined", message.member.joinedAt)
 .addField("Total Members", message.guild.memberCount)
 .setTimestamp()
-.setFooter("Use /invite to invite me to your server!");
+
 
 return message.channel.send(serverembed);
+const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.serverinfo used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
 
 
 }
