@@ -19,6 +19,14 @@ if (!member) {
         .setImage(member.user.displayAvatarURL)
         .setColor('GOLD')
     message.channel.send(embed);
+      const used = new Discord.RichEmbed()
+
+    .setTitle("Command Used:")
+    .setDescription(`c.av used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+    bot.channels.get("575619138576318484").send(used);
+
+
 }
 return;
 };
