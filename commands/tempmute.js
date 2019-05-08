@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) => {
     try{
       muterole = await message.guild.createRole({
         name: "Tomato Muted",
-        color: "#000000",
+        color: 0x000000,
         permissions:[]
       })
       message.guild.channels.forEach(async (channel, id) => {
@@ -48,6 +48,14 @@ module.exports.run = async (bot, message, args) => {
     tomute.removeRole(muterole.id);
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
   }, ms(mutetime));
+  
+  const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.tempmute used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
 
 
 //end of module
