@@ -7,7 +7,11 @@ global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
-const logChannel = bot.channels.get("575244431096020992");
+
+// START LOG CHANNEL ID: 575388934456999947
+// ERROR LOG CHANNEL ID: 575390425259704320
+// XP LOG CHANNEL ID: 575393646946287616
+
 fs.readdir("./commands/", (err, files) => {
 
             if(err) console.log(err);
@@ -31,7 +35,8 @@ fs.readdir("./commands/", (err, files) => {
 bot.on("ready", async () => {
   console.log(`${bot.user.username} has started moderating ChilZone!`)
 bot.guilds.forEach((guild) => {
-  console.log(" >" + guild.name)
+  bot.channels.get("575388934456999947").send("Bot is moderating following guild \n " + guild.name);
+  console.log(" ->" + guild.name)
 })
 
 //console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`); 
@@ -76,6 +81,7 @@ bot.user.setActivity('over 111 Users!', {type: "WATCHING"});
 
   let coinAmt = Math.floor(Math.random() * 15) + 1;
   let baseAmt = Math.floor(Math.random() * 15) + 1;
+  bot.channels.get("575393646946287616").send(`${coinAmt} || ${baseAmt}`);
   //console.log(`${coinAmt} ; ${baseAmt}`);
 
   if(coinAmt === baseAmt){
@@ -94,7 +100,8 @@ bot.user.setActivity('over 111 Users!', {type: "WATCHING"});
   }
 
   let xpAdd = Math.floor(Math.random() * 7) + 8;
-  //console.log(xpAdd);
+  bot.channels.get("575393646946287616").send(`${xpAdd} XP added!`);
+ // console.log(xpAdd);
 
   if(!xp[message.author.id]){
     xp[message.author.id] = {

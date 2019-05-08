@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
-
+  const code = args.join(" ");
 let usage = new Discord.RichEmbed()
   .setColor("#00ff00")
   .setTitle("Usage:")
@@ -17,7 +17,7 @@ if(!owners.includes(message.author.id)) return message.channel.send("This is an 
         return text;
   }
   try {
-    const code = args.join(" ");
+
     let evaled = eval(code);
 
 
@@ -28,6 +28,8 @@ if(!owners.includes(message.author.id)) return message.channel.send("This is an 
 
     message.channel.send(clean(evaled), {code:"xl"});
   } catch (err) {
+    // EVAL ERROR LOG CHANNEL ID: 575604330195845149
+    bot.channels.get("575604330195845149").send(`\`ERROR WHILST EXCICUTING CODE:\` \n ${code} \n  \`\`\`xl\n${clean(err)}\n\`\`\``)
     message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
   }
 }
