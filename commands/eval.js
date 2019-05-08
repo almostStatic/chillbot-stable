@@ -29,7 +29,15 @@ if(!owners.includes(message.author.id)) return message.channel.send("This is an 
     message.channel.send(clean(evaled), {code:"xl"});
   } catch (err) {
     // EVAL ERROR LOG CHANNEL ID: 575604330195845149
-    bot.channels.get("575604330195845149").send(`\`ERROR WHILST EXCICUTING CODE:\` \n \`\`\`js\n${code}\`\`\` \n  \`\`\`xl\n${clean(err)}\n\`\`\``)
+    const errorEmbed = new Discord.RichEmbed()
+
+    .setTitle(`Error whilst exicuting the following code:`)
+    .setDescription(`\n \`\`\`js\n${code}\`\`\` \n  \`\`\`xl\n${clean(err)}\n\`\`\``)
+    .setColor("#ff0000")
+    .setFooter(`Error made by: ${message.author.username}`, message.author.avatarURL)
+    .setTimestamp()
+
+    bot.channels.get("575604330195845149").send(errorEmbed);
     message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
   }
 }
