@@ -17,6 +17,14 @@ module.exports.run = async (bot, message, args) => {
   }catch(e){
     message.channel.send(`RIP to <@${rMember.id}>, We removed ${gRole.name} from them. We tried to DM them, but their DMs are locked.`)
   }
+  
+      const used = new Discord.RichEmbed()
+
+  .setTitle("Command Used:")
+  .setDescription(`c.removerole used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+  .setColor("RANDOM")
+  bot.channels.get("575619138576318484").send(used);
+  
 }
 
 module.exports.help = {
