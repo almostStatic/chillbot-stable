@@ -25,7 +25,7 @@ const answers = [
     'Yes - Definitely',
     'No - Definitely not!',
     'HELL YEAH!',
-    ':face_pain: ask meh later'
+    ':face_palm: ask meh later'
 ];
 
     let noquestioin = new Discord.RichEmbed()
