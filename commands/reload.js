@@ -36,6 +36,14 @@ let reloaded = new Discord.RichEmbed()
 .setColor("RANDOM")
 .setDescription(`${commandName}.js reloaded!`)
   message.channel.send(reloaded);
+  
+    const used = new Discord.RichEmbed()
+
+  .setTitle("Command Used:")
+  .setDescription(`c.purge used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+  .setColor("RANDOM")
+  bot.channels.get("575619138576318484").send(used);
+
 }
 
 module.exports.help = {
