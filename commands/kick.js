@@ -29,9 +29,9 @@ module.exports.run = async (bot, message, args) => {
 
         if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(" ❌ **You do not have permissoins to use ths command**!");
         if(kUser.hasPermission("KICK_MEMBERS")) return message.channel.send(" ❌**ERROR:** The user is mod/admin, or has a higher role than me. I can't do that.");
-        if(!kUser.kickable){
-          message.reply("I cannot kick tht user! Do they have a higher role thn me? Do I have kick members permission?")
-        }
+      //  if(!kUser.kickable){
+        //  message.reply("I cannot kick tht user! Do they have a higher role thn me? Do I have kick members permission?")
+        //}
         // Declare the var, create embed:::
         let kickEmbed = new Discord.RichEmbed()
         .setDescription("*Kick*")
@@ -44,7 +44,7 @@ module.exports.run = async (bot, message, args) => {
         .setTimestamp()
         .setFooter("RIP that guy got the boot")
     
-        message.delete(0);
+        message.delete(40);
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!kickChannel) return message.channel.send("❌ Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
         kUser.send(`You have been kicked from ${servername}. Here are some details:`, kickEmbed);
