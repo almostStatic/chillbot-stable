@@ -24,6 +24,14 @@ module.exports.run = async (bot, message, args) => {
     } catch (err) {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
       }
+    
+    const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.slowmode used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
     }
     
 
