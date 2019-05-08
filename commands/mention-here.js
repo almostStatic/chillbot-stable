@@ -10,6 +10,13 @@ module.exports.run = async (bot, message, args) => {
     message.delete(0);
         if(!message.member.hasPermission('MENTION_EVERYONE')) return message.channel.send({embed: everyone});
         return message.channel.send(`<@${message.author.id}> mentioned @here!`)
+  
+      const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.mention-here used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
     
   
 }
