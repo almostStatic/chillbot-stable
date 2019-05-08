@@ -12,6 +12,13 @@ module.exports.run = async (bot, message, args) => {
     // If it is an NSFW Channel:
 
     message.channel.send("Works!!");
+    const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.test2 used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
 
 }
 
