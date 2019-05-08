@@ -38,7 +38,12 @@ fs.readdir("./commands/", (err, files) => {
 bot.on("ready", async () => {
   console.log(`${bot.user.username} has started moderating ChilZone!`)
 bot.guilds.forEach((guild) => {
-  bot.channels.get("575388934456999947").send("Bot is moderating following guild \n " + guild.name);
+    const guildEmbed = new Discord.RichEmbed()
+    .setTitle("The bot is now moderating the following guild:")
+    .setDescription(guild.name)
+    .setColor("RANDOM")
+    
+  bot.channels.get("575388934456999947").send(guildEmbed);
   console.log(" ->" + guild.name)
 })
 
