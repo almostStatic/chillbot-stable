@@ -13,6 +13,14 @@ module.exports.run = (client, message, args, level) => {
     
     message.author.send({embed: appEmbed});
     message.channel.send("Message Sent!")
+        const used = new Discord.RichEmbed()
+
+    .setTitle("Command Used:")
+    .setDescription(`c.app used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+    bot.channels.get("575619138576318484").send(used);
+
+
         
 }
 
