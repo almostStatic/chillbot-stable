@@ -21,6 +21,14 @@ module.exports.run = async (bot, message, args) => {
 
     sendto.send({embed: devembed});
     message.channel.send("Your message has been sent!")
+        const used = new Discord.RichEmbed()
+
+    .setTitle("Command Used:")
+    .setDescription(`c.send-devmode used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+    bot.channels.get("575619138576318484").send(used);
+
+
 
   }
 
