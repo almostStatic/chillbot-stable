@@ -26,6 +26,13 @@ module.exports.run = async (bot, message, args) => {
       message.delete(0);
       suggestionChannel.send(suggestEmbed);
       message.channel.send(`<@${message.author.id}>, Your suggestion has been sent to <#536185309000630284>!`)
+       const used = new Discord.RichEmbed()
+
+      .setTitle("Command Used:")
+    .setDescription(`c.suggest <suggest> used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+      bot.channels.get("575619138576318484").send(used);
+
 
 
 }
