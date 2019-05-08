@@ -16,6 +16,13 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(set);
     console.log(`${message.member.user.tag} has changed bot's activity to: ${toset}`)
     console.log("Be careful!")
+    const used = new Discord.RichEmbed()
+
+        .setTitle("Command Used:")
+        .setDescription(`c.setgame used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+        .setColor("RANDOM")
+            bot.channels.get("575619138576318484").send(used);
+
 
 }
 
