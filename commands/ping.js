@@ -14,6 +14,16 @@ exports.run = async (client, message, args, color, member) => {
     .setColor('RANDOM');
     msg.edit(ping2)
       })
+  
+  const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.polish used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
+
+
+
 };
 
 
