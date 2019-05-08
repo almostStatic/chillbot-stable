@@ -18,7 +18,12 @@ module.exports.run = (bot, message, args) => {
     
     message.channel.send(embed);
     if(!member) return message.channel.send(notmentioned);
-
+    const used = new Discord.RichEmbed()
+    
+    .setTitle("Command Used:")
+    .setDescription(`c.pukeon used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setColor("RANDOM")
+      bot.channels.get("575619138576318484").send(used);
 
 };
 
