@@ -12,6 +12,13 @@ module.exports.run = async (bot, message, args) => {
         .setFooter("Use /invite to invite me to your server!", message.author.avatarURL);
     // message.member.user.tag displays the user in form, user#discrim
         message.channel.send(mytagembed);
+        
+                const used = new Discord.RichEmbed()
+
+.setTitle("Command Used:")
+.setDescription(`c.mytag used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+.setColor("RANDOM")
+bot.channels.get("575619138576318484").send(used);
                                    
     
 
