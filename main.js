@@ -11,6 +11,7 @@ let xp = require("./xp.json");
 // START LOG CHANNEL ID: 575388934456999947
 // ERROR LOG CHANNEL ID: 575390425259704320
 // XP LOG CHANNEL ID: 575393646946287616
+// EVAL ERROR LOG CHANNEL ID: 575604330195845149
 
 fs.readdir("./commands/", (err, files) => {
 
@@ -21,6 +22,7 @@ fs.readdir("./commands/", (err, files) => {
   let jsfile = files.filter(f => f.split(".").pop() === "js")
   if(jsfile.length <= 0){
     console.log("Couldn't find commands.");
+    bot.channels.get("575388934456999947").send("Cannot find commands! `./commands/` not present!")
     return;
   }
 

@@ -29,7 +29,7 @@ if(!owners.includes(message.author.id)) return message.channel.send("This is an 
     message.channel.send(clean(evaled), {code:"xl"});
   } catch (err) {
     // EVAL ERROR LOG CHANNEL ID: 575604330195845149
-    bot.channels.get("575604330195845149").send(`\`ERROR WHILST EXCICUTING CODE:\` \n ${code} \n  \`\`\`xl\n${clean(err)}\n\`\`\``)
+    bot.channels.get("575604330195845149").send(`\`ERROR WHILST EXCICUTING CODE:\` \n \`\`\`js\n${code}\`\`\` \n  \`\`\`xl\n${clean(err)}\n\`\`\``)
     message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
   }
 }
