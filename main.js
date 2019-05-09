@@ -209,10 +209,9 @@ if(cmd === "invite"){
   
   });
 
-const token = "NTcyNzMzMDA0MjU0OTM3MDg4.XMmLCg.Yrak0lk7DG7qGZIl3TeVP_x0-uA";
-bot.login(token)
 
-//bot.login(process.env.BOT_TOKEN);
+
+bot.login(process.env.BOT_TOKEN);
 
 // END OF CODE !!
 
