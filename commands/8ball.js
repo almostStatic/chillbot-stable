@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-    if(args[0]) return message.channel.send("What question should I answer?")
+//    if(args[0]) return message.channel.send("What question should I answer?")
     let question = message.content.split(' ').slice(1).join(' ');
 const answers = [
     'As I See It Yes',
@@ -33,9 +33,9 @@ const answers = [
         .setDescription("Please provide a question!")
         .setColor("RANDOM");
 
-/*if (!question) {
+if (!question) {
     return message.channel.send(noquestioin);
-}*/
+}
 const embed = new Discord.RichEmbed()
 .setAuthor(`8ball`, 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png')
 .addField('Info:', `**Your Question:** ${question}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`)

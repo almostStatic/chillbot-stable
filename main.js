@@ -139,7 +139,10 @@ if(commandfile) commandfile.run(bot,message,args);
 
 
   });
+if (cmd === `${prefix}faq`) {
 
+  message.channel.send("**Discord.js FAQ For BEGINNERS** \n https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/frequently-asked-questions.md")
+}
 if(cmd === `${prefix}xp`){
 
   xpembed = new Discord.RichEmbed()

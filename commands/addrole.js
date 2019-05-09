@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args) => {
     .setDescription(` :white_check_mark: <@${rMember.id}> have been given the role ${gRole.name}!`)
     .setColor("RANDOM")
 
-  if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send(nopermsforu);
+  if(!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send(nopermsforu);
   let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
   if(!rMember) return message.channnel.send(nomember);
   let role = args.join(" ").slice(22);
