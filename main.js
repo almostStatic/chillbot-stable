@@ -7,6 +7,8 @@ global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
+const mentionHook = new Discord.WebhookClient("", "Webhook Token");
+
 
 // START LOG CHANNEL ID: 575388934456999947
 // ERROR LOG CHANNEL ID: 575390425259704320
