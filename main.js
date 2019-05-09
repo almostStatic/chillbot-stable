@@ -39,7 +39,7 @@ bot.on("ready", async () => {
   console.log(`${bot.user.username} has started moderating ChilZone!`)
 bot.guilds.forEach((guild) => {
     const guildEmbed = new Discord.RichEmbed()
-    .setTitle("The bot is now moderating the following guild:")
+    .setTitle("The bot is now active in:")
     .setDescription(guild.name)
     .setColor("RANDOM")
     
@@ -51,7 +51,7 @@ bot.guilds.forEach((guild) => {
 // Example of changing the bot's playing game to something useful. `client.user` is what the
 // docs refer to as the "ClientUser".
   
-  // WORK ON THIS LATER OR WHEN POSSIBLE
+
  let startEmbed = new Discord.RichEmbed()
  
  .setTitle(`${bot.user.username} started!`)
@@ -191,27 +191,6 @@ if(cmd === "invite"){
   return message.channel.send(`**Invite people to this server using:** \n https://discord.gg/WJCP3GK`)
 }
 
-/*  => {
-
-
-  }
-
-    function name(params) {
-      
-    }
-    */
-
-    // TRYCATCH
-
-    /*
-    
-        try {
-      
-    } catch (error) {
-      
-    }
-    */
-   
   if(cmd === `${prefix}owneronly`){
 
     if(message.author.id !== "501710994293129216") return message.reply("You can't use this command!")
@@ -233,12 +212,8 @@ bot.login(token)
 // END OF CODE !!
 
 // ============================ EXTRA INFO AND STUFFS ==============================
-/* Bot token:
 
-
-*/
-
-///// github repository :
+/// github repository :
 /// https://github.com/asadhum2005/mybot.discord.js
 
 
