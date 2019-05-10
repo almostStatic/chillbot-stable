@@ -206,7 +206,7 @@ if(cmd === "invite"){
     .setColor("RANDOM")
     return message.channel.send(aa);
   }
-  
+
   });
 
 
