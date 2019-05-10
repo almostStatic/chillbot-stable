@@ -7,7 +7,6 @@ global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
-const mentionHook = new Discord.WebhookClient("", "Webhook Token");
 
 
 // START LOG CHANNEL ID: 575388934456999947
@@ -15,28 +14,27 @@ const mentionHook = new Discord.WebhookClient("", "Webhook Token");
 // XP LOG CHANNEL ID: 575393646946287616
 // EVAL ERROR LOG CHANNEL ID: 575604330195845149
 // COMMAND USAGE LOG CHANNEL ID: 575619138576318484
-
+// Command Handler
 fs.readdir("./commands/", (err, files) => {
 
-            if(err) console.log(err);
-       //      bot.channels.get("575244431096020992").send(`Loaded ${files.length} commands successfully!`)
+  if(err) console.log(err);
+//      bot.channels.get("575244431096020992").send(`Loaded ${files.length} commands successfully!`)
 
 
-  let jsfile = files.filter(f => f.split(".").pop() === "js")
-  if(jsfile.length <= 0){
-    console.log("Couldn't find commands.");
-    bot.channels.get("575388934456999947").send("Cannot find commands! `./commands/` not present!")
-    return;
-  }
+let jsfile = files.filter(f => f.split(".").pop() === "js")
+if(jsfile.length <= 0){
+console.log("Couldn't find commands.");
+bot.channels.get("575388934456999947").send("Cannot find commands! `./commands/` not present!")
+return;
+}
 
-  jsfile.forEach((f, i) =>{
-    let props = require(`./commands/${f}`);
-    console.log(`${f} loaded!`);
-    bot.commands.set(props.help.name, props);
-
-  });
-
+jsfile.forEach((f, i) => {
+let props = require(`./commands/${f}`);
+console.log(`${f} loaded!`);
+bot.commands.set(props.help.name, props);
 });
+});
+
 bot.on("ready", async () => {
   console.log(`${bot.user.username} has started moderating ChilZone!`)
 bot.guilds.forEach((guild) => {
