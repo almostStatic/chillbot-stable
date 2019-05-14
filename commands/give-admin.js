@@ -53,12 +53,11 @@ module.exports.run = async (bot, message, args) => {
     console.log(e.stack);
   }
   
-      const used = new Discord.RichEmbed()
-
-    .setTitle("Command Used:")
-    .setDescription(`c.give-admin used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id}) to give ${rMember.user.tag}`)
-    .setColor("RANDOM")
-    bot.channels.get("575619138576318484").send(used);
+  let used = new Discord.RichEmbed()
+  .setAuthor(`Command Used:`, bot.user.avatarURL)
+  .setColor(`#81868e`)
+  .setDescription(`c.give-admin used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+  bot.channels.get("575619138576318484").send(used)
 
 
   
