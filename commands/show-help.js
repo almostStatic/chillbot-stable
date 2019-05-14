@@ -27,6 +27,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("**c.kick @user <reason>**", kickhelp)
         .addField("**c.ban @user <reason>**", banhelp)
         .addField("**c.ma**", "Mentions @Announcements")
+        .addField("**c.actions**", "Bot sends message actions to the current channel. Requires manage server permission")
         .addField("**c.mention-everyone**", "Mention @everyone in a server. Requires the Mention Everyone permission to use this command")
         .addField("**c.mention-here**", "Mention @here in a server. Requires the Mention Everyone permission to use this command")
         .addField("**__Required Permissions__**", requiredperms)
