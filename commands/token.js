@@ -14,12 +14,11 @@ module.exports.run = async (bot, message, args) => {
       
       message.channel.send(howdumami);
         
-        const used = new Discord.RichEmbed()
-
-.setTitle("Command Used:")
-.setDescription(`c.token used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
-.setColor("RANDOM")
-bot.channels.get("575619138576318484").send(used);
+      let used = new Discord.RichEmbed()
+      .setAuthor(`Command Used:`, bot.user.avatarURL)
+      .setColor(`#81868e`)
+      .setDescription(`c.token used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+      bot.channels.get("575619138576318484").send(used)
 
       
 }
