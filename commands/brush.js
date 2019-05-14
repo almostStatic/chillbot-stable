@@ -8,12 +8,13 @@ module.exports.run = async (bot, message, args) => {
     .setColor(white);
     
     message.channel.send(brushEmbed);
-        const used = new Discord.RichEmbed()
+    let used = new Discord.RichEmbed()
+    .setAuthor(`Command Used:`, bot.user.avatarURL)
+    .setColor(`#81868e`)
+    .setDescription(`c.brush used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    bot.channels.get("575619138576318484").send(used)
+      //  const used = new Discord.RichEmbed()
 
-    .setTitle("Command Used:")
-    .setDescription(`c.brush used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
-    .setColor("RANDOM")
-    bot.channels.get("575619138576318484").send(used);
 
 
     
