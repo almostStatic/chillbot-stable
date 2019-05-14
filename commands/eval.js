@@ -46,6 +46,18 @@ if(!owners.includes(message.author.id)) return message.channel.send("This is an 
     .setColor("RANDOM")
     bot.channels.get("575619138576318484").send(used);
 
+    if(!err) {
+      const sucsess = new Discord.RichEmbed()
+
+      .setTitle(`Eval Command Sucseeded!`)
+      .setFooter(`Sucseeded by: ${message.author.username}#${message.author.discriminator} | ID: ${message.author.id}`)
+      .setColor(0x43ef43)
+      .setDescription(`Code run: \n\`\`\`js\n${code}\n\`\`\``)
+      bot.channels.get("575619138576318484").send(sucsess)
+
+    }
+
+
   }
 }
 

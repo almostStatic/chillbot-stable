@@ -167,15 +167,13 @@ if(message.author.id !== ownerid) return message.reply("You may not use this com
   .setDescription("The bot is being restarted... **Please Wait..**")
   .setColor('RANDOM')
   .setTimestamp()
-  process.restart();
   message.delete(0);
+
+  return message.channel.send(rrrrembed);
 
 
   //       message.delete(0); 
   // This deletes the command invocation message...
-
-  return message.channel.send(rrrrembed);
-
 }
 
 
@@ -205,11 +203,13 @@ if(cmd === "invite"){
     return message.channel.send(aa);
   }
 
+
   });
 
 
  
-bot.login(process.env.BOT_TOKEN);
+  bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
+//bot.login(process.env.BOT_TOKEN);
 
 // END OF CODE !!
 

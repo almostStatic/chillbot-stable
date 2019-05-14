@@ -8,7 +8,22 @@ module.exports.run = async (bot, message, args) => {
     let servername = message.guild.name;
     let suggestor = message.author;
     let suggestion = args.join(" ");
-    if(!suggestion) return message.channel.send(`WRONG FORMAT! Make sure you include your suggestion!`)
+    if(!suggestion) return message.channel.send({embed: {
+      color: 3447003,
+      author: {
+        name: "Error",
+        icon_url: bot.user.avatarURL
+      },
+      title: "You need to include a suggestion!",
+      description: "**Usage:** \n c.suggest [your suggestion]",
+
+      timestamp: new Date(),
+      footer: {
+        icon_url: bot.user.avatarURL
+      // text: "value"
+      }
+    }
+  });
 
 
     let suggestEmbed = new Discord.RichEmbed()
