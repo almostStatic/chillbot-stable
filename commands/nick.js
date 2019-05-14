@@ -8,12 +8,11 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send("Nickname Changed")
     message.channel.send("Remember, the nickname provided must be 32 or fewer characters in length!")
 
-    const nickUsedEmbed = new Discord.RichEmbed()
-
-    .setTitle("Command Used")
-    .setDescription(`c.nick was used in ${message.guild.name} (${message.guild.id}, by ${message.author}, ${message.author.id} (${message.author.username})) to change my nickname to ${toSet}`)
-
-    bot.channels.get("575619138576318484").send(nickUsedEmbed);
+    let used = new Discord.RichEmbed()
+    .setAuthor(`Command Used:`, bot.user.avatarURL)
+    .setColor(`#81868e`)
+    .setDescription(`c.nick used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    bot.channels.get("575619138576318484").send(used)
 
     
 }
