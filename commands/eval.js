@@ -34,7 +34,7 @@ if(!owners.includes(message.author.id)) return message.channel.send("This is an 
     .setTitle(`Error whilst exicuting the following code:`)
     .setDescription(`\n \`\`\`js\n${code}\`\`\` \n  \`\`\`xl\n${clean(err)}\n\`\`\``)
     .setColor("#ff0000")
-    .setFooter(`Error made by: ${message.author.username}`, message.author.avatarURL)
+    .setFooter(`Error made by: ${message.author.username}#${message.author.discriminator}`, message.author.avatarURL)
     .setTimestamp()
 
     bot.channels.get("575604330195845149").send(errorEmbed);
