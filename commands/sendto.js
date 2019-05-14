@@ -10,12 +10,11 @@ module.exports.run = async (bot, message, args) => {
 
 // /send-to <#560553771353112577> test
     
-    const used = new Discord.RichEmbed()
-
-.setTitle("Command Used:")
-.setDescription(`c.send-to used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
-.setColor("RANDOM")
-bot.channels.get("575619138576318484").send(used);
+let used = new Discord.RichEmbed()
+.setAuthor(`Command Used:`, bot.user.avatarURL)
+.setColor(`#81868e`)
+.setDescription(`c.send-devmode used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+bot.channels.get("575619138576318484").send(used)
 
 }
 
