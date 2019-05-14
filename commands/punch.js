@@ -19,12 +19,12 @@ if(message.author.id = "517730016520568853") return message.channel.send(`You ca
     .setColor("RANDOM")
 
       message.channel.send(embed);
-       const used = new Discord.RichEmbed()
 
-        .setTitle("Command Used:")
-        .setDescription(`c.punch used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
-        .setColor("RANDOM")
-          bot.channels.get("575619138576318484").send(used);
+      let used = new Discord.RichEmbed()
+      .setAuthor(`Command Used:`, bot.user.avatarURL)
+      .setColor(`#81868e`)
+      .setDescription(`c.punch used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+      bot.channels.get("575619138576318484").send(used)
 
 }
 
