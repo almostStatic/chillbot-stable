@@ -26,13 +26,12 @@ const no = new Discord.RichEmbed()
 
     message.delete(0);
     message.channel.send(`Your message has been sent to ${sendto.user.tag}`)
-        const used = new Discord.RichEmbed()
 
-    .setTitle("Command Used:")
-    .setDescription(`c.dm used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id}) to DM ${sendto.user.tag} \`${sayMessage}\``)
-    .setColor("RANDOM")
-    bot.channels.get("575619138576318484").send(used);
-
+    let used = new Discord.RichEmbed()
+    .setAuthor(`Command Used:`, bot.user.avatarURL)
+    .setColor(`#81868e`)
+    .setDescription(`c.dm used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    bot.channels.get("575619138576318484").send(used)
 
     
 
