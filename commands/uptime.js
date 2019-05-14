@@ -1,7 +1,7 @@
 const Discord = require ("\discord.js")
 const client = new Discord.Client();
 
-exports.run = (client, message) => {
+module.exports.run = (client, message) => {
     let ms = client.uptime;
     let cd = 24 * 60 * 60 * 1000; // Calc days
     let ch = 60 * 60 * 1000; // Calc hours
@@ -67,12 +67,11 @@ exports.run = (client, message) => {
   .setColor("RANDOM");
     message.channel.send({embed})
   .catch(console.error); 
-  const used = new Discord.RichEmbed()
-
-.setTitle("Command Used:")
-.setDescription(`c.uptime used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
-.setColor("RANDOM")
-bot.channels.get("575619138576318484").send(used);
+  let used = new Discord.RichEmbed()
+  .setAuthor(`Command Used:`, bot.user.avatarURL)
+  .setColor(`#81868e`)
+  .setDescription(`c.uptime used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+  bot.channels.get("575619138576318484").send(used)
 
 };
   exports.help = {
