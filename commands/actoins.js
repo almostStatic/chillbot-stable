@@ -34,6 +34,12 @@ module.exports.run = async (bot, message, args) => {
          message.channel.send(embed);
     }
     message.delete(50);
+
+    let used = new Discord.RichEmbed()
+    .setAuthor(`Command Used:`, bot.user.avatarURL)
+    .setColor(`#81868e`)
+    .setDescription(`c.actions used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.ud}`)
+    bot.channels.get("575619138576318484").send(used)
 }
 
 module.exports.help = {
