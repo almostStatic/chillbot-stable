@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
       
         // And we get the bot to say the thing: 
         message.channel.send(embed);
-              const used = new Discord.RichEmbed()
+              //const used = new Discord.RichEmbed()
 
               let used = new Discord.RichEmbed()
               .setAuthor(`Command Used:`, bot.user.avatarURL)
