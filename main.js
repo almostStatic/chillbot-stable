@@ -32,10 +32,14 @@ jsfile.forEach((f, i) => {
 let props = require(`./commands/${f}`);
 console.log(`${f} loaded!`);
 bot.commands.set(props.help.name, props);
-});
+ });
 });
 
 bot.on("ready", async () => {
+  const allFilesLoadedEmbed = new Discord.RichEmbed()
+  .setColor(`#42f459`)
+  .setAuthor(`All bot commands loaded!`, bot.user.avatarURL)
+  bot.channels.get("578195831405019139").send(allFilesLoadedEmbed)
   console.log(`${bot.user.username} has started moderating ChilZone!`)
 bot.guilds.forEach((guild) => {
     const guildEmbed = new Discord.RichEmbed()
@@ -54,8 +58,8 @@ bot.guilds.forEach((guild) => {
 
  let startEmbed = new Discord.RichEmbed()
  
- .setTitle(`${bot.user.username} started!`)
- .setDescription(`Bot sucsessfully started!`)
+ .setTitle(`${bot.user.username} loaded!`)
+ .setDescription(`Bot sucsessfully loaded in all server!`)
   .setTimestamp()
  .setColor("RANDOM")
  
