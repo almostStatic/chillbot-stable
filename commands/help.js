@@ -25,6 +25,8 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.warn @user <reason>**", warnhelp)
       .addField("**c.kick @user <reason>**", kickhelp)
       .addField("**c.ban @user <reason>**", banhelp)
+      .addField("**c.nick**", "Change the bot's nickname")
+      .addField("**c.set-nick @user**", "Set a user's nickname. The nickname must be 32 characters in length or ferwer")
       .addField("**c.actions**", "Bot sends message actions to the current channel. Requires manage server permission")
       .addField("**c.ma**", "Get the bot to mention @Announcements")
       .addField("**c.mention-everyone**", "Mention @everyone in a server. Requires the Mention Everyone permission to use this command")
