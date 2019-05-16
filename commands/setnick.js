@@ -7,9 +7,9 @@ module.exports.run = async (bot, message, args) => {
     message.guild.members.get(member.user.id).setNickname(nick);
     let nickEmbed = new Discord.RichEmbed()
 
-    RichEmbed.setAuthor(`Changed ${member.user.tag}'s Nicknme to: ${nick}`, member.user.avatarURL)
-    RichEmbed.setColor("#42dff4")
-    RichEmbed.setFooter(`Make sure the nickname is 32 or fewer characters in length`, message.author.avatarURL)
+    .setAuthor(`Changed ${member.user.tag}'s Nicknme to: ${nick}`, member.user.avatarURL)
+    .setColor("#42dff4")
+    .setFooter(`Make sure the nickname is 32 or fewer characters in length`, message.author.avatarURL)
         message.channel.send(nickEmbed);
 
 
@@ -21,6 +21,7 @@ module.exports.run = async (bot, message, args) => {
     bot.channels.get("575619138576318484").send(used)
     
 }
+
 module.exports.help = {
     name: "set-nick"
 }
