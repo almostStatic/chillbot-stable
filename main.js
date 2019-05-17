@@ -70,7 +70,6 @@ bot.user.setActivity('over 111 Users!', {type: "WATCHING"});
 });
 
   //bot.user.setGame("Lookin' out for ya!");
-
   bot.on("message", async message => {
     if(message.author.bot) return;
     //if(message.channel.type === "dm") return;
@@ -144,6 +143,7 @@ if(commandfile) commandfile.run(bot,message,args);
 
   });
 if (cmd === `${prefix}faq`) {
+  if(message.author.id === "437255943181565962") return message.reply(`Due to your recent actions, you have been blacklisted from using this command! \n \b \b \b \b`)
 
   message.channel.send("**Discord.js FAQ For BEGINNERS** \n https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/frequently-asked-questions.md")
 }
@@ -163,6 +163,7 @@ if(cmd === `${prefix}xp`){
 
 
 if(cmd === `${prefix}$$r`){
+  if(message.author.id === "437255943181565962") return message.reply(`Due to your recent actions, you have been blacklisted from using this command! \n \b \b \b \b`)
 
 if(message.author.id !== ownerid) return message.reply("You may not use this command!");
 
@@ -182,6 +183,8 @@ if(message.author.id !== ownerid) return message.reply("You may not use this com
 
 
 if(cmd === `${message.author.id}`){
+  if(message.author.id === "437255943181565962") return message.reply(`Due to your recent actions, you have been blacklisted from using this command! \n \b \b \b \b`)
+
   iq = new Discord.RichEmbed()
 
   .setDescription("1,000 IQ")
