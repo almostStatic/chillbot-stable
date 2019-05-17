@@ -19,6 +19,9 @@ module.exports.run = async (bot, message, args) => {
     if(!wUser) return message.reply("User not found!");
     if(wUser.hasPermission("ADMINISTRATOR")) return message.reply("They waaaay too kewl #Can'tWarnThem!");
     let reason = args.join(" ").slice(22);
+    if(!reason) {
+      reason = "no reason given"
+    };
 
       if(!warns[wUser.id]) warns[wUser.id] = {
         warns: 0
@@ -36,14 +39,19 @@ module.exports.run = async (bot, message, args) => {
     .setColor("#ff0000")
     .addField("Warned User", `<@${wUser.id}> (${wUser.id})`, true)
     .addField("Warned In", message.channel, true)
-    .addField("Warned By", `${wUser} (${wUser.id})`)
+    .addField("Warned By", `${message.author} (${message.author.id})`)
     .addField("Number of Warnings", warns[wUser.id].warns)
     .addField("Reason", reason);
 
+    let reasonEmbed = new Discord.RichEmbed()
+
+    .setColor("#e4b400")
+    .setDescription(`**Reason** ${reason}`)
+
     let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
       if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
-      message.delete(56);
-      message.channel.send(`:white_check_mark: Warned ${wUser.user.tag}`)
+      message.delete(50);
+      message.channel.send(`<:GreenTransparantTick:537596728807784478> Warned ${wUser.user.tag}`, reasonEmbed)
       warnchannel.send(warnEmbed);
         wUser.send(`You have been warned in ${servername}`, warnEmbed);
         let used = new Discord.RichEmbed()

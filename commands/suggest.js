@@ -36,10 +36,11 @@ module.exports.run = async (bot, message, args) => {
     .addField("Suggestion", suggestion);
 
 
+   // if()
     let suggestionChannel = message.guild.channels.find(`name`, "suggestions");
       if(!suggestionChannel) return message.reply("Couldn't find suggestions channel, I have logged the suggestion in **__this channel.__**", suggestEmbed);
       message.delete(0);
-      suggestionChannel.send(suggestEmbed);
+      suggestionChannel.send(suggestEmbed).then(msg => msg.react("537596728807784478")).then(me => me.react("544527190788669451"));
       message.channel.send(`<@${message.author.id}>, Your suggestion has been sent to <#536185309000630284>!`)
       let used = new Discord.RichEmbed()
       .setAuthor(`Command Used:`, bot.user.avatarURL)

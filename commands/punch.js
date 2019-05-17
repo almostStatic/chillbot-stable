@@ -3,7 +3,6 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
 
-if(message.author.id = "517730016520568853") return message.channel.send(`You can't punch me!`)
 
     let notfound = new Discord.RichEmbed()
 
