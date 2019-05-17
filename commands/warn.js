@@ -19,8 +19,8 @@ module.exports.run = async (bot, message, args) => {
     if(!wUser) return message.reply("User not found!");
     if(wUser.hasPermission("ADMINISTRATOR")) return message.reply("They waaaay too kewl #Can'tWarnThem!");
     let reason = args.join(" ").slice(22);
-    if(!reason) {
-      reason = "no reason given"
+    if(!reason) {//() => { // that is how an arrow function used
+      reason = "no reason given";
     };
 
       if(!warns[wUser.id]) warns[wUser.id] = {
