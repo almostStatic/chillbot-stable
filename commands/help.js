@@ -67,6 +67,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.drink**", "Drink a pint of beer")
       .addField("**c.brush**", "Brush your teeth and make them shine after you have drunk a pint of beer")
       .addField("**c.polish @user**", "Polish a user's head.")
+      .addField("**c.slap @user**", "Slap someone!")
       .setColor("RANDOM")
       //if(message.author.hasPermission("KICK_MEMBERS")) return message.channel.send(modadminm, cmds, extras);
 
