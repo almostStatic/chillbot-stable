@@ -20,6 +20,7 @@ if(!owners.includes(message.author.id)) return message.channel.send("This is an 
   try {
 
     let evaled = eval(code);
+  //  eval(msg => => => msg.msg.react.reactWith(`emoji-id-here`)).delValue(">");
 
 
     if(!code) return message.channel.send({embed: usage});
