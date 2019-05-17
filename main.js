@@ -73,6 +73,9 @@ bot.user.setActivity('over 111 Users!', {type: "WATCHING"});
 
   bot.on("message", async message => {
     if(message.author.bot) return;
+    if(message.author.id === "437255943181565962"){
+      message.reply(`You have been blacklisted from using ${bot.user.username} for 14 Days!`)
+    }
     //if(message.channel.type === "dm") return;
   
     const ownerid = "501710994293129216";
