@@ -69,12 +69,22 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.polish @user**", "Polish a user's head.")
       .addField("**c.slap @user**", "Slap someone!")
       .setColor("RANDOM")
-      //if(message.author.hasPermission("KICK_MEMBERS")) return message.channel.send(modadminm, cmds, extras);
 
+      let calccmds = new Discord.RichEmbed()
+      .setColor("RANDOM")
+      .setTitle("Calculator Commands")
+      .addField("**c.multiply [first number] [second number]**", "Get the bot to multiply 2 numbers seperated by spaces.")
+      .addField("**c.divide [first number] [second number]**", "Get the bot to divide 2 numbers, sepreated by spaces")
+      .addField("**c.add [first number] [second number]**", "Get the bot to add 2 numbers, seperated by spaces")
+      .addField("**c.subtract [first number] [second number]**", "Get the bot to subtract 2 numbers seperated by spaces")
+     
+     
+      // send embeds, in order of decleration
       message.channel.send(embed1).then(sentMessage => sentMessage.edit(embed2));
       message.author.send({embed: modadmin});
       message.author.send({embed: cmds});
       message.author.send({embed: extras});
+      message.author.send({embed: calccmds});
 
       let used = new Discord.RichEmbed()
       .setAuthor(`Command Used:`, bot.user.avatarURL)

@@ -214,6 +214,8 @@ if(cmd === "invite"){
 
   });
 
+bot.on('error', console.error);
+
 
  
   bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
