@@ -44,12 +44,15 @@ module.exports.run = async (bot, message, args) => {
         .setTimestamp()
         .setFooter("RIP that guy got the boot")
     
-        message.delete(40);
+        let reasonEmbed = new Discord.RichEmbed()
+        .setDescription(`**Reason:** ${kReason}`)
+        .setColor("#e4b400");
+        message.delete(50);
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!kickChannel) return message.channel.send("❌ Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
         kUser.send(`You have been kicked from ${servername}. Here are some details:`, kickEmbed);
         message.guild.member(kUser).kick(kReason);
-        message.channel.send(`${kUser.user.tag} has been kicked from the server!`)
+        message.channel.send(`<:GreenTransparantTick:537596728807784478> User: \`${kUser.user.tag}\` has been kicked from the server`, reasonEmbed);
         kickChannel.send(kickEmbed);
 
         let used = new Discord.RichEmbed()

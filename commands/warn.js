@@ -6,12 +6,6 @@ module.exports.run = async (bot, message, args) => {
   // Correct Usage:
   // c.warn @user <reason>
 
-  let usage = new Discord.RichEmbed()
-
-    .setColor("#00ff00")
-    .setTitle("Usage:")
-    .setDescription("**Command** c.warn \n \n c.warn @user <reason> \n c.warn @Noob being rude to me \n c.warn @someone spamming")
-  
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
     let servername = message.guild.name;
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply("You need the manage server permission to use this command!");
@@ -46,21 +40,20 @@ module.exports.run = async (bot, message, args) => {
     let reasonEmbed = new Discord.RichEmbed()
 
     .setColor("#e4b400")
-    .setDescription(`**Reason** ${reason}`)
+    .setDescription(`**Reason:** ${reason}`)
+    .setFooter(`Number of warns: ${warns}`, wUser.user.avatarURL)
 
     let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
       if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
       message.delete(50);
-      message.channel.send(`<:GreenTransparantTick:537596728807784478> Warned ${wUser.user.tag}`, reasonEmbed)
       warnchannel.send(warnEmbed);
+      message.channel.send(`<:GreenTransparantTick:537596728807784478> User: \`${wUser.user.tag}\` has been warned`, reasonEmbed);
         wUser.send(`You have been warned in ${servername}`, warnEmbed);
         let used = new Discord.RichEmbed()
         .setAuthor(`Command Used:`, bot.user.avatarURL)
         .setColor(`#81868e`)
         .setDescription(`c.warn used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
         bot.channels.get("575619138576318484").send(used)
-
-
 
 }
 

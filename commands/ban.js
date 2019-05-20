@@ -7,11 +7,14 @@ if(!bUser) return message.channel.send("Error 404 (!bUser)");
 let bReason = args.join(" ").slice(22);
 if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply("Nah, hell nah!");
 if(bUser.hasPermission("ADMINISTRATOR")) return message.channel.send("Admins cant be banned ooof");
-/*if(!bUser.banable){
+if(!bUser.banable){
     message.reply("I cant ban that user, do they have a higher role than me? Do I have ban members permission?")
-};*/
+};
 let chid = message.channel.id;
 let servername = message.guild.name;
+if(!bReason){
+    bReason = "no reason given";
+};
 
     let banEmbed = new Discord.RichEmbed()
     .setTitle("Member Bannned:")
@@ -22,22 +25,22 @@ let servername = message.guild.name;
     .addField("Time", message.createdAt, true)
     .addField("Reason", bReason);
 
+    let reasonEmbed = new Discord.RichEmbed()
+    .setDescription(`**Reason:** ${bReason}`)
+    .setColor("#e4b400");
     let incidentchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!incidentchannel) return message.channel.send("Can't find bot modlogs channel.");
 
             message.channel.send(`Attempting to ban user...`)
             bUser.send(`Hey! You got banned from ${servername}`, banEmbed)
             incidentchannel.send(banEmbed);
-            message.channel.send(`${bUser.user.tag} has been banned!`)
+            message.channel.send(`<:GreenTransparantTick:537596728807784478> User: \`${bUser.user.tag}\` has been banned from the server`, reasonEmbed)
             message.guild.member(bUser).ban(bReason);  
             let used = new Discord.RichEmbed()
             .setAuthor(`Command Used:`, bot.user.avatarURL)
             .setColor(`#81868e`)
             .setDescription(`c.ban used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
             bot.channels.get("575619138576318484").send(used)
-
-
-
 
 
 }
