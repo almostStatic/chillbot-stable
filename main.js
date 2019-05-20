@@ -65,7 +65,7 @@ bot.guilds.forEach((guild) => {
  
 bot.channels.get("575388934456999947").send(startEmbed);
 
-bot.user.setActivity('over 111 Users!', {type: "WATCHING"});
+bot.user.setActivity('over 107 Users!', {type: "WATCHING"});
 
 });
 
@@ -123,7 +123,7 @@ bot.user.setActivity('over 111 Users!', {type: "WATCHING"});
 
   var curxp = xp[message.author.id].xp;
   let curlvl = xp[message.author.id].level;
-  let nxtLvl = xp[message.author.id].level * 300;
+  let nxtLvl = xp[message.author.id].level * 100;
   xp[message.author.id].xp =  curxp + xpAdd;
 
   if(nxtLvl <= xp[message.author.id].xp){
@@ -142,12 +142,8 @@ if(commandfile) commandfile.run(bot,message,args);
 
 
   });
-if (cmd === `${prefix}faq`) {
-  if(message.author.id === "437255943181565962") return message.reply(`Due to your recent actions, you have been blacklisted from using this command! \n \b \b \b \b`)
 
-  message.channel.send("**Discord.js FAQ For BEGINNERS** \n https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/frequently-asked-questions.md")
-}
-if(cmd === `${prefix}xp`){
+  if(cmd === `${prefix}xp`){
 
   xpembed = new Discord.RichEmbed()
 
@@ -194,6 +190,11 @@ if(cmd === `${message.author.id}`){
   return message.channel.send(iq);
 
   }
+  
+if(cmd === `${prefix}await`){
+  message.channel.send(`Editting`).then(await(3000)).then(a => a.edit(`Editted after 3 seconds!`))
+  return;
+}
 
 if(cmd === "invite"){
   return message.channel.send(`**Invite people to this server using:** \n https://discord.gg/WJCP3GK`)
