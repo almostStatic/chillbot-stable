@@ -3,23 +3,27 @@ const tokenfile = require("./token.json");
 global.Discord = require("discord.js");
 const fs = require("fs");
 const ms = require("ms");
+const ytdl = require("ytdl-core")
 global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
+const queue = new Map();
 
-
+/* IDs:
 // START LOG CHANNEL ID: 575388934456999947
 // ERROR LOG CHANNEL ID: 575390425259704320 
-// XP LOG CHANNEL ID: 575393646946287616
-// EVAL ERROR LOG CHANNEL ID: 575604330195845149
-// COMMAND USAGE LOG CHANNEL ID: 575619138576318484
+ XP LOG CHANNEL ID: 575393646946287616
+ EVAL ERROR LOG CHANNEL ID: 575604330195845149
+ COMMAND USAGE LOG CHANNEL ID: 575619138576318484
+ BAN COMMAND LOG CHANNEL ID: 580327932824911892
+ LOAD FILES LOG CHANNEL ID: 578195831405019139
+*/
+
 // Command Handler
 fs.readdir("./commands/", (err, files) => {
 
   if(err) console.log(err);
-//      bot.channels.get("575244431096020992").send(`Loaded ${files.length} commands successfully!`)
-
 
 let jsfile = files.filter(f => f.split(".").pop() === "js")
 if(jsfile.length <= 0){
@@ -50,16 +54,13 @@ bot.guilds.forEach((guild) => {
   console.log(" ->" + guild.name)
 })
 
-//console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`); 
-// Example of changing the bot's playing game to something useful. `client.user` is what the
-// docs refer to as the "ClientUser".
-  
+//console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);   
 
  let startEmbed = new Discord.RichEmbed()
  
  .setTitle(`${bot.user.username} loaded!`)
  .setDescription(`Bot sucsessfully loaded in all server!`)
-  .setTimestamp()
+ .setTimestamp()
  .setColor("RANDOM")
  
 bot.channels.get("575388934456999947").send(startEmbed);
@@ -68,8 +69,8 @@ bot.user.setActivity(`over ${bot.users.size} users!`, {type: "WATCHING"});
 
 });
 
-  //bot.user.setGame("Lookin' out for ya!");
-  bot.on("message", async message => {
+    // Message Event 
+bot.on("message", async message => {
     const noDMsEmbed = new Discord.RichEmbed()
     .setAuthor(`Sorry ${message.author.username}, you can only use commands in a guild!`, message.author.avatarURL)
     .setColor("#f4ce42")
@@ -172,7 +173,7 @@ if(message.author.id !== ownerid) return message.reply("You may not use this com
   .setDescription("The bot is being restarted... **Please Wait..**")
   .setColor('RANDOM')
   .setTimestamp()
-  message.delete(0);
+  message.delete(50);
 
   return message.channel.send(rrrrembed);
 
@@ -200,6 +201,7 @@ if(cmd === `${prefix}await`){
   return;
 }
 
+
 if(cmd === "invite"){
   return message.channel.send(`**Invite people to this server using:** \n https://discord.gg/WJCP3GK`)
 }
@@ -215,8 +217,104 @@ if(cmd === "invite"){
     return message.channel.send(aa);
   }
 
+  // Music Section
+  const serverQueue = queue.get(message.guild.id);
+
+	if (message.content.startsWith(`${prefix}play`)) {
+		execute(message, serverQueue);
+		return;
+	} else if (message.content.startsWith(`${prefix}skip`)) {
+		skip(message, serverQueue);
+		return;
+	} else if (message.content.startsWith(`${prefix}stop`)) {
+		stop(message, serverQueue);
+		return;
+	} else {
+		message.channel.send('You need to enter a valid command!')
+	};
+
+async function execute(message, serverQueue) {
+//	const args = message.content.split(' ');
+
+	const voiceChannel = message.member.voiceChannel;
+	if (!voiceChannel) return message.channel.send('You need to be in a voice channel to play music!');
+	const permissions = voiceChannel.permissionsFor(message.client.user);
+	if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
+		return message.channel.send('I need the permissions to join and speak in your voice channel!');
+	}
+
+	const songInfo = await ytdl.getInfo(args[1]);
+	const song = {
+		title: songInfo.title,
+		url: songInfo.video_url,
+	};
+
+	if (!serverQueue) {
+		const queueContruct = {
+			textChannel: message.channel,
+			voiceChannel: voiceChannel,
+			connection: null,
+			songs: [],
+			volume: 5,
+			playing: true,
+		};
+
+		queue.set(message.guild.id, queueContruct);
+
+		queueContruct.songs.push(song);
+
+		try {
+			var connection = await voiceChannel.join();
+			queueContruct.connection = connection;
+			play(message.guild, queueContruct.songs[0]);
+		} catch (err) {
+			console.log(err);
+			queue.delete(message.guild.id);
+			return message.channel.send(err);
+		}
+	} else {
+		serverQueue.songs.push(song);
+		console.log(serverQueue.songs);
+		return message.channel.send(`${song.title} has been added to the queue!`);
+	}
+
+}
+
+function skip(message, serverQueue) {
+	if (!message.member.voiceChannel) return message.channel.send('You have to be in a voice channel to stop the music!');
+	if (!serverQueue) return message.channel.send('There is no song that I could skip!');
+	serverQueue.connection.dispatcher.end();
+}
+
+function stop(message, serverQueue) {
+	if (!message.member.voiceChannel) return message.channel.send('You have to be in a voice channel to stop the music!');
+	serverQueue.songs = [];
+	serverQueue.connection.dispatcher.end();
+}
+
+function play(guild, song) {
+	const serverQueue = queue.get(guild.id);
+
+	if (!song) {
+		serverQueue.voiceChannel.leave();
+		queue.delete(guild.id);
+		return;
+	}
+
+	const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+		.on('end', () => {
+			console.log('Music ended!');
+			serverQueue.songs.shift();
+			play(guild, serverQueue.songs[0]);
+		})
+		bot.on('error', error => {
+			console.error(error);
+		});
+	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+}
 
   });
+  // Error Event
   bot.on("error", async () => {
     let errorEmbed = new Discord.RichEmbed()
     .setAuthor(`Error`, bot.user.avatarURL)
@@ -228,9 +326,13 @@ if(cmd === "invite"){
     bot.channels.get("575390425259704320").send(errorEmbed);
     
   });
+
   
  
   bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
+
+
+
 //bot.login(process.env.BOT_TOKEN);
 
 // END OF CODE !!

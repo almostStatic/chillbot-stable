@@ -28,13 +28,13 @@ if(!bReason){
     let reasonEmbed = new Discord.RichEmbed()
     .setDescription(`**Reason:** ${bReason}`)
     .setColor("#e4b400");
-  /*  let incidentchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
+    let incidentchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!incidentchannel) return message.channel.send("Can't find bot modlogs channel.");
-*/
+
             message.channel.send(`Attempting to ban user...`)
-            bUser.send(`Hey! You got banned from ${servername}`, banEmbed)
+            bUser.send(`Hey! \n You got banned from ${servername}`, banEmbed)
             bot.channels.get("580327932824911892").send(banEmbed);
-          //  incidentchannel.send(banEmbed);
+            incidentchannel.send(banEmbed);
             message.channel.send(`<:GreenTransparantTick:537596728807784478> User: \`${bUser.user.tag}\` has been banned from the server`, reasonEmbed)
             message.guild.member(bUser).ban(bReason);  
             let used = new Discord.RichEmbed()
