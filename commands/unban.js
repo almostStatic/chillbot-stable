@@ -20,21 +20,23 @@ let icantdo = new Discord.RichEmbed()
   
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
 
-    if(message.member.hasPermission(["BAN_MEMBERS"])) return message.channel.send(ucantdo);
+    if(!message.member.hasPermission(["BAN_MEMBERS"])) return message.channel.send(ucantdo);
 
-  let bannedMember = await bot.fetchUser(args[0]);
+  let bannedMember = await bot.fetchUser(args[0]); // args[0]
     if(!bannedMember) return message.channel.send(nouserprovided)
 
-  let ureason = args.slice(1).join (" ");
-    if(!ureason) ureason = "No reason given";
+  let ureason = args.join(" ").slice(22);
 
+    if(!ureason){
+       ureason = "No reason given";
+    }
     let unbanned = new Discord.RichEmbed()
 
     .setDescription(`${bannedMember.user.tag} has been unbanned!`)
     .setColor("#26b737")
   
-if(message.guild.me.hasPermission(["BAN_MEMBERS"])) return message.channel.send(icantdo);
-  message.delete()
+if(!message.guild.me.hasPermission(["BAN_MEMBERS"])) return message.channel.send(icantdo);
+  message.delete(50)
 
   try {
       message.guild.unban(bannedMember, {reason: ureason});
