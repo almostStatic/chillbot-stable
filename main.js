@@ -70,8 +70,13 @@ bot.user.setActivity(`over ${bot.users.size} users!`, {type: "WATCHING"});
 
   //bot.user.setGame("Lookin' out for ya!");
   bot.on("message", async message => {
+    const noDMsEmbed = new Discord.RichEmbed()
+    .setAuthor(`Sorry ${message.author.username}, you can only use commands in a guild!`, message.author.avatarURL)
+    .setColor("#f4ce42")
+    .setTimestamp()
+    .setFooter(`This is due to discord API limitations`, message.author.avatarURL)
     if(message.author.bot) return;
-    //if(message.channel.type === "dm") return;
+    if(message.channel.type === "dm") return message.channel.send(noDMsEmbed);
   
     const ownerid = "501710994293129216";
     const prefix = botconfig.prefix;
