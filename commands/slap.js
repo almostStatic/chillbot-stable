@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
        .setDescription(`${slapper.username}#${slapper.discriminator} has slapped ${sUser.user.tag}!`)
        .setColor("RANDOM")
    
-           message.channel.send("oof", slapEmbed)
+           message.channel.send(slapEmbed)
    
     // Adds the user to the set so that they can't talk for a minute
     talkedRecently.add(message.author.id);
