@@ -10,7 +10,7 @@ let xp = require("./xp.json");
 
 
 // START LOG CHANNEL ID: 575388934456999947
-// ERROR LOG CHANNEL ID: 575390425259704320
+// ERROR LOG CHANNEL ID: 575390425259704320 
 // XP LOG CHANNEL ID: 575393646946287616
 // EVAL ERROR LOG CHANNEL ID: 575604330195845149
 // COMMAND USAGE LOG CHANNEL ID: 575619138576318484
@@ -34,7 +34,6 @@ console.log(`${f} loaded!`);
 bot.commands.set(props.help.name, props);
  });
 });
-
 bot.on("ready", async () => {
   const allFilesLoadedEmbed = new Discord.RichEmbed()
   .setColor(`#42f459`)
@@ -213,10 +212,18 @@ if(cmd === "invite"){
 
 
   });
-
-bot.on('error', console.error);
-
-
+  bot.on("error", async () => {
+    let errorEmbed = new Discord.RichEmbed()
+    .setAuthor(`Error`, bot.user.avatarURL)
+    .setColor("#f4a442")
+    .setDescription(Error)
+    .setTimestamp()
+    .setFooter(`Error ID: ${message.id}`)
+    
+    bot.channels.get("575390425259704320").send(errorEmbed);
+    
+  });
+  
  
   bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
 //bot.login(process.env.BOT_TOKEN);
