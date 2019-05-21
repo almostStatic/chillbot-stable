@@ -230,7 +230,7 @@ if(cmd === "invite"){
 		stop(message, serverQueue);
 		return;
 	} else {
-		message.channel.send('You need to enter a valid command!')
+	//	message.channel.send('You need to enter a valid command!')
 	};
 
 async function execute(message, serverQueue) {
