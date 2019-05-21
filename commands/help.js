@@ -2,14 +2,6 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-  const embed1 = new Discord.RichEmbed()
-
-  .setDescription(`Getting Help Commands...`)
-
-  const embed2 = new Discord.RichEmbed()
-
-  .setDescription("Check your DMs for a list of commands. (If you have your DMs locked, use `c.show-help`)")
-  .setColor(`#42f480`)
 
       reporthelp = "Report a user. Requires a channel named `reports`to work! If there is no reports channel, the bot will post the report in the current channel";
       kickhelp = "Kick a user from the server. Requires a channel named `incidents` to work; you must have the manage messages permission.";
@@ -33,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.mention-here**", "Mention @here in a server. Requires the Mention Everyone permission to use this command")
       .addField("**__Required Permissions__**", requiredperms)
       .setTimestamp()
-    
+      .setFooter(`Mod/Admin Commands`, message.author.avatarURL)
         // Let's make another cool embed....
 
       let cmds = new Discord.RichEmbed()
@@ -45,7 +37,6 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.id** @user | /id", "Shows you **your** discoord username#discrim and your user ID. You can mention another user to get their ID / Discrim.")
       .addField("**c.av @user**", "Mentoin a user to get their avatar as an Embed.")
       .addField("**c.purge <number>** Alias: `C.clear`", "Get the bot to delete 1 - 100 messages in a channel. Requires Manage messages permission")
-   //   .addField("**c.token**", "View the bot's super secret bot token!")
       .addField("**c.botinfo**", "displays basic bot information!")
       .addField("**c.serverinfo**", "Displays basic server information")
       .addField("**c.userinfo @user**", "Displays basic user information. If you did not mentoin a user it will display YOUR info.")
@@ -80,7 +71,7 @@ module.exports.run = async (bot, message, args) => {
      
      
       // send embeds, in order of decleration
-      message.channel.send(embed1).then(sentMessage => sentMessage.edit(embed2));
+      message.channel.send(`Getting Commands...`).then(msg => msg.edit(`Translating...`)).then(msg => msg.edit(`**!ERR!** Resolving Error...`)).then(a => a.edit(`Error Resolved!`)).then(a => a.edit(`<:GreenTransparantTick:537596728807784478> Error Resolved!`)).then(a => a.edit(`<:GreenTransparantTick:537596728807784478> Check your DMs for a list of commands!`));
       message.author.send({embed: modadmin});
       message.author.send({embed: cmds});
       message.author.send({embed: extras});

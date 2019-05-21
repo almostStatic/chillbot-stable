@@ -65,8 +65,8 @@ bot.guilds.forEach((guild) => {
  
 bot.channels.get("575388934456999947").send(startEmbed);
 
-bot.user.setActivity(`over ${bot.users.size} users!`, {type: "WATCHING"});
-
+bot.user.setActivity(`over ${bot.users.size} users in ${bot.chanels.size} channels!`, {type: "WATCHING"});
+console.log()
 });
 
     // Message Event 
