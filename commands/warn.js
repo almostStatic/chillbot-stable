@@ -27,10 +27,10 @@ module.exports.run = async (bot, message, args) => {
       if (err) console.log(err)
         });
 
+
     let warnEmbed = new Discord.RichEmbed()
-    .setTitle("~~-------~~ SOMEONE GOT WARNED ~~-------~~")
-    .setDescription(`<@${message.author.id}> has warned ${wUser}`)
-    .setColor("#ff0000")
+    .setTitle(`Member Warned`)
+    .setColor("#efc44f")
     .addField("Warned User", `<@${wUser.id}> (${wUser.id})`, true)
     .addField("Warned In", message.channel, true)
     .addField("Warned By", `${message.author} (${message.author.id})`)
@@ -41,13 +41,13 @@ module.exports.run = async (bot, message, args) => {
 
     .setColor("#e4b400")
     .setDescription(`**Reason:** ${reason}`)
-    .setFooter(`Number of warns: ${warns}`, wUser.user.avatarURL)
-
+    .setFooter(`Number of warns: ${warns[wUser.id].warns}`, wUser.user.avatarURL)
+// <:GreenTick:580716592980164618>
     let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
       if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
       message.delete(50);
       warnchannel.send(warnEmbed);
-      message.channel.send(`<:GreenTransparantTick:537596728807784478> User: \`${wUser.user.tag}\` has been warned`, reasonEmbed);
+      message.channel.send(`<:GreenTick:580716592980164618> User: \`${wUser.user.tag}\` has been warned`, reasonEmbed);
         wUser.send(`You have been warned in ${servername}`, warnEmbed);
         let used = new Discord.RichEmbed()
         .setAuthor(`Command Used:`, bot.user.avatarURL)

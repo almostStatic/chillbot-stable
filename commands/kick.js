@@ -34,15 +34,15 @@ module.exports.run = async (bot, message, args) => {
         //}
         // Declare the var, create embed:::
         let kickEmbed = new Discord.RichEmbed()
-        .setDescription("*Kick*")
+        .setTitle("Member Kicked")
         .setColor("#bf4848")
         .addField("Kicked User", `${kUser} (${kUser.id})`, true)
         .addField("Kicked By", `<@${message.author.id}> (${message.author.id})`, true)
-        .addField("Kicked In", message.channel, true)
-        .addField("Kicked At", message.createdAt, true)
+        .addField("Kicked In", message.channel)
+        .addField("Kicked At", message.createdAt)
         .addField("Reason", kReason)
         .setTimestamp()
-        .setFooter("RIP that guy got the boot")
+        .setFooter(`User Kicked`, kUser.user.avatarURL)
     
         let reasonEmbed = new Discord.RichEmbed()
         .setDescription(`**Reason:** ${kReason}`)
@@ -52,7 +52,7 @@ module.exports.run = async (bot, message, args) => {
         if(!kickChannel) return message.channel.send("❌ Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
         kUser.send(`You have been kicked from ${servername}. Here are some details:`, kickEmbed);
         message.guild.member(kUser).kick(kReason);
-        message.channel.send(`<:greentick:580681845058961418> User: \`${kUser.user.tag}\` has been kicked from the server`, reasonEmbed);
+        message.channel.send(`<:GreenTick:580716592980164618> User: \`${kUser.user.tag}\` has been kicked from the server`, reasonEmbed);
         kickChannel.send(kickEmbed);
 
         let used = new Discord.RichEmbed()
