@@ -52,7 +52,7 @@ module.exports.run = async (bot, message, args) => {
         if(!kickChannel) return message.channel.send("❌ Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
         kUser.send(`You have been kicked from ${servername}. Here are some details:`, kickEmbed);
         message.guild.member(kUser).kick(kReason);
-        message.channel.send(`<:GreenTransparantTick:537596728807784478> User: \`${kUser.user.tag}\` has been kicked from the server`, reasonEmbed);
+        message.channel.send(`<:greentick:580681845058961418> User: \`${kUser.user.tag}\` has been kicked from the server`, reasonEmbed);
         kickChannel.send(kickEmbed);
 
         let used = new Discord.RichEmbed()

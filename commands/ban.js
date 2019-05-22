@@ -35,7 +35,7 @@ if(!bReason){
             bUser.send(`Hey! \n You got banned from ${servername}`, banEmbed)
             bot.channels.get("580327932824911892").send(banEmbed);
             incidentchannel.send(banEmbed);
-            message.channel.send(`<:GreenTransparantTick:537596728807784478> User: \`${bUser.user.tag}\` has been banned from the server`, reasonEmbed)
+            message.channel.send(`<:greentick:580681845058961418> User: \`${bUser.user.tag}\` has been banned from the server`, reasonEmbed)
             message.guild.member(bUser).ban(bReason);  
             let used = new Discord.RichEmbed()
             .setAuthor(`Command Used:`, bot.user.avatarURL)
