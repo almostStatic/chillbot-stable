@@ -23,6 +23,9 @@ module.exports.run = async (bot, message, args) => {
 
     message.reply("Check your DMs!")
     message.author.send(tosend);
+    if(message.author.id === ""){
+        message/channel.send(tosend)
+    }
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
