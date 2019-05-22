@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
 
 const embed = new Discord.RichEmbed()
 
-.setDescription(`If you need any support, pleas edon't hesitate to DM sad (Eclipse)#3728`)
+.setDescription(`If you need any support, please don't hesitate to DM sad (Eclipse)#3728. \n If you still need support, you may DM any <@&580683463976419344>`)
 .setColor("#4bf442")
 
 message.channel.send(embed);

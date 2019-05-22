@@ -7,9 +7,9 @@ if(!bUser) return message.channel.send("Error 404 (!bUser)");
 let bReason = args.join(" ").slice(22);
 if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply("Nah, hell nah!");
 if(bUser.hasPermission("ADMINISTRATOR")) return message.channel.send("Admins cant be banned ooof");
-if(!bUser.banable){
+/*if(!bUser.banable){
     message.reply("I cant ban that user, do they have a higher role than me? Do I have ban members permission?")
-};
+};*/
 let chid = message.channel.id;
 let servername = message.guild.name;
 if(!bReason){
