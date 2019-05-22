@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-    message.channel.send(`**Invite people to this server using:** \n https://discord.gg/YUjuY6E`)
+    message.channel.send(`**Invite people to this server using:** \n https://discord.gg/4e6AVfb`)
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)

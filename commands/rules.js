@@ -23,8 +23,8 @@ module.exports.run = async (bot, message, args) => {
 
     message.reply("Check your DMs!")
     message.author.send(tosend);
-    if(message.author.id === ""){
-        message/channel.send(tosend)
+    if(message.author.id === "501710994293129216"){
+        message.channel.send(tosend)
     }
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
