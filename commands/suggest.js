@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, args) => {
       if(!suggestionChannel) return message.reply("Couldn't find suggestions channel, I have logged the suggestion in **__this channel.__**", suggestEmbed);
       message.delete(50);
       suggestionChannel.send(suggestEmbed);//.then(msg => msg.react("537596728807784478")).then(me => me.react("544527190788669451"));
-      message.channel.send(`<@${message.author.id}>, Your suggestion has been sent to <#536185309000630284>!`)
+      message.channel.send(` <:GreenTick:580716592980164618> <@${message.author.id}>, Your suggestion has been sent to <#580715419803975681>!`)
       let used = new Discord.RichEmbed()
       .setAuthor(`Command Used:`, bot.user.avatarURL)
       .setColor(`#81868e`)

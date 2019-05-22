@@ -33,9 +33,11 @@ module.exports.run = async (bot, message, args) => {
     .setColor("#efc44f")
     .addField("Warned User", `<@${wUser.id}> (${wUser.id})`, true)
     .addField("Warned In", message.channel, true)
+    .addField("Warned At", message.createdAt, true)
     .addField("Warned By", `${message.author} (${message.author.id})`)
     .addField("Number of Warnings", warns[wUser.id].warns)
-    .addField("Reason", reason);
+    .addField("Reason", reason)
+    .setFooter(`ID: ${wUser.id}`, wUser.user.avatarURL);
 
     let reasonEmbed = new Discord.RichEmbed()
 
@@ -58,5 +60,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-  name: "warn"
+  name: "warn",
 };
+
