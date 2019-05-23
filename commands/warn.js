@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, args) => {
 
     let reasonEmbed = new Discord.RichEmbed()
 
-    .setColor("#e4b400")
+    .setColor("#4dd6a3")
     .setDescription(`**Reason:** ${reason}`)
     .setFooter(`Number of warns: ${warns[wUser.id].warns}`, wUser.user.avatarURL)
 // <:GreenTick:580716592980164618>

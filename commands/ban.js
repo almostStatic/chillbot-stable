@@ -27,7 +27,7 @@ if(!bReason){
 
     let reasonEmbed = new Discord.RichEmbed()
     .setDescription(`**Reason:** ${bReason}`)
-    .setColor("#e4b400");
+    .setColor("#4dd6a3");
     let incidentchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!incidentchannel) return message.channel.send("Can't find bot modlogs channel.");
 

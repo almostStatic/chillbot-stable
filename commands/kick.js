@@ -46,7 +46,7 @@ module.exports.run = async (bot, message, args) => {
     
         let reasonEmbed = new Discord.RichEmbed()
         .setDescription(`**Reason:** ${kReason}`)
-        .setColor("#e4b400");
+        .setColor("#4dd6a3");
         message.delete(50);
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!kickChannel) return message.channel.send("❌ Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
