@@ -1,9 +1,10 @@
 const botconfig = require("./botconfig.json");
 const tokenfile = require("./token.json");
+const blacklisted = require("./blacklisted.json");
 global.Discord = require("discord.js");
 const fs = require("fs");
 const ms = require("ms");
-const ytdl = require("ytdl-core")
+const ytdl = require("ytdl-core");
 global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
@@ -78,7 +79,7 @@ bot.on("message", async message => {
     .setFooter(`This is due to discord API limitations`, message.author.avatarURL)
     if(message.author.bot) return;
     if(message.channel.type === "dm") return message.channel.send(noDMsEmbed);
-  
+
     const ownerid = "501710994293129216";
     const prefix = botconfig.prefix;
     const messageArray = message.content.split(" ");
@@ -94,7 +95,12 @@ bot.on("message", async message => {
       coins: 0
     };
   }
+/*
+    if(blacklisted.includes(message.author.id)){
+      message.reply(`You have been blacklisted from using ${bot.user.username}! \n If you believe this is a mistake, or wish to be un-blacklisted, please contact <@${ownerid}>`);
+    }
 
+    */ 
   let coinAmt = Math.floor(Math.random() * 15) + 1;
   let baseAmt = Math.floor(Math.random() * 15) + 1;
   bot.channels.get("575393646946287616").send(`${coinAmt} || ${baseAmt}`);
@@ -149,6 +155,9 @@ if(commandfile) commandfile.run(bot,message,args);
   });
 
   if(cmd === `${prefix}xp`){
+    if(blacklisted.includes(message.author.id)){
+      message.reply(`You have been blacklisted from using ${bot.user.username}! \n If you believe this is a mistake, or wish to be un-blacklisted, please contact <@${ownerid}>`);
+    }
 
   xpembed = new Discord.RichEmbed()
 
