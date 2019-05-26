@@ -91,6 +91,9 @@ bot.on("message", async message => {
     let commandfile = bot.commands.get(cmd.slice(prefix.length));
       if(!message.content.startsWith(prefix)) return;
 
+      if(message.content.startsWith("hi")){
+        message.reply("And, how are you today?");
+      };
   if(!coins[message.author.id]){
     coins[message.author.id] = {
       coins: 0
