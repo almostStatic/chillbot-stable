@@ -65,13 +65,14 @@ bot.guilds.forEach((guild) => {
  .setColor("RANDOM")
  
 bot.channels.get("575388934456999947").send(startEmbed);
-
+console.log(`Setting bot activity...`)
 bot.user.setActivity(`over ${bot.users.size} users in ${bot.channels.size} channels!`, {type: "WATCHING"});
-console.log()
+console.log(`Bot activity set!`)
 });
 
     // Message Event 
 bot.on("message", async message => {
+  console.log("Message Event ACTIVE")
     const noDMsEmbed = new Discord.RichEmbed()
     .setAuthor(`Sorry ${message.author.username}, you can only use commands in a guild!`, message.author.avatarURL)
     .setColor("#f4ce42")
