@@ -6,7 +6,7 @@ let bUser = message.guild.member(message.mentions.users.first() || message.guild
 if(!bUser) return message.channel.send("Error 404 (!bUser)");
 let bReason = args.join(" ").slice(22);
 if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply(`You can't do this... `);
-if(bUser.hasPermission("MANAGE_GUID")) return message.channel.send("**Other staff may not be banned**");
+if(bUser.hasPermission("MANAGE_GUILD")) return message.channel.send("**Other staff may not be banned**");
 let chid = message.channel.id;
 let servername = message.guild.name;
 if(!bReason){
@@ -14,7 +14,7 @@ if(!bReason){
 };
 
     let banEmbed = new Discord.RichEmbed()
-    .setTitle("Member Bannned:")
+    .setTitle(`Action: Ban -> ${bUser.user.tag}`)
     .setColor("#ff0000")
     .addField("Banned User", `${bUser} (${bUser.id})`, true)
     .addField("Banned By", `<@${message.author.id}> (${message.author.id})`, true)

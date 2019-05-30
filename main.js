@@ -73,39 +73,26 @@ console.log(`Bot activity set!`)
 
     // Message Event 
 bot.on("message", async message => {
- // console.log("Message Event ACTIVE")
     const noDMsEmbed = new Discord.RichEmbed()
     .setAuthor(`Sorry ${message.author.username}, you can only use commands in a guild!`, message.author.avatarURL)
     .setColor("#f4ce42")
     .setTimestamp()
-    .setFooter(`This is due to discord API limitations`, message.author.avatarURL)
+    .setFooter(`.`, message.author.avatarURL)
     if(message.author.bot) return;
     if(message.channel.type === "dm") return message.channel.send(noDMsEmbed);
 
-    const ownerid = "501710994293129216";
-    const prefix = botconfig.prefix;
+    const ownerid = botconfig.ownerid;
     const messageArray = message.content.split(" ");
     const cmd = messageArray[0];
+    const prefix = botconfig.prefix;
     const args = messageArray.slice(1);
-    const owner = "sad (Eclipse)#3728"
-
+    if(!message.content.startsWith(prefix)) return;
     let commandfile = bot.commands.get(cmd.slice(prefix.length));
-      if(!message.content.startsWith(prefix)) return;
-
-      if(message.content.startsWith("hi")){
-        message.reply("And, how are you today?");
-      };
   if(!coins[message.author.id]){
     coins[message.author.id] = {
       coins: 0
     };
   }
-/*
-    if(blacklisted.includes(message.author.id)){
-      message.reply(`You have been blacklisted from using ${bot.user.username}! \n If you believe this is a mistake, or wish to be un-blacklisted, please contact <@${ownerid}>`);
-    }
-
-    */ 
   let coinAmt = Math.floor(Math.random() * 15) + 1;
   let baseAmt = Math.floor(Math.random() * 15) + 1;
   bot.channels.get("575393646946287616").send(`${coinAmt} || ${baseAmt}`);
@@ -139,7 +126,7 @@ bot.on("message", async message => {
 
   var curxp = xp[message.author.id].xp;
   let curlvl = xp[message.author.id].level;
-  let nxtLvl = xp[message.author.id].level * 100;
+  let nxtLvl = xp[message.author.id].level * 300;
   xp[message.author.id].xp =  curxp + xpAdd;
 
   if(nxtLvl <= xp[message.author.id].xp){
@@ -149,7 +136,7 @@ bot.on("message", async message => {
     .setColor('RANDOM')
     .addField("New Level", curlvl + 1);
 
-    message.channel.send(lvlup);
+    message.channel.send(`Well done ${message.author}! You are now level ${curlvl + 1}! \n __Stay Active!__`);
   }
   fs.writeFile("./xp.json", JSON.stringify(xp), (err) => {
     if(err) console.log(err)
@@ -234,13 +221,13 @@ if(cmd === "invite"){
   // Music Section
   const serverQueue = queue.get(message.guild.id);
 
-	if (message.content.startsWith(`${prefix}play`)) {
+	if (cmd === `${prefix}play`){
 		execute(message, serverQueue);
 		return;
-	} else if (message.content.startsWith(`${prefix}skip`)) {
+  } else if (cmd === `${prefix}skip`) {
 		skip(message, serverQueue);
 		return;
-	} else if (message.content.startsWith(`${prefix}stop`)) {
+	} else if (cmd === `${prefix}stop`) {
 		stop(message, serverQueue);
 		return;
 	} else {
@@ -248,7 +235,6 @@ if(cmd === "invite"){
 	};
 
 async function execute(message, serverQueue) {
-//	const args = message.content.split(' ');
 
 	const voiceChannel = message.member.voiceChannel;
 	if (!voiceChannel) return message.channel.send('You need to be in a voice channel to play music!');
@@ -335,7 +321,7 @@ function play(guild, song) {
     .setColor("#f4a442")
     .setDescription(Error)
     .setTimestamp()
-    .setFooter(`Error ID: ${message.id}`)
+    .setFooter(`Error`, bot.user.avatarURL)
     
     bot.channels.get("575390425259704320").send(errorEmbed);
     

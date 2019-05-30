@@ -2,7 +2,8 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-
+        
+  
       reporthelp = "Report a user. Requires a channel named `reports`to work! If there is no reports channel, the bot will post the report in the current channel";
       kickhelp = "Kick a user from the server. Requires a channel named `incidents` to work; you must have the manage messages permission.";
       banhelp = "Ban a user from the server. Requires a channel named `incidents` to work; if there is no `incidents` channel, the bot will post the embed in the current channel.You need the BAN MEMBERS permission to use this command!";
@@ -15,8 +16,11 @@ module.exports.run = async (bot, message, args) => {
       .setFooter("Mod/Admin Commands", message.author.avatarURL)
       .addField("**c.report @user <reason>**", reporthelp)
       .addField("**c.warn @user <reason>**", warnhelp)
+      .addField("**c.mute @user <reason>**", `Mute a given user`)
+      .addField("**c.unmute @user**", `Unmute any muted user`)
       .addField("**c.kick @user <reason>**", kickhelp)
       .addField("**c.ban @user <reason>**", banhelp)
+      .addField("**c.unban [ID]**", `Unban a user by their **user id**. \n If you need help on getting IDs, use \`c.dev-mode\``)
       .addField("**c.slowmode [number]**", `Get the bot to set slowmode in the current channel`)
       .addField("**c.nick**", "Change the bot's nickname")
       .addField("**c.set-nick @user**", "Set a user's nickname. The nickname must be 32 characters in length or ferwer")
@@ -24,6 +28,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.ma**", "Get the bot to mention @Announcements")
       .addField("**c.mention-everyone**", "Mention @everyone in a server. Requires the Mention Everyone permission to use this command")
       .addField("**c.mention-here**", "Mention @here in a server. Requires the Mention Everyone permission to use this command")
+      .addField("**c.purge <number>** Alias: `C.clear`", "Get the bot to delete 1 - 100 messages in a channel. Requires Manage messages permission")
       .addField("**__Required Permissions__**", requiredperms)
       .setTimestamp()
       .setFooter(`Mod/Admin Commands`, message.author.avatarURL)
@@ -35,12 +40,12 @@ module.exports.run = async (bot, message, args) => {
       .setTitle(`Commands`)
       .addField("**c.report @user <reason>**", reporthelp)
       .addField("**c.suggest <suggestion>**", "Get the bot to send your suggestion in <#536185309000630284>.")
-      .addField("**c.id** @user | /id", "Shows you **your** discoord username#discrim and your user ID. You can mention another user to get their ID / Discrim.")
+      .addField("**c.id** @user | c.id", "Shows you **your** discoord username#discrim and your user ID. You can mention another user to get their ID / Discrim.")
       .addField("**c.av @user**", "Mentoin a user to get their avatar as an Embed.")
-      .addField("**c.purge <number>** Alias: `C.clear`", "Get the bot to delete 1 - 100 messages in a channel. Requires Manage messages permission")
       .addField("**c.botinfo**", "displays basic bot information!")
       .addField("**c.serverinfo**", "Displays basic server information")
       .addField("**c.userinfo @user**", "Displays basic user information. If you did not mentoin a user it will display YOUR info.")
+      .addField("**c.rsg-bot**", `Get an embed explaining what RSG Bot is!`)
       .addField("**c.ping**", "Get the bot's (and Discord API) ping measured in ms.")
       .addField("**c.xp**","View your current level and XP")
       .addField("**c.coins**", "See how many coins you have!")
@@ -72,11 +77,13 @@ module.exports.run = async (bot, message, args) => {
      
      
       // send embeds, in order of decleration
-      message.channel.send(`Getting Commands...`).then(msg => msg.edit(`Translating...`)).then(msg => msg.edit(`**!ERR!** Resolving Error...`)).then(a => a.edit(`Error Resolved!`)).then(a => a.edit(`<:GreenTransparantTick:537596728807784478> Error Resolved!`)).then(a => a.edit(`<:GreenTransparantTick:537596728807784478> Check your DMs for a list of commands!`));
+      message.channel.send(`Getting commands...`).then(quest => quest.delete(2000));
+      message.author.send(`**__Bot Prefixes__** \n - ${bot.user.username} runs on multiple prefixes. Here's a list: \n \`c.\`, \`>\`, \`bot>\``);
       message.author.send({embed: modadmin});
       message.author.send({embed: cmds});
       message.author.send({embed: extras});
       message.author.send({embed: calccmds});
+      message.channel.send(`<:GreenTick:580716592980164618> Check your DMs for a list of commands!`).then(a => a.react("580716592980164618"))
 
       let used = new Discord.RichEmbed()
       .setAuthor(`Command Used:`, bot.user.avatarURL)
