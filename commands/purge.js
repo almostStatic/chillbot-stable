@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, args) => {
             let used = new Discord.RichEmbed()
             .setAuthor(`Command Used:`, bot.user.avatarURL)
             .setColor(`#81868e`)
-            .setDescription(`c.mention-everyone used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id} to delete ${deleteCount}`)
+            .setDescription(`c.purge used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id} to delete ${deleteCount}`)
             bot.channels.get("575619138576318484").send(used)
 
   

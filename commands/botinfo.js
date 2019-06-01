@@ -7,19 +7,19 @@ module.exports.run = async (bot, message, args) => {
     coder = "sad (Eclipse)#3728";
     current = "**sad (Eclipse)#3728** is my current owner!";
     ron = "main.js";
-    bicon = bot.user.avatar_url
+
 
     let botembed = new Discord.RichEmbed()
     .setTitle("Bot Information")
     .setColor("RANDOM")
-    .setThumbnail(bicon)
-    .addField("Bot Name", bot.user.username)
-    .addField("Created On", bot.user.createdAt)
-    .addField("Coded By", coder)
-    .addField("Owned by", current)
-    .addField("Running on", ron)
-    .addField("Servers", bot.guilds.size)
-    .addField("Method of coding", "Visual Studio Code | Discord.js (JavaScript)")
+    .setThumbnail(bot.user.avatarURL)
+    .addField("Bot Name", bot.user.username, true)
+    .addField("Owner", 'sad (Eclipse)#3728', true)
+    .addField("Memory Used", `**${process.memoryUsage().heapUsed / 1024 / 1024} B USED**`, true)
+    .addField("Created On", bot.user.createdAt.toDateString(), true)
+    .addField("Discord.js Version", require('discord.js').version.toString(), true)
+    .addField("Servers", bot.guilds.size, true)
+    .addField("Method of coding", "Visual Studio Code | Discord.js (JavaScript)", true)
     .setTimestamp()
 
     message.channel.send(botembed);

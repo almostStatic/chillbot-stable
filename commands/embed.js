@@ -2,24 +2,24 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 // 
-// /embed #ff0000 <#channelname>
+// /embed #ff0000 <#channelname> [content]
 // channel id length:
 //<#570585605763891214>
 //21
 // user id length : 19
-    let hex = "#"+ args.join(" ").slice(7);
-    let content = args.join(" ").slice(21);
-    let channel = args.join(" ").slice(22);
-    if(!channel) return message.reply("Invalid Syntax. Usage: `/embed <hex> <channel> <content>`")
-
 try {
+  let hex = args[0];
+  let channel = message.mentions.channels.first();
+  let content = args.join(" ").slice(29);
+  if(!channel) return message.reply("Invalid Syntax. Usage: `/embed <hex> <channel> <content>`")
     let embed = new Discord.RichEmbed()
 
     .setDescription(content)
     .setColor(hex)
+    channel.send(embed)
 
 } catch (err) {
-message.channel.send(`Invalid Syntax: \n \`\`\`js ${clean(err)}\`\`\``)
+message.channel.send(`Invalid Syntax: \n \`\`\`js ${err}\`\`\``)
 }
 let used = new Discord.RichEmbed()
 .setAuthor(`Command Used:`, bot.user.avatarURL)

@@ -32,7 +32,6 @@ console.log("Couldn't find commands.");
 bot.channels.get("575388934456999947").send("Cannot find commands! `./commands/` not present!")
 return;
 }
-
 jsfile.forEach((f, i) => {
 let props = require(`./commands/${f}`);
 console.log(`${f} loaded!`);
@@ -40,6 +39,7 @@ bot.commands.set(props.help.name, props);
  });
 });
 bot.on("ready", async () => {
+  console.log('Ready!')
   const allFilesLoadedEmbed = new Discord.RichEmbed()
   .setColor(`#42f459`)
   .setAuthor(`All bot commands loaded!`, bot.user.avatarURL)

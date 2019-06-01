@@ -77,8 +77,7 @@ module.exports.run = async (bot, message, args) => {
      
      
       // send embeds, in order of decleration
-      message.channel.send(`Getting commands...`).then(quest => quest.delete(2000));
-      message.author.send(`**__Bot Prefixes__** \n - ${bot.user.username} runs on multiple prefixes. Here's a list: \n \`c.\`, \`>\`, \`bot>\``);
+      message.channel.send(`Getting commands...`).then(quest => quest.delete(1000));
       message.author.send({embed: modadmin});
       message.author.send({embed: cmds});
       message.author.send({embed: extras});
