@@ -3,12 +3,17 @@ const Discord = require("discord.js");
 
 module.exports.run = (bot, message, args) => {
 
+  let owners = ['137624084572798976', '501710994293129216'];
+  if(!owners.includes(message.author.id)){
+    message.delete(50);
+    message.reply('This is an owner only command')
+  }
+
   let ucantdo = new Discord.RichEmbed()
 
   .setDescription("**This is an owner-only command.**")
   .setColor("RANDOM")
 
-  if(message.author.id !== "501710994293129216") return message.channel.send({embed: ucantdo});
 
 let notprovided = new Discord.RichEmbed()
 
