@@ -55,7 +55,6 @@ bot.guilds.forEach((guild) => {
   console.log(" ->" + guild.name)
 });
 
-
 //console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);   
 
  let startEmbed = new Discord.RichEmbed()
@@ -69,6 +68,38 @@ bot.channels.get("575388934456999947").send(startEmbed);
 console.log(`Setting bot activity...`)
 bot.user.setActivity(`over ${bot.users.size} users in ${bot.channels.size} channels!`, {type: "WATCHING"});
 console.log(`Bot activity set!`)
+});
+bot.on('guildMemberAdd', newMember =>{
+  let welcomeEmbed = new Discord.RichEmbed()
+  .setColor(0x4cf7cc)
+  .setThumbnail('https://www.cpo.org.uk/picture.ashx?size=1&prod=C5880MP&n=1&range=5880')
+  .setImage("https://www.firstmesquiteumc.org/wp-content/uploads/2016/10/welcome.png")
+  .setTitle("Welcome to Chat And Chill!")
+  .setDescription("A place where you can chat and chill with all your friends!\nI cam the server's dedicated custom bot made by the server's owner `sad (Eclipse)#3728`. I am constantly being updated and worked on. My prefix is `c.` use `c.help` to get a list of commands!")
+  .addField("Other Stuff", 'Find some rules and useful information in <#580688976642572290>!\nWe are a friendly community that obides by the Discord ToS.\nIf you wish to report anything against a member, please do not hesitate to contact our staff team! We treat all cases with confidentiallity and respect for the user(s) involved')
+ 
+  newMember.send({embed: welcomeEmbed})
+  bot.channels.get('580688178692751382').send(`Welcome ${newMember}! Have a nice time here! 💖`).then(a => a.react('👋'));
+
+});
+
+bot.on('guildMemberRemove', oldMember =>{
+  bot.channels.get('580688178692751382').send(`${oldMember.user.tag} has left the server :( :cry:`)
+});
+
+// warn
+/* Emitted for general warnings. 
+PARAMETER    TYPE       DESCRIPTION
+info         string     The warning   */
+bot.on("warn", info =>{
+
+  let warnEmbed = new Discord.RichEmbed()
+  .setAuthor(`Error`, bot.user.avatarURL)
+  .setColor("#f4a442")
+  .setDescription(`**An error accoured:** \n\`\`\`js\n${info}\n\`\`\``)
+  .setTimestamp()
+  .setFooter(`Error`, bot.user.avatarURL)
+  bot.channels.get("575390425259704320").send(warnEmbed)
 });
 
     // Message Event 
@@ -315,16 +346,8 @@ function play(guild, song) {
 
   });
   // Error Event
-  bot.on("error", async () => {
-    let errorEmbed = new Discord.RichEmbed()
-    .setAuthor(`Error`, bot.user.avatarURL)
-    .setColor("#f4a442")
-    .setDescription(Error)
-    .setTimestamp()
-    .setFooter(`Error`, bot.user.avatarURL)
-    
-    bot.channels.get("575390425259704320").send(errorEmbed);
-    
+  bot.on("error", err => {
+console.log(err)    
   });
 
   
