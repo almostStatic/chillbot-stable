@@ -10,7 +10,7 @@ module.exports.run = async(bot, message, args)=>{
             'VIEW_CHANNEL': true,
             'SEND_MESSAGES': false, 
             'READ_MESSAGE_HISTORY': true
-        })
+        });
     });
 
     await message.reply('Sucsessfully overwritten channel permissoins for the `muted` role to not be able to send messages!')
