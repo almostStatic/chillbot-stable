@@ -49,6 +49,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**c.ping**", "Get the bot's (and Discord API) ping measured in ms.")
       .addField("**c.xp**","View your current level and XP")
       .addField("**c.coins**", "See how many coins you have!")
+      .addField("**c.emojis**", 'Get the bot to list the emojis in a server')
       .addField("**c.8ball <questoin>**", "Ask the bot a questoin and see his response")
       .addField("**c.dev-mode**", "Find out what developer mode is and how to enable it!")
 
