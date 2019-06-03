@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
     .setThumbnail(bot.user.avatarURL)
     .addField("Bot Name", bot.user.username, true)
     .addField("Owner", 'sad (Eclipse)#3728', true)
-    .addField("Memory Used", `**${process.memoryUsage().heapUsed / 1024 / 1024} B USED**`, true)
+    .addField("Memory Used", `**${Math.trunc((process.memoryUsage().heapUsed) / 1024 / 1000)} MB USED**`, true)
     .addField("Created On", bot.user.createdAt.toDateString(), true)
     .addField("Discord.js Version", require('discord.js').version.toString(), true)
     .addField("Servers", bot.guilds.size, true)
