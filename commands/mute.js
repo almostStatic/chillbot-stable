@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
   if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(nopermsforu);
   let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
   if(!rMember) return message.channnel.send(`Member not found`);
-  let role = "<@&580744879756279808>";
+  let role = "<@&584164297655975983>";
   let reason = args.join(" ").slice(22);
   if (!reason) {
       reason = "no reason given"
