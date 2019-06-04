@@ -30,7 +30,7 @@ module.exports.run = async (bot, message, args) => {
     .setColor("RANDOM")
     .setAuthor('New Suggestion', message.author.avatarURL)
     .addField("Suggestion By", `${suggestor} | (${suggestor.id})`, true)
-    .addField("Suggestion At", message.createdAt,toDateString(), true)
+    .addField("Suggestion At", message.createdAt.toDateString(), true)
     .addField("Suggestion In", message.channel, true)
     .addField("Suggestion", suggestion)
     .setFooter(`Suggestion #${message.id}`, bot.user.avatarURL)
