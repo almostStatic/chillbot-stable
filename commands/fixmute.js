@@ -18,6 +18,12 @@ module.exports.run = async(bot, message, args)=>{
             msg.edit('Sucsessfully changed permissions for channes! The mute role may no longer sned messages, or react to them!')
         }, 3000)
       }); 
+      let used = new Discord.RichEmbed()
+      .setAuthor(`Command Used:`, bot.user.avatarURL)
+      .setColor(`#81868e`)
+      .setDescription(`c.fixmute.all used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+      bot.channels.get("575619138576318484").send(used)
+
 }
 
 module.exports.help = {

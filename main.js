@@ -69,6 +69,7 @@ console.log(`Setting bot activity...`)
 bot.user.setActivity(`over ${bot.users.size} users in ${bot.channels.size} channels!`, {type: "WATCHING"});
 console.log(`Bot activity set!`)
 });
+
 bot.on('guildMemberAdd', newMember =>{
   let welcomeEmbed = new Discord.RichEmbed()
   .setColor(0x4cf7cc)
@@ -104,13 +105,8 @@ bot.on("warn", info =>{
 
     // Message Event 
 bot.on("message", async message => {
-    const noDMsEmbed = new Discord.RichEmbed()
-    .setAuthor(`Sorry ${message.author.username}, you can only use commands in a guild!`, message.author.avatarURL)
-    .setColor("#f4ce42")
-    .setTimestamp()
-    .setFooter(`.`, message.author.avatarURL)
     if(message.author.bot) return;
-    if(message.channel.type === "dm") return message.channel.send(noDMsEmbed);
+    if(message.channel.type === "dm") return;
     const prefixes = botconfig.prefixes;
     let prefix = false; 
     for(const thisPrefix of prefixes) {
