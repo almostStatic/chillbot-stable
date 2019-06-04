@@ -111,11 +111,19 @@ bot.on("message", async message => {
     .setFooter(`.`, message.author.avatarURL)
     if(message.author.bot) return;
     if(message.channel.type === "dm") return message.channel.send(noDMsEmbed);
-
+    const prefixes = botconfig.prefixes;
+    let prefix = false; 
+    for(const thisPrefix of prefixes) {
+      if(message.content.startsWith(thisPrefix)) prefix = thisPrefix;
+    }
+    if(!prefix) {
+      if(message.content.startsWith('hi')){
+        message.reply('And, how are you today?')
+      }
+    }
     const ownerid = botconfig.ownerid;
     const messageArray = message.content.split(" ");
     const cmd = messageArray[0];
-    const prefix = botconfig.prefix;
     const args = messageArray.slice(1);
     if(!message.content.startsWith(prefix)) return;
     let commandfile = bot.commands.get(cmd.slice(prefix.length));
@@ -177,6 +185,16 @@ if(commandfile) commandfile.run(bot,message,args);
 
   });
 
+  if(cmd === `${prefix}files`){
+    fs.readdir("./commands/", (err, files) => {
+
+      if(err) console.log(err);
+    
+    let f = files.filter(ff => ff.split(".").pop() === "js")
+    message.channel.send(`${f.length} files are in use\n**Memory Used:** **${Math.trunc((process.memoryUsage().heapUsed) / 1024 / 1000)} MB** `)
+    
+  });
+};
   if(cmd === `${prefix}xp`){
     if(blacklisted.includes(message.author.id)){
       message.reply(`You have been blacklisted from using ${bot.user.username}! \n If you believe this is a mistake, or wish to be un-blacklisted, please contact <@${ownerid}>`);
@@ -350,7 +368,10 @@ function play(guild, song) {
 console.log(err)    
   });
 
+  // Create a new role with data
   
+
+
  
   bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
 
