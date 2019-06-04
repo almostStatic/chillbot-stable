@@ -9,12 +9,12 @@ let serverembed = new Discord.RichEmbed()
 .setThumbnail(sicon)
 .addField("Server Name", message.guild.name, true)
 .addField("Server Owner", message.guild.owner.user.tag, true)
-.addField("Created On", message.guild.createdAt)
-.addField("You Joined", message.member.joinedAt)
-.addField("Total Members", message.guild.memberCount)
+.addField("Server Region", message.guild.region, true)
+.addField("Created On", message.guild.createdAt.toDateString(), true)
+.addField("You Joined", message.member.joinedAt.toDateString(), true)
+.addField("Total Members", message.guild.memberCount, true)
 .setTimestamp()
-
-
+.setFooter('Server Info Command', message.guild.iconURL)
 
  message.channel.send(serverembed);
 let used = new Discord.RichEmbed()
