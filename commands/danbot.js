@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async(bot, message, args) =>{
     let embed = new Discord.RichEmbed()
     .setColor(0x00A2E8)
-    .setTitle("Sponsored Bot #2: DanBot#7429")
+    .setTitle("Sponsored Bot #1: DanBot#7429")
     .setThumbnail('https://cdn.discordapp.com/avatars/422433314347941896/d3e1c5c58de570746f5ca8e745f11392.png?size=2048')
     .setDescription("DanBot is a multi-purpose bot, Bringing features to your discord server. Here is some of the many features that DanBot has: Music, Animal Images, Giveaways, Moderation Commands, Auto moderation, Custom guild commands and many more! with updates almost every day you can guarantee DanBot will always be there making sure your server is Fun and Not full of invite links/Websites.")
     .addField('Owner', '<@137624084572798976>', true)
