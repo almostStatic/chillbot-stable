@@ -8,7 +8,7 @@ module.exports.run = async(bot, message, args) => {
         message.reply('You must mention a channel!')
     }
     if(isNaN(msg)){
-        message.reply("Please provide a valid number")
+        message.reply("Please provide a valid message id")
     }
     let eddited = new Discord.RichEmbed()
     .setTitle("Message Edited")
