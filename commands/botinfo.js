@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("Created On", bot.user.createdAt.toDateString(), true)
     .addField("Discord.js Version", require('discord.js').version.toString(), true)
     .addField("Servers", bot.guilds.size, true)
-    .addField("Method of coding", "Visual Studio Code | Discord.js (JavaScript)", true)
+    .addField('Voice Connections:', `**${bot.voiceConnections.size}**`, true)
     .setTimestamp()
 
     message.channel.send(botembed);
