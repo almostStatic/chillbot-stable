@@ -4,7 +4,7 @@ const blacklisted = fs.readFileSync(`./blacklisted.json`, "utf8")
 module.exports.run = async (bot, message, args) => {
   let toBlacklist = message.mentions.members.first();
   let toBlacklistid = toBlacklist.user.id;
-  let reason = args.join(" ");
+  let reason = args.join(" ").slice(22);
   let reasonEmbed = new Discord.RichEmbed()
   .setDescription(`**Reason** ${reason}`)
   if(!reason){
