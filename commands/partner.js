@@ -5,6 +5,10 @@ module.exports.run = async(bot, message, args)=>{
     Correct Usage
     c.partner [sever rep] [invite URL] [description]
     */
+    let usage = new Discord.RichEmbed()
+    .setTitle("Usage: ")
+    .setDescription("")
+    .setTimestamp()
     if(!message.member.hasPermission("MANAGE_GUILD")){
         message.delete(50);
         message.relpy('Only staff members have access to this command')
