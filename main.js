@@ -5,6 +5,7 @@ global.Discord = require("discord.js");
 const fs = require("fs");
 const ms = require("ms");
 const ytdl = require("ytdl-core");
+const fetch = require('node-fetch');
 global.bot = new Discord.Client({disableEveryone: false});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
