@@ -18,11 +18,10 @@ const no = new Discord.RichEmbed()
     .setFooter("This message was sent to you by: sad (Eclipse)#3728")
     .setColor("RANDOM")
 
-    try {
-        sendto.send({embed: sendmesage});
-    } catch(e) {
-        message.channel.send(`There was an error whilst DMing ${sendto.user.tag} \n **Error:** ${e}`)
-    }
+    sendto.send(sayMessage)
+        .catch(err =>{
+            message.channel.send(`**Error** whilst DMing ${sendto.user.tag}:\n\`\`\`js\n${err}\n\`\`\``)
+        })
 
     message.delete(0);
     message.channel.send(`Your message has been sent to ${sendto.user.tag}`)
