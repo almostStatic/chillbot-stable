@@ -29,7 +29,8 @@ let usage = new Discord.RichEmbed()
       evaled = require("util").inspect(evaled);
 
    
-      message.channel.send(clean(evaled), {code:"xl"});
+      message.channel.send(clean(evaled), {code:"xl"})
+        
       const sucsess = new Discord.RichEmbed()
 
       .setTitle(`Eval Command Sucseeded!`)
@@ -48,7 +49,7 @@ let usage = new Discord.RichEmbed()
     .setTimestamp()
 
     bot.channels.get("575604330195845149").send(errorEmbed);
-    message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+    message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``, errorEmbed);
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
