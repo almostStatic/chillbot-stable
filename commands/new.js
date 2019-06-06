@@ -26,9 +26,11 @@ module.exports.run = async (bot, message, args) => {
         allow: ['MANAGE_CHANNEL', 'MANAGE_MESSAGES']
       }
     ]
+    }).then(madeChannel => {
+      message.channel.send(`${message.author}, your ticket has been created! ${madeChannel}`)
+      madeChannel.send(`Hello ${message.author}!\nOur staff team will contact you here as soon as possible!\n<@/&//580683463976419344> (Please do not mention our staff as I have already done so!)`, embed)
     });
 
-    message.channel.send('Your ticket has been created!')
 
     /*).then(ch => ch.setTopic(reason)).then((channel)=> {
         setTimeout(function(){
