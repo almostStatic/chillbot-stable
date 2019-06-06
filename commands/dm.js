@@ -12,19 +12,14 @@ const no = new Discord.RichEmbed()
     if(!sendto) return message.channel.send("You need to mention a user for this command to work!")
     const sayMessage = args.join(" ").slice(22);
 
-    let sendmesage = new Discord.RichEmbed()
- 
-    .setDescription(sayMessage)
-    .setFooter("This message was sent to you by: sad (Eclipse)#3728")
-    .setColor("RANDOM")
-
+    
     sendto.send(sayMessage)
         .catch(err =>{
             message.channel.send(`**Error** whilst DMing ${sendto.user.tag}:\n\`\`\`js\n${err}\n\`\`\``)
-        })
+        });
+            if(!err) return message.chanel.send(`Your message has been sent to ${sendto.user.tag}!`) 
 
     message.delete(0);
-    message.channel.send(`Your message has been sent to ${sendto.user.tag}`)
 
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
