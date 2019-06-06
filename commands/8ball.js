@@ -41,6 +41,7 @@ const embed = new Discord.RichEmbed()
 .addField('Info:', `**Your Question:** ${question}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`)
 .setColor('RANDOM');
 
+
 let used = new Discord.RichEmbed()
 .setAuthor(`Command Used:`, bot.user.avatarURL)
 .setColor(`#81868e`)
