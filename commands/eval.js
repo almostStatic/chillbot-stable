@@ -7,10 +7,10 @@ let usage = new Discord.RichEmbed()
   .setTitle("Usage:")
   .setDescription("**Command** c.eval <code> \n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n c.eval <code> \n c.eval message.channel.send(\"hiya\")")
 
-  let owners = ['137624084572798976', '501710994293129216'];
+  let owners = ['137624084572798976', '501710994293129216', '586110954467491840']; // last id is my alt LMG__xD
   if(!owners.includes(message.author.id)){
     message.delete(50);
-    message.reply('You are not allowed to use this command')
+    return message.reply('You are not allowed to use this command')
   }
   function clean(text) {
     if (typeof(text) === "string")
@@ -18,6 +18,7 @@ let usage = new Discord.RichEmbed()
     else
         return text;
   }
+
   try {
 
     let evaled = eval(code);
