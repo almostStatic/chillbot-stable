@@ -6,9 +6,9 @@ module.exports.run = async (bot, message, args) => {
     
     const toSend = new Discord.RichEmbed()
 
-    .setDescription(`We currently have **${members}** members! Keep working hard to invite more people!`)
-    .setColor("RANDOM")
-    .setFooter("Use c.invite to get an invite link to this server!")
+    .setColor("#42f4ad")
+    .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)    
+    .addField("Bots", message.guild.members.filter(member => member.user.bot).size, true)
     .setTimestamp()
 
     
