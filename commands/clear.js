@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, args) => {
         // So we get our messages, and delete them. Simple enough, right?
         const fetched = await message.channel.fetchMessages({limit: deleteCount});
         message.channel.bulkDelete(fetched)
-          .catch(error => message.reply(` ❌ **ERROR:** Couldn't delete messages because of: ${error}`));
+          .catch(error => message.reply(`<:RedCrossMark:582240944863313934> **ERROR:** Couldn't delete messages because of: ${error}`));
             message.channel.send({embed: messagetosendafter}).then(msg => {
               msg.delete(3000);
             })

@@ -20,15 +20,13 @@ module.exports.run = async (bot, message, args) => {
             .setDescription("**Command** c.kick \n \n c.kick @user <reason> \n c.kick @Noob being rude to me \n c.kick @someone spamming")
 
           if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
-        //if(!client.guild.me.hasPermission("KICK_MEMBERS")) return message.channel.send(cantdo);        
-        let servername = message.guild.name;
-       // if(args[0]) return message.channel.send({embed: usage});
-        let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-        if(!kUser) return message.channel.send("user not found!");
+          let servername = message.guild.name;
+          let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+        if(!kUser) return message.channel.send("<:RedCrossMark:582240944863313934> I cannot find that user!");
         let kReason = args.join(" ").slice(22);
 
-        if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(" ❌ **You do not have permissoins to use ths command**!");
-        if(kUser.hasPermission("KICK_MEMBERS")) return message.channel.send(" ❌**ERROR:** The user is mod/admin, or has a higher role than me. I can't do that.");
+        if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(" <:RedCrossMark:582240944863313934> **You do not have permissoins to use ths command**!");
+        if(kUser.hasPermission("KICK_MEMBERS")) return message.channel.send(" <:RedCrossMark:582240944863313934> **ERROR:** The user is mod/admin, or has a higher role than me. I can't do that.");
       //  if(!kUser.kickable){
         //  message.reply("I cannot kick tht user! Do they have a higher role thn me? Do I have kick members permission?")
         //}
@@ -38,8 +36,8 @@ module.exports.run = async (bot, message, args) => {
         .setColor("#bf4848")
         .addField("Kicked User", `${kUser} (${kUser.id})`, true)
         .addField("Kicked By", `<@${message.author.id}> (${message.author.id})`, true)
-        .addField("Kicked In", message.channel)
-        .addField("Kicked At", message.createdAt)
+        .addField("Kicked In", message.channel, true)
+        .addField("Kicked At", message.createdAt.toDateString(), true)
         .addField("Reason", kReason)
         .setTimestamp()
         .setFooter(`User Kicked`, kUser.user.avatarURL)
@@ -47,9 +45,9 @@ module.exports.run = async (bot, message, args) => {
         let reasonEmbed = new Discord.RichEmbed()
         .setDescription(`**Reason:** ${kReason}`)
         .setColor("#4dd6a3");
-        message.delete(50);
+        message.delete();
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
-        if(!kickChannel) return message.channel.send("❌ Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
+        if(!kickChannel) return message.channel.send("<:RedCrossMark:582240944863313934> Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
         kUser.send(`You have been kicked from ${servername}. Here are some details:`, kickEmbed);
         message.guild.member(kUser).kick(kReason);
         message.channel.send(`<:GreenTick:580716592980164618> User: \`${kUser.user.tag}\` has been kicked from the server`, reasonEmbed);

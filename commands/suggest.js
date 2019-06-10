@@ -33,6 +33,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("Suggestion At", message.createdAt.toDateString(), true)
     .addField("Suggestion In", message.channel, true)
     .addField("Suggestion", suggestion)
+    .setTimestamp()
     .setFooter(`Suggestion #${message.id}`, bot.user.avatarURL)
     let suggestionChannel = message.guild.channels.find(`name`, "suggestions");
       if(!suggestionChannel) return message.reply("Couldn't find suggestions channel, I have logged the suggestion in **__this channel.__**", suggestEmbed);

@@ -3,14 +3,14 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
 
 let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-if(!bUser) return message.channel.send("Error 404 (!bUser)");
+if(!bUser) return message.channel.send("<:RedCrossMark:582240944863313934> I cannnot find that user!");
 let bReason = args.join(" ").slice(22);
-if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply(`You can't do this... `);
-if(bUser.hasPermission("MANAGE_GUILD")) return message.channel.send("**Other staff may not be banned**");
+if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply(`<:RedCrossMark:582240944863313934> You can't use this command! `);
+if(bUser.hasPermission("MANAGE_GUILD")) return message.channel.send("<:RedCrossMark:582240944863313934> **Other staff may not be banned**");
 let chid = message.channel.id;
 let servername = message.guild.name;
 if(!bReason){
-    bReason = "no reason given";
+    return message.reply('<:RedCrossMark:582240944863313934> You need to include a reason!')
 };
 
     let banEmbed = new Discord.RichEmbed()

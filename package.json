@@ -21,8 +21,9 @@
   "homepage": "https://github.com/asadhum2005/hosted-on-heroku#readme",
   "dependencies": {
     "canvas": "^2.4.1",
+    "chalk": "^2.4.2",
     "dependencies": "0.0.1",
-    "discord.js": "^11.5.0",
+    "discord.js": "^11.5.1",
     "ffmpeg-binaries": "^4.0.0",
     "ms": "^2.1.1",
     "node-fetch": "^2.6.0",

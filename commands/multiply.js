@@ -5,12 +5,17 @@ module.exports.run = async (bot, message, args) => {
     let numbertwo = args[1];
     let answer = numberone * numbertwo;
 
-    if(!numberone){
-        message.reply("Use command in format `c.multiply 3 8`")
+    if(!args[0] || !args[1]){
+        return message.channel.send("<:RedCrossMark:582240944863313934> You need to include numbers")
     }
-
-    if(!numbertwo){
-        message.reply("Use command in format `c.multiply 3 8`")
+    if(isNaN(numberone)){
+        return message.channel.send("<:RedCrossMark:582240944863313934> You may only include numbers")
+    }
+    if(isNaN(numbertwo)){
+        return message.reply("<:RedCrossMark:582240944863313934> You may only include numbers")
+    }
+    if(isNaN(answer)){
+        return message.channel.send('<:RedCrossMark:582240944863313934> The answer is not a number')
     }
 
     
@@ -22,7 +27,7 @@ module.exports.run = async (bot, message, args) => {
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
-    .setDescription(`c.log used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    .setDescription(`c.multiply used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
     bot.channels.get("575619138576318484").send(used)
 
 }
