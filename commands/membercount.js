@@ -9,6 +9,7 @@ module.exports.run = async (bot, message, args) => {
     .setColor("#42f4ad")
     .addField("Humans", message.guild.members.filter(member => !member.user.bot).size, true)    
     .addField("Bots", message.guild.members.filter(member => member.user.bot).size, true)
+    .addField("Total", message.guild.memberCount, true)
     .setTimestamp()
 
     
