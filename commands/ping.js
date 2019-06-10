@@ -10,8 +10,10 @@ exports.run = async (bot, message, args) => {
   message.channel.send({embed: ping1}).then((msg) => {
   const ping2 = new Discord.RichEmbed()
   .addField('__**API:**__', `**${ping} MS**`, true)
-  .addField('__**Ping:**__', `${msg.createdTimestamp - message.createdTimestamp} ms`, true)
-  .setColor('RANDOM');
+  .addField('__**Ping:**__', `**${msg.createdTimestamp - message.createdTimestamp} MS**`, true)
+  .setColor('RANDOM')
+  .setTimestamp()
+  .setFooter('Bot Ping', bot.user.avatarURL)
   msg.edit(ping2)
     });
       let used = new Discord.RichEmbed()

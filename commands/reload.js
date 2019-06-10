@@ -2,32 +2,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 
 module.exports.run = (bot, message, args) => {
-  let owners = ['137624084572798976', '501710994293129216']
-  if(!owners.includes(message.author.id)) return message.reply('Only my masters may use this command!')
-
-  try {
-    fs.readdir("./commands/", (err, files) => {
-        if (err) return console.error(err);
-        message.channel.send(`Refreshed \`${files.length}\` commands successfully!`)
-        let refreshEmbed = new Discord.RichEmbed()
-        .setTitle(`Refreshed ${files.length} files!`, true)
-        .addField("Files Refreshed", files.length, true)
-        .addField("Refreshed By", message.author.tag, true)
-        .addField("Refreshed At", message.createdAt.toDateString(), true)
-        .addField("Channel", message.channel.name, true)
-        .setTimestamp()
-        .setFooter(`Files Refreshed`, message.author.avatarURL)
-        .setThumbnail(bot.user.avatarURL)      
-        bot.channels.get("586187654047989790").send(refreshEmbed)      
-        files.forEach(file => {
-             delete require.cache[require.resolve(`./${file}`)];
-        });
-    });
-  } catch (err) {
-        return;
-      }
-      
-/*  let owners = ['137624084572798976', '501710994293129216'];
+ let owners = ['137624084572798976', '501710994293129216'];
   if(!owners.includes(message.author.id)){
     message.delete(50);
     message.reply('This is an owner only command')
@@ -49,11 +24,11 @@ let notthere = new Discord.RichEmbed()
 .setDescription("That command does not exist!")
 .setColor("#ff9d00")
 
-  if(!args || args.size < 1) return message.channel.send({embed: notprovided});
+  if(!args || args.size < 1) return message.channel.send('');
   const commandName = args[0];
   // Check if the command exists and is valid
   if(!bot.commands.has(commandName)) {
-    return message.channel.send({embed: notthere});
+    return message.channel.send('That command does not exist!');
   }
   // the path is relative to the *current folder*, so just ./filename.js
   delete require.cache[require.resolve(`./${commandName}.js`)];
@@ -61,11 +36,15 @@ let notthere = new Discord.RichEmbed()
   bot.commands.delete(commandName);
   const props = require(`./${commandName}.js`);
   bot.commands.set(commandName, props);
-let reloaded = new Discord.RichEmbed()
-.setColor("RANDOM")
-.setDescription(`${commandName}.js reloaded!`)
-  message.channel.send(reloaded);
-  */
+  message.channel.send(`<:GreenTick:580716592980164618> File **${commandName}** re-loaded!`);
+  
+  let filereloaded = new Discord.RichEmbed()
+  .setTitle('File Reloaded')
+  .addField('File', commandName, true)
+  .addField("Reloaded At", message.createdAt.toDateString(), true)
+  .addField("Reloaded By", message.author.tag, true)
+  .setTimestamp()
+  bot.channels.get('586187654047989790').send(filereloaded);
   let used = new Discord.RichEmbed()
   .setAuthor(`Command Used:`, bot.user.avatarURL)
   .setColor(`#81868e`)
