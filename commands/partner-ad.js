@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 
 module.exports.run = async(bot, message, args) =>{
     let toSend = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    if(!toSend) return message.reply('You need to provide a user.')
     let partnerAd = new Discord.RichEmbed()
     .setTitle('Our Partner Ad for Chat and Chill')
     .setDescription(`\`\`\`
