@@ -4,6 +4,7 @@ const blacklisted = require("./blacklisted.json");
 global.Discord = require("discord.js");
 const fs = require("fs");
 const ms = require("ms");
+const chalk = require('chalk');
 const ytdl = require("ytdl-core");
 const fetch = require('node-fetch');
 global.bot = new Discord.Client({disableEveryone: false});
@@ -28,6 +29,7 @@ fs.readdir("./commands/", (err, files) => {
   if(err) console.log(err);
 
 let jsfile = files.filter(f => f.split(".").pop() === "js")
+console.log(chalk.cyan(`found ${jsfile.length} commands to load`))
 if(jsfile.length <= 0){
 console.log("Couldn't find commands.");
 bot.channels.get("575388934456999947").send("Cannot find commands! `./commands/` not present!")
@@ -35,17 +37,18 @@ return;
 }
 jsfile.forEach((f, i) => {
 let props = require(`./commands/${f}`);
-console.log(`${f} loaded!`);
+console.log(chalk.cyan(`${f} loaded!`));
 bot.commands.set(props.help.name, props);
  });
 });
+
 bot.on("ready", async () => {
-  console.log('Ready!')
+  console.log(chalk.green('ChillBot has started moderating chat and chill!'))
+
   const allFilesLoadedEmbed = new Discord.RichEmbed()
   .setColor(`#42f459`)
   .setAuthor(`All bot commands loaded!`, bot.user.avatarURL)
   bot.channels.get("578195831405019139").send(allFilesLoadedEmbed)
-  console.log(`${bot.user.username} has started moderating ChilZone!`)
 bot.guilds.forEach((guild) => {
     const guildEmbed = new Discord.RichEmbed()
     .setTitle("The bot is now active in:")
@@ -53,7 +56,7 @@ bot.guilds.forEach((guild) => {
     .setColor("RANDOM")
     
   bot.channels.get("575388934456999947").send(guildEmbed);
-  console.log(" ->" + guild.name)
+  console.log(chalk.yellow(" ->" + guild.name))
 });
 
 //console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);   
@@ -66,12 +69,12 @@ bot.guilds.forEach((guild) => {
  .setColor("RANDOM")
  
 bot.channels.get("575388934456999947").send(startEmbed);
-console.log(`Setting bot activity...`)
+
 bot.user.setActivity(`over ${bot.users.size} users in ${bot.channels.size} channels!`, {type: "WATCHING"});
-console.log(`Bot activity set!`)
 });
 
 bot.on('guildMemberAdd', newMember =>{
+  console.log(chalk.blue(`${newMember.user.tag} has joined a guild!`))
   let welcomeEmbed = new Discord.RichEmbed()
   .setColor(0x4cf7cc)
   .setThumbnail('https://www.cpo.org.uk/picture.ashx?size=1&prod=C5880MP&n=1&range=5880')
