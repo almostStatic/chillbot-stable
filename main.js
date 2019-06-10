@@ -367,12 +367,19 @@ function play(guild, song) {
   bot.on("error", err => {
 console.log(err)    
   });
-
-  // Create a new role with data
   
+  bot.on('reconnecting', () =>{
 
-
- 
+    bot.channels.get('587603328142147584').send('[An error has occured.]').then((msg)=>{
+      let reconnectingEmbed = new Discord.RichEmbed()
+      .setTitle('Disconnected from Discord : Attempting to reconnect')
+      .addField('Disconnected At', msg.createdAt.toDateString(), true)
+      .setTimestamp()
+      .setFooter('Bot Disconnected; attempting to reconnect', bot.user.avatarURL)  
+      msg.edit(reconnectingEmbed)
+    });
+    console.log(chalk.red('[ERR] : Got disconnecred from discord. Reconnecting...'))
+  });
   bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
 
 
