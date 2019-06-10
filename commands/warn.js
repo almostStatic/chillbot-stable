@@ -32,9 +32,9 @@ module.exports.run = async (bot, message, args) => {
     .setTitle(`Action: Warn -> ${wUser.user.tag}`)
     .setColor("#efc44f")
     .addField("Warned User", `<@${wUser.id}> (${wUser.id})`, true)
-    .addField("Warned By", `${message.author} (${message.author.id})`)
+    .addField("Warned By", `${message.author} (${message.author.id})`, true)
     .addField("Warned In", message.channel, true)
-    .addField("Warned At", message.createdAt, true)
+    .addField("Warned At", message.createdAt.toDateString(), true)
     .addField("Number of Warnings", warns[wUser.id].warns)
     .addField("Reason", reason)
     .setFooter(`ID: ${wUser.id}`, wUser.user.avatarURL);
@@ -46,7 +46,7 @@ module.exports.run = async (bot, message, args) => {
     .setFooter(`Number of warns: ${warns[wUser.id].warns}`, wUser.user.avatarURL)
     let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
       if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
-      message.delete(50);
+      message.delete();
       warnchannel.send(warnEmbed);
       message.channel.send(`<:GreenTick:580716592980164618> User: \`${wUser.user.tag}\` has been warned`, reasonEmbed);
         wUser.send(`You have been warned in ${servername}`, warnEmbed);

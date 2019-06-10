@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Kicked By", `<@${message.author.id}> (${message.author.id})`, true)
         .addField("Kicked In", message.channel, true)
         .addField("Kicked At", message.createdAt.toDateString(), true)
-        .addField("Reason", kReason)
+        .addField("Reason", kReason, true)
         .setTimestamp()
         .setFooter(`User Kicked`, kUser.user.avatarURL)
     

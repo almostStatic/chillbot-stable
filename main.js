@@ -22,7 +22,6 @@ const queue = new Map();
  BAN COMMAND LOG CHANNEL ID: 580327932824911892
  LOAD FILES LOG CHANNEL ID: 578195831405019139
 */
-
 // Command Handler
 fs.readdir("./commands/", (err, files) => {
 
@@ -73,7 +72,7 @@ bot.channels.get("575388934456999947").send(startEmbed);
 bot.user.setActivity(`over ${bot.users.size} users in ${bot.channels.size} channels!`, {type: "WATCHING"});
 });
 
-bot.on('guildMemberAdd', newMember =>{
+bot.on('guildMemberAdd', async newMember =>{
   console.log(chalk.blue(`${newMember.user.tag} has joined a guild!`))
   let welcomeEmbed = new Discord.RichEmbed()
   .setColor(0x4cf7cc)

@@ -15,8 +15,9 @@ module.exports.run = async (bot, message, args) => {
     .addField("Reported User", `${rUser}, (${rUser.id})`, true)
     .addField("Reported By", `${message.author}, (${message.author.id})`, true)
     .addField("Channel", message.channel, true)
-    .addField("Time", message.createdAt, true)
+    .addField("Time", message.createdAt.toDateString(), true)
     .addField("Reason", rreason)
+    .setThumbnail(rUser.user.avatarURL)
     .setTimestamp()
 
     let reportschannel = message.guild.channels.find(`name`, "reports");
