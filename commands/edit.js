@@ -16,10 +16,12 @@ module.exports.run = async(bot, message, args) => {
     .setColor(0x42f4eb)
     .setFooter('Message Edited')
     .setTimestamp()
+     .addField('Responsible User', message.author.tag + ' | ' + message.author.id, true)
     .addField('Message ID', msg, true)
+    .addField("Editted At", message.createdAt.toDateString(), true)
     .addField("Channel", channel, true)
     .addField("New Value", toedit, true)
-    .addField('Responsible User', message.author.tag + ' | ' + message.author.id, true)
+    .setFooter(`Time taken ${date.now() - message.createdTimestamp}`, bot.user.avatarURL)
     try {
     channel.fetchMessages({around: msg, limit: 1})
   .then(messages => {
