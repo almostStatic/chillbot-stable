@@ -14,7 +14,7 @@ module.exports.run = async(bot, message, args) => {
     .setTitle("Message Edited")
     .setThumbnail(bot.user.avatarURL)
     .setColor(0x42f4eb)
-    .setFooter('Message Edited')
+    .setTitle('Message Edited')
     .setTimestamp()
      .addField('Responsible User', message.author.tag + ' | ' + message.author.id, true)
     .addField('Message ID', msg, true)
