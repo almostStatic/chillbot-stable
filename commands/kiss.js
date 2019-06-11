@@ -10,7 +10,7 @@ module.exports.run = (bot, message, args) => {
     
     let member = message.mentions.members.first()
      if(!member) return message.channel.send("user not found!");
-   if(args[0]) return message.channel.send({embed: usage});
+   if(!args[0]) return message.channel.send({embed: usage});
    let embed = new Discord.RichEmbed()
 
     .setTitle(`${message.member.user.tag} has kissed ${member.user.tag} 💖`)
