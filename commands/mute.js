@@ -23,11 +23,11 @@ module.exports.run = async (bot, message, args) => {
   if(!logsChannel){
     logsChannel = message.channel
   };
-  if(!role) return message.channel.send(`**!ERR** __GuildRoles#find__  \n Mute role not found`);
+  if(!role) return message.channel.send(`<:RedCrossMark:582240944863313934> I couldn't find the mute role.\nSee a list of roles with the command \`c.roles\``);
   let gRole = message.guild.roles.find(`name`, "Muted");
-  if(!gRole) return message.channel.send(`Role: **\`Muted\`** not found!`);
+  if(!gRole) return message.channel.send(`<:RedCrossMark:582240944863313934> Role: **\`Muted\`** not found!`);
 
-  if(rMember.roles.has(gRole.id)) return message.channel.send(`User ${rMember.user.tag} is **already muted**. \n You can unmute them by using the command \`c.unmute @user\``);
+  if(rMember.roles.has(gRole.id)) return message.channel.send(`<:RedCrossMark:582240944863313934> User ${rMember.user.tag} is **already muted**. \n You can unmute them by using the command\n \`c.unmute @user\``);
   await(rMember.addRole(gRole.id));
 let reasonEmbed = new Discord.RichEmbed()
 .setDescription(`**Reason:** ${reason}`)
@@ -37,16 +37,18 @@ let muteEmbed = new Discord.RichEmbed()
 .setTitle(`Action: Mute -> ${rMember.user.tag}`)
 .addField(`Muted User`, `<@${rMember.id}> (${rMember.user.id})`, true)
 .addField("Muted By", message.author + `(${message.author.id})`, true)
-.addField("Muted In", message.channel)
-.addField("Muted At", message.createdAt)
+.addField("Muted In", message.channel, true)
+.addField("Muted At", message.createdAt.toDateString(), true)
 .addField("Reason", reason)
+.setTimestamp()
+.setFooter('User was muted', rMember.user.avatarURL);
 
 
   try{
     await message.channel.send(`**User: ${rMember.user.tag} has been muted**`, reasonEmbed)
     await logsChannel.send(muteEmbed)
   }catch(e){
-    message.channel.send(`There was an error: \`\`\`js\n${e}\n\`\`\` please contact \`sad (Eclipse)#3728\``)
+    message.channel.send(`<:RedCrossMark:582240944863313934> There was an error: \`\`\`js\n${e}\n\`\`\` please contact \`sad (Eclipse)#3728\``)
     console.log(e.stack);
   }
   let used = new Discord.RichEmbed()

@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, args) => {
     .setFooter(`Suggestion #${message.id}`, bot.user.avatarURL)
     let suggestionChannel = message.guild.channels.find(`name`, "suggestions");
       if(!suggestionChannel) return message.reply("Couldn't find suggestions channel, I have logged the suggestion in **__this channel.__**", suggestEmbed);
-      message.delete(50);
+      message.delete();
       suggestionChannel.send(suggestEmbed).then((msg)=> {
         setTimeout(function(){
           msg.react("580716592980164618"); //  react with a tick

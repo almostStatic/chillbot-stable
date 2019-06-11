@@ -1,8 +1,7 @@
 const Discord = require ("discord.js")
-const client = new Discord.Client();
 
-module.exports.run = (client, message) => {
-    let ms = client.uptime;
+module.exports.run = (bot, message, args) => {
+    let ms = bot.uptime;
     let cd = 24 * 60 * 60 * 1000; // Calc days
     let ch = 60 * 60 * 1000; // Calc hours
     let cm = 60 * 1000; // Calc minutes
@@ -60,13 +59,15 @@ module.exports.run = (client, message) => {
     const embed = new Discord.RichEmbed()
   .setTimestamp()
   .setThumbnail(message.author.iconURL)
-  .addField(':runner: Servers:', `**${client.guilds.size.toLocaleString()}**`, true)
-  .addField(':information_desk_person: Users:', `**${client.guilds.reduce((p, c) => p + c.memberCount, 0).toLocaleString()}**`, true)
-  .addField(':clipboard: Channels:', `**${client.channels.size.toLocaleString()}**`, true)
+  .addField(':runner: Servers:', `**${bot.guilds.size.toLocaleString()}**`, true)
+  .addField(':information_desk_person: Users:', `**${bot.guilds.reduce((p, c) => p + c.memberCount, 0).toLocaleString()}**`, true)
+  .addField(':clipboard: Channels:', `**${bot.channels.size.toLocaleString()}**`, true)
   .addField(':white_check_mark: Uptime:', dateString)
-  .setColor("RANDOM");
+  .setColor("RANDOM")
+  .setFooter('Ready Timestamp')
+  .setTimestamp(bot.readyTimestamp)
     message.channel.send({embed})
-  .catch(console.error); 
+        .catch(console.error); 
   let used = new Discord.RichEmbed()
   .setAuthor(`Command Used:`, bot.user.avatarURL)
   .setColor(`#81868e`)
