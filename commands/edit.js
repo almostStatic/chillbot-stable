@@ -20,7 +20,7 @@ module.exports.run = async(bot, message, args) => {
     .addField("Editted At", message.createdAt.toDateString(), true)
     .addField("Channel", channel, true)
     .addField("New Value", toedit, true)
-    .setFooter(`Time taken ${date.now() - message.createdTimestamp}`, bot.user.avatarURL)
+ //   .setFooter(`Time taken ${date.now() - message.createdTimestamp}`, bot.user.avatarURL)
     try {
     channel.fetchMessages({around: msg, limit: 1})
   .then(messages => {
