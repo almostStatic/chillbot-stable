@@ -9,7 +9,7 @@ let usage = new Discord.RichEmbed()
 
   let owners = ['137624084572798976', '501710994293129216', '586110954467491840']; // last id is my alt LMG__xD
   if(!owners.includes(message.author.id)){
-    message.delete(50);
+    message.delete();
     return message.reply('You are not allowed to use this command')
   }
   function clean(text) {

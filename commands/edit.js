@@ -10,6 +10,7 @@ module.exports.run = async(bot, message, args) => {
     if(isNaN(msg)){
         message.reply("Please provide a valid message id")
     }
+    message.delete()
     let eddited = new Discord.RichEmbed()
     .setTitle("Message Edited")
     .setThumbnail(bot.user.avatarURL)

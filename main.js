@@ -40,6 +40,26 @@ console.log(chalk.cyan(`${f} loaded!`));
 bot.commands.set(props.help.name, props);
  });
 });
+  // Error Event
+  bot.on("error", err => {
+    function clean(text) {
+      if (typeof(text) === "string")
+        return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+      else
+          return text;
+    }
+    
+    bot.channels.get('575390425259704320').send('**[ERROR]**').then((msg)=>{
+      let errorEmbed = new Discord.RichEmbed()
+      .setTitle('Error')
+      .addField('Errored', __filename, true)
+      .addField('Error At', msg.createdAt.toDateString(), true)
+      .addField("Error", clean(err), {code:"xl"})
+      .setTimestamp()
+      .setFooter('Error', bot.user.avatarURL);
+        msg.edit(errorEmbed);
+    });
+  });
 
 bot.on("ready", async () => {
   console.log(chalk.green('ChillBot has started moderating chat and chill!'))
@@ -362,10 +382,6 @@ function play(guild, song) {
 }
 
   });
-  // Error Event
-  bot.on("error", err => {
-console.log(err)    
-  });
   
   bot.on('reconnecting', () =>{
 
@@ -379,6 +395,9 @@ console.log(err)
     });
     console.log(chalk.red('[ERR] : Got disconnecred from discord. Reconnecting...'))
   });
+
+
+
   bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
 
 
