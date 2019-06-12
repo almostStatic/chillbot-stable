@@ -16,17 +16,17 @@ module.exports.run = async (bot, message, args) => {
     let modlog = message.guild.channels.find('name', "bot-moderation-logs");
     if (reason.length < 1) return message.channel.send(usage)
     if (!guy) return message.channel.send(usage)
-    if (guy === message.author.id) return message.channel.send(`:x: You can't unban yourself`);
-    if (message.guild.members.get(guy)) return message.channel.send(`:x: That user is not banned from the server`);
+    if (guy === message.author.id) return message.channel.send(`<:RedCrossMark:582240944863313934> You can't unban yourself`);
+    if (message.guild.members.get(guy)) return message.channel.send(`<:RedCrossMark:582240944863313934> That user is not banned from the server`);
     message.guild.unban(guy, 2);
     const unbannedEmbed = new Discord.RichEmbed()
    .setColor(0x00A2E8)
    .setTitle(`Action: Unban -> ${guy}`)
    .addField(`Ubanned User`, `<@${guy}> | ${guy}`)
    .addField("Unbanned By", `${message.author} | ${message.author.id}`)
-   .addField("Unbanned At", message.createdAt.toDateString())
    .addField("Unbaned In", message.channel + " | " + message.channel.id)
-   .addField("Reason", reason)
+   .addField("Unbanned At", message.createdAt.toDateString(), true)
+   .addField("Reason", reason, true)
     message.channel.send(`<:GreenTick:580716592980164618> User \`${guy}\` (<@${guy}>) has been unbanned`)
     modlog.send(unbannedEmbed)
   }
