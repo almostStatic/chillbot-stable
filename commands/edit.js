@@ -20,7 +20,7 @@ module.exports.run = async(bot, message, args) => {
     .addField("Editted At", message.createdAt.toDateString(), true)
     .addField("Channel", channel, true)
     .addField("New Value", toedit, true)
- //   .setFooter(`Time taken ${date.now() - message.createdTimestamp}`, bot.user.avatarURL)
+    .setFooter(`Time taken ${Date.now() - message.createdTimestamp} MS`, bot.user.avatarURL)
     try {
     channel.fetchMessages({around: msg, limit: 1})
   .then(messages => {
@@ -33,6 +33,14 @@ module.exports.run = async(bot, message, args) => {
     console.error()
     message.channel.send(e)
 }
+
+bot.channels.get("588285125297700905").send({ eddited });
+let used = new Discord.RichEmbed()
+.setAuthor(`Command Used:`, bot.user.avatarURL)
+.setColor(`#81868e`)
+.setDescription(`c.edit used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+bot.channels.get("575619138576318484").send(used)
+
 
 
   /* usage 
