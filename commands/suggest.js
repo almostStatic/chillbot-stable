@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) => {
     let suggestEmbed = new Discord.RichEmbed()
     .setColor("RANDOM")
     .setAuthor('New Suggestion', message.author.avatarURL)
-    .addField("Suggestion By", `${suggestor} | (${suggestor.id})`, true)
+    .addField("Suggestion By", `${suggestor} | (${suggestor.id})`)
     .addField("Suggestion At", message.createdAt.toDateString(), true)
     .addField("Suggestion In", message.channel, true)
     .addField("Suggestion", suggestion)
