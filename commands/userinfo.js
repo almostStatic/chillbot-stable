@@ -5,14 +5,14 @@ module.exports.run = async (bot, message, args) => {
       let embed2 = new Discord.RichEmbed()
       .setColor('RANDOM')
       .setThumbnail(message.author.avatarURL)
-      .addField("Username ", `${message.author.tag} (ID: ${message.author.id})`, true)
-      .addField("Status", message.member.presence !== null && message.member.presence.status !== null ? message.member.presence.status : "Offline")
-      .addField("Playing ", `${message.author.presence.game === null ? "None" :  message.author.presence.game.name}`)
-      .addField("Nickname ", `${message.member.displayName}`)
+      .addField("Username ", `${message.author.tag} (ID: ${message.author.id})`)
+      .addField("Status", message.member.presence !== null && message.member.presence.status !== null ? message.member.presence.status : "Offline", true)
+      .addField("Playing ", `${message.author.presence.game === null ? "None" :  message.author.presence.game.name}`, true)
+      .addField("Nickname ", `${message.member.displayName}`, true)
+      .addField("Highest Role ", message.member.highestRole.name, true)
+      .addField("Joined Server At ", `${message.member.joinedAt.toDateString()}`, true)
+      .addField("Joined Discord At ", `${message.author.createdAt.toDateString()}`, true)
       .addField("Role(s) ", `${message.member.roles.map(r => r.name).join(", ")}`)
-      .addField("Highest Role ", message.member.highestRole.name)
-      .addField("Joined Server At ", `${message.member.joinedAt.toDateString()}`)
-      .addField("Joined Discord At ", `${message.author.createdAt.toDateString()}`)
       .setTimestamp()
       .setFooter(message.author.username, message.author.avatarURL);
     if (message.mentions.users.size < 1) return message.channel.send(embed2);
@@ -31,7 +31,9 @@ module.exports.run = async (bot, message, args) => {
       .addField("Role(s) ", `${member.roles.map(r => r.name).join(", ")}`)
       .setTimestamp()
       .setFooter(member.user.username, member.user.avatarURL);
-      message.channel.send({embed})
+
+
+      message.channel.send({ embed })
       let used = new Discord.RichEmbed()
       .setAuthor(`Command Used:`, bot.user.avatarURL)
       .setColor(`#81868e`)
