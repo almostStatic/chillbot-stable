@@ -390,6 +390,7 @@ function play(guild, song) {
       .setTitle('Disconnected from Discord : Attempting to reconnect')
       .addField('Disconnected At', msg.createdAt.toDateString(), true)
       .setTimestamp()
+      .setColor('#e5be3d')
       .setFooter('Bot Disconnected; attempting to reconnect', bot.user.avatarURL)  
       msg.edit(reconnectingEmbed)
     });
