@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
         
         // get the delete count, as an actual number.
         if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply(`you may not use this command!`);       
-        const deleteCount = parseInt(args[0], 10)+ 1;
+        const deleteCount = parseInt(args[0], 10);
         if(!deleteCount) return message.channel.send({embed: usage})
         if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
 
@@ -28,6 +28,7 @@ module.exports.run = async (bot, message, args) => {
 
           .setDescription(`I have deleted ${senddelcount} messages!`)
           .setColor("#4bf442")
+          message.delete()
 
         
         // So we get our messages, and delete them. Simple enough, right?

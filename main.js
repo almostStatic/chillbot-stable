@@ -59,6 +59,7 @@ bot.commands.set(props.help.name, props);
       .setFooter('Error', bot.user.avatarURL);
         msg.edit(errorEmbed);
     });
+
   });
 
 bot.on("ready", async () => {
@@ -92,6 +93,16 @@ bot.channels.get("575388934456999947").send(startEmbed);
 bot.user.setActivity(`over ${bot.users.size} users in ${bot.channels.size} channels!`, {type: "WATCHING"});
 });
 
+bot.on("messageDelete", msg =>{
+  let msgContent = msg.content;
+  let deletedEmbed = new Discord.RichEmbed()
+  .setTitle(`Message Deleted`)
+  .setThumbnail(msg.author.avatarURL)
+  .addField("Message Content", msgContent, true)
+  .addField("Message Author", )
+  bot.channels.get('580683231460851719').send(deletedEmbed)
+});
+
 bot.on('guildMemberAdd', async newMember =>{
   console.log(chalk.blue(`${newMember.user.tag} has joined a guild!`))
   let welcomeEmbed = new Discord.RichEmbed()
@@ -105,6 +116,15 @@ bot.on('guildMemberAdd', async newMember =>{
   newMember.send({embed: welcomeEmbed})
   bot.channels.get('580688178692751382').send(`Welcome ${newMember}! Have a nice time here! 💖`).then(a => a.react('👋'));
 
+});
+
+// Place outside of any other listener in your main file
+process.on("unhandledRejection", err => {
+  let rejected = new Discord.RichEmbed()
+  .setTitle(err.type)
+  .setDescription(err)
+  .setTimestamp()
+  bot.channels.get('575390425259704320').send({ rejected })
 });
 
 bot.on('guildMemberRemove', oldMember =>{
