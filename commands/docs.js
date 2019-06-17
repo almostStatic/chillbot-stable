@@ -7,11 +7,14 @@ module.exports.run = async(bot, message, args) =>{
     const queryString = args.join(" ")
     const res = await fetch(`https://djsdocs.sorta.moe/main/stable/embed?q=${queryString}`);
     const embed = await res.json();
+    if(!queryString){
+        return message.reply(`
+        Please include a search term. Example:
+        \`/docs client\`
+        `)
+    }
     if (!embed) {
         return message.reply("I couldn't find the requested information. Maybe look for something that actually exists the next time!");
-    }
-    if (message.channel.type === 'dm'){
-        return message.channel.send({ embed });
     }
 
     await message.channel.send({ embed });

@@ -5,7 +5,7 @@ module.exports.run = async(bot, message, args) =>{
     if(!color){
     let usage = new Discord.RichEmbed()
     .setTitle('Usage')
-    .setDescription("c.color [color] \nTYPE: **hex**\n")
+    .setDescription("/color [color] \nTYPE: **hex**\n")
    return message.channel.send(usage);
     };
     let colorEmbed = new Discord.RichEmbed()

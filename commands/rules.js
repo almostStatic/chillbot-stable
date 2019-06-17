@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("**Here is am invite to our Unpunish appeal server**", "https://discord.gg/fRhRa4K")
     .addField("**One Last thing...**", "Staff are able to punish for anything that is not listd in the rules! Please keep this in mind!")
     .addField('Guidelines', 'This server abides by the [Discord ToS](https://discordapp.com/terms) and the [Discord Community Guidelines](https://discordapp.com/guidelines)')
-    .addField("Useful Links", '[Staff Applications](https://forms.gle/CALNw3JGcv7WQBx5A)\n[Unban Application](https://forms.gle/B6ofvX5mJ7VtdZxF6)')
+    .addField("Useful Links", '[Staff Applications](https://forms.gle/CALNw3JGcv7WQBx5A) | [Unban Application](https://forms.gle/B6ofvX5mJ7VtdZxF6)')
     .setFooter(`Last Updated: ${message.createdAt.toDateString()}`, message.guild.avatarURL)
 
     message.reply("Check your DMs!")
@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, args) => {
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
-    .setDescription(`c.rules used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    .setDescription(`/rules used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
     bot.channels.get("575619138576318484").send(used)
 }
 

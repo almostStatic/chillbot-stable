@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
         icon_url: bot.user.avatarURL
       },
       title: "You need to include a suggestion!",
-      description: "**Usage:** \n c.suggest [your suggestion]",
+      description: "**Usage:** \n /suggest [your suggestion]",
 
       timestamp: new Date(),
       footer: {
@@ -49,7 +49,7 @@ module.exports.run = async (bot, message, args) => {
       let used = new Discord.RichEmbed()
       .setAuthor(`Command Used:`, bot.user.avatarURL)
       .setColor(`#81868e`)
-      .setDescription(`c.suggest used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+      .setDescription(`/suggest used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
       bot.channels.get("575619138576318484").send(used)
 
 

@@ -12,8 +12,8 @@ module.exports.run = async (bot, message, args) => {
 
     let usage = new Discord.RichEmbed()
         .setTitle("Usage ")
-        .setDescription("**c.partner [PartneringServerRepMention] [server invite url] [server description]** | Partner a server to this one!")
-        .addField("Example", 'c.partner @someone https://discord.gg/invite-url this is a great server');
+        .setDescription("**/partner [PartneringServerRepMention] [server invite url] [server description]** | Partner a server to this one!")
+        .addField("Example", '/partner @someone https://discord.gg/invite-url this is a great server');
     let serverrep = message.mentions.members.first();
     let inviteurl = args[1];
     let desc = args.join(" ").slice(22 + inviteurl.length);

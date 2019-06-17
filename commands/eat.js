@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) => {
           // /eat pizza & chips 
           
         const food = args.join(" ");
-        if(args[0]) return message.channel.send("What do you want to eat? Please provide a food.")      
+        if(!args[0]) return message.channel.send("What do you want to eat? Please provide a food.")      
 
         const embed = new Discord.RichEmbed()
       
@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
               let used = new Discord.RichEmbed()
               .setAuthor(`Command Used:`, bot.user.avatarURL)
               .setColor(`#81868e`)
-              .setDescription(`c.eat used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+              .setDescription(`/eat used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
               bot.channels.get("575619138576318484").send(used)
           
 

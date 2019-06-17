@@ -13,8 +13,8 @@ module.exports.run=async(bot,message,args)=>{
 
     const usage = new Discord.RichEmbed()
     .setTitle('Usage: ')
-    .setDescription('**c.colorsay [hex color] [message]**', true)
-    .addField('Example', 'c.colorsay #ff0000 hey guys! How are you???', true)
+    .setDescription('**/colorsay [hex color] [message]**', true)
+    .addField('Example', '/colorsay #ff0000 hey guys! How are you???', true)
     .setTimestamp()
     .setColor('#098765')
 

@@ -40,7 +40,7 @@ module.exports.run = async (bot, message, args) => {
         .addField("Kicked At", message.createdAt.toDateString(), true)
         .addField("Reason", kReason, true)
         .setTimestamp()
-        .setFooter(`User Kicked`, kUser.user.avatarURL)
+        .setFooter(`User ID: ${kUser.user.id}`, kUser.user.avatarURL)
     
         let reasonEmbed = new Discord.RichEmbed()
         .setDescription(`**Reason:** ${kReason}`)
@@ -48,7 +48,7 @@ module.exports.run = async (bot, message, args) => {
         message.delete();
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!kickChannel) return message.channel.send("<:RedCrossMark:582240944863313934> Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
-        kUser.send(`You have been kicked from ${servername}. Here are some details:`, kickEmbed);
+        kUser.send(`<:GreenTick:580716592980164618> You have been kicked from ${servername}. Here are some details:`, kickEmbed);
         message.guild.member(kUser).kick(kReason);
         message.channel.send(`<:GreenTick:580716592980164618> User: \`${kUser.user.tag}\` has been kicked from the server`, reasonEmbed);
         kickChannel.send(kickEmbed);
@@ -56,7 +56,7 @@ module.exports.run = async (bot, message, args) => {
         let used = new Discord.RichEmbed()
         .setAuthor(`Command Used:`, bot.user.avatarURL)
         .setColor(`#81868e`)
-        .setDescription(`c.kick used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+        .setDescription(`/kick used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
         bot.channels.get("575619138576318484").send(used)
     // ^^^^^^ End of cmd ^^^^^
 

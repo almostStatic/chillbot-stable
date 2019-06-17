@@ -54,7 +54,7 @@ module.exports.run = async (bot, message, args) => {
   let used = new Discord.RichEmbed()
   .setAuthor(`Command Used:`, bot.user.avatarURL)
   .setColor(`#81868e`)
-  .setDescription(`c.addrole used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+  .setDescription(`/addrole used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
   bot.channels.get("575619138576318484").send(used)
 }
 

@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
 
 
   let coinEmbed = new Discord.RichEmbed()
-  .setAuthor(message.author.username)
+  .setAuthor(message.author.tag)
   .setColor("RANDOM")
   .addField("💸", uCoins);
 

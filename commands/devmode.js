@@ -16,7 +16,6 @@ module.exports.run = async (bot, message, args) => {
     .addField("How to enable Dev Mode on **IOS**?", "If you have iOS, you can enable Developer Mode by opening your Discord settings  in the bottom-right corner of the screen, tapping on Appearance, and flicking the switch labeled Developer Mode.")
     .addField("**Usage:**", "Developer Mode adds a simple Copy ID option to your context menu. Right click or long press on any server, user, message or channel to get its unique ID.")
     .addField(`These instructions were sent to you on the order of`, `${sentby}`)
-    .setFooter("Use /invite to invite me to your server!")
     message.delete(0);
 
     sendto.send({embed: devembed});
@@ -24,7 +23,7 @@ module.exports.run = async (bot, message, args) => {
         const used = new Discord.RichEmbed()
 
     .setTitle("Command Used:")
-    .setDescription(`c.send-devmode used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
+    .setDescription(`/send-devmode used in ${message.guild.name} (${message.guild.id}), by ${message.author}, (${message.author.id})`)
     .setColor("RANDOM")
     bot.channels.get("575619138576318484").send(used);
 

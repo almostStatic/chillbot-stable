@@ -114,13 +114,12 @@ bot.on('guildMemberAdd', async newMember =>{
   console.log(chalk.blue(`${newMember.user.tag} has joined a guild!`))
   let welcomeEmbed = new Discord.RichEmbed()
   .setColor(0x4cf7cc)
-  .setThumbnail('https://www.cpo.org.uk/picture.ashx?size=1&prod=C5880MP&n=1&range=5880')
   .setImage("https://www.firstmesquiteumc.org/wp-content/uploads/2016/10/welcome.png")
   .setTitle("Welcome to Chat And Chill!")
-  .setDescription("A place where you can chat and chill with all your friends!\nI cam the server's dedicated custom bot made by the server's owner `sad (Eclipse)#3728`. I am constantly being updated and worked on. My prefix is `c.` use `c.help` to get a list of commands!")
+  .setDescription("A place where you can chat and chill with all your friends!\nI am the server's dedicated custom bot made by the server's owner `sad (Eclipse)#3728`. I am constantly being updated and worked on.")
   .addField("Other Stuff", 'Find some rules and useful information in <#580688976642572290>!\nWe are a friendly community that obides by the Discord ToS.\nIf you wish to report anything against a member, please do not hesitate to contact our staff team! We treat all cases with confidentiallity and respect for the user(s) involved')
  
-  newMember.send({embed: welcomeEmbed})
+  newMember.send(`Hello ${newMember.user.tag} to **Chat and Chill!**\nMy prefix is \`/\` ! Use \`/help\` to get a list of usable commands!`, welcomeEmbed)
   bot.channels.get('580688178692751382').send(`Welcome ${newMember}! Have a nice time here! 💖`).then(a => a.react('👋'));
 
 });
@@ -182,7 +181,6 @@ bot.on("message", async message => {
   let baseAmt = Math.floor(Math.random() * 15) + 1;
   bot.channels.get("575393646946287616").send(`${coinAmt} || ${baseAmt}`);
   //console.log(`${coinAmt} ; ${baseAmt}`);
-
   if(coinAmt === baseAmt){
     coins[message.author.id] = {
       coins: coins[message.author.id].coins + coinAmt

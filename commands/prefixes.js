@@ -5,7 +5,7 @@ module.exports.run = async(bot, message, args) => {
     let parsed = JSON.parse(prefix)
     let prefixesEmbed = new Discord.RichEmbed()
     .setTitle("Bot Prefixes")
-    .addField("Prefixes:", 'c.\nbot.run>>\n/\n')
+    .addField("Prefixes:", '/\nbot.run>>\n/\n')
 
     message.channel.send({embed: prefixesEmbed});
 

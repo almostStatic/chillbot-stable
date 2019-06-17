@@ -64,7 +64,8 @@ module.exports.run = (bot, message, args) => {
   .addField(':clipboard: Channels:', `**${bot.channels.size.toLocaleString()}**`, true)
   .addField(':white_check_mark: Uptime:', dateString)
   .setColor("RANDOM")
-  .setFooter('Ready Timestamp')
+  .setFooter('Ready Timestamp:')
+
   .setTimestamp(bot.readyTimestamp)
     message.channel.send({embed})
         .catch(console.error); 

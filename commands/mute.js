@@ -41,12 +41,13 @@ let muteEmbed = new Discord.RichEmbed()
 .addField("Muted At", message.createdAt.toDateString(), true)
 .addField("Reason", reason)
 .setTimestamp()
-.setFooter('User was muted', rMember.user.avatarURL);
+.setFooter(`ID: ${rMember.user.id}`, rMember.user.avatarURL);
 
 
   try{
-    await message.channel.send(`**User: ${rMember.user.tag} has been muted**`, reasonEmbed)
+    await message.channel.send(`<:GreenTick:580716592980164618> User: ${rMember.user.tag} has been muted`, reasonEmbed)
     await logsChannel.send(muteEmbed)
+    await rMember.send(`<:GreenTick:580716592980164618> You were muted from **${message.guild.name}**`, reasonEmbed);
   }catch(e){
     message.channel.send(`<:RedCrossMark:582240944863313934> There was an error: \`\`\`js\n${e}\n\`\`\` please contact \`sad (Eclipse)#3728\``)
     console.log(e.stack);
@@ -54,7 +55,7 @@ let muteEmbed = new Discord.RichEmbed()
   let used = new Discord.RichEmbed()
   .setAuthor(`Command Used:`, bot.user.avatarURL)
   .setColor(`#81868e`)
-  .setDescription(`c.mute used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+  .setDescription(`/mute used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
   bot.channels.get("575619138576318484").send(used)
 }
 

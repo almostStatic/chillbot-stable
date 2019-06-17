@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
 let usage = new Discord.RichEmbed()
   .setColor("#00ff00")
   .setTitle("Usage:")
-  .setDescription("**Command** c.oldeval <code> \n \nThis command is outdated and its use is deprecated. Use `c.eval`\n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n c.eval <code> \n c.eval message.channel.send(\"hiya\")")
+  .setDescription("**Command** /oldeval <code> \n \nThis command is outdated and its use is deprecated. Use `/eval`\n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n /oldeval <code> \n /oldeval message.channel.send(\"hiya\")")
 
   let owners = ['137624084572798976', '501710994293129216', '586110954467491840']; // last id is my alt LMG__xD
   if(!owners.includes(message.author.id)){
@@ -53,7 +53,7 @@ let usage = new Discord.RichEmbed()
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
-    .setDescription(`c.oldeval used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    .setDescription(`/oldeval used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
     bot.channels.get("575619138576318484").send(used)
 
   };

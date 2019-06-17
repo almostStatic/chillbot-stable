@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
     const used = new Discord.RichEmbed()
     .setAuthor(`Command Used`, bot.user.avatarURL)
     .setTimestamp()
-    .setDescription(`c.set-nick used in ${message.guild.name + " in " + message.guild.id}! \n ${message.author.username + "#" + message.author.discriminator} | ${message.author.id}`)
+    .setDescription(`/set-nick used in ${message.guild.name + " in " + message.guild.id}! \n ${message.author.username + "#" + message.author.discriminator} | ${message.author.id}`)
 
     bot.channels.get("575619138576318484").send(used)
     

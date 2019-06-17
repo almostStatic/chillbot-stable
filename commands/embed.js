@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) => {
 try {
   let hex = args[0];
   let channel = message.mentions.channels.first();
-  let content = args.join(" ").slice(29);
+  let content = args.join(" ").slice(channel.length);
   if(!channel) return message.reply("Invalid Syntax. Usage: `/embed <hex> <channel> <content>`")
     let embed = new Discord.RichEmbed()
 
@@ -24,7 +24,7 @@ message.channel.send(`Invalid Syntax: \n \`\`\`js ${err}\`\`\``)
 let used = new Discord.RichEmbed()
 .setAuthor(`Command Used:`, bot.user.avatarURL)
 .setColor(`#81868e`)
-.setDescription(`c.embed used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+.setDescription(`/embed used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
 bot.channels.get("575619138576318484").send(used)
 
 

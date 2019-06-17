@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
 
   .setTitle(`Usage:`)
   .setColor("#4e88e5")
-  .setDescription(`\n **Command** \`c.purge \` \n \n \n c.purge 98 \n c.purge 346`)
+  .setDescription(`\n **Command** \`/purge \` \n \n \n c.purge 98 \n c.purge 346`)
         // This command removes all messages from all users in the channel, up to 100.
         
        
@@ -41,7 +41,7 @@ module.exports.run = async (bot, message, args) => {
             let used = new Discord.RichEmbed()
             .setAuthor(`Command Used:`, bot.user.avatarURL)
             .setColor(`#81868e`)
-            .setDescription(`c.clear used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+            .setDescription(`/clear used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
             bot.channels.get("575619138576318484").send(used)
 
 }

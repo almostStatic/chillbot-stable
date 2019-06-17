@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-    let botguilds = bot.guilds
+    if(message.author) return;
     let embed = new Discord.RichEmbed()
 
     .setDescription(`${botguilds}`)

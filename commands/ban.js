@@ -19,7 +19,7 @@ if(!bReason){
     .addField("Banned User", `${bUser} (${bUser.id})`, true)
     .addField("Banned By", `<@${message.author.id}> (${message.author.id})`, true)
     .addField("Banned In", `<#${chid}>`, true)
-    .addField("Time", message.createdAt.toDateString(), true)
+    .addField("Banned At", message.createdAt.toDateString(), true)
     .addField("Reason", bReason);
 
     let reasonEmbed = new Discord.RichEmbed()
@@ -37,7 +37,7 @@ if(!bReason){
             let used = new Discord.RichEmbed()
             .setAuthor(`Command Used:`, bot.user.avatarURL)
             .setColor(`#81868e`)
-            .setDescription(`c.ban used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+            .setDescription(`/ban used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
             bot.channels.get("575619138576318484").send(used)
 
 

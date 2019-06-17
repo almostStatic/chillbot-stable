@@ -21,7 +21,7 @@ module.exports.run = (bot, message, args) => {
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
-    .setDescription(`c.pukeon used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    .setDescription(`/pukeon used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
     bot.channels.get("575619138576318484").send(used)
 };
 

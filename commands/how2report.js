@@ -7,6 +7,12 @@ let embed = new Discord.RichEmbed()
 .setColor("RANDOM")
 .setFooter("You will find a list of reported users in #reports", message.author.avatarURL)
 message.channel.send(embed)
+let used = new Discord.RichEmbed()
+.setAuthor(`Command Used:`, bot.user.avatarURL)
+.setColor(`#81868e`)
+.setDescription(`/how2report used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+bot.channels.get("575619138576318484").send(used)
+
 }
 
 module.exports.help = {

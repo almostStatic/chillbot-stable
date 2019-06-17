@@ -22,7 +22,13 @@ module.exports.run = async(bot, message, args) =>{
     \`\`\`
     `)
     .setTimestamp()
-
+    if(message.mentions.members.size = 1){
+        message.channel.send(`
+        A mention was not provided.
+        The partner ad will be sent to the channel instead
+        `)
+        return message.channel.send({ partnerAd })
+    }
     toSend.send(partnerAd)
         .catch(err => {
             return message.channel.send(`<:RedCrossMark:582240944863313934> ${toSend} has not got their DMs enabled. Here is the full error message:\n\`\`\`js\n${err}\n\`\`\``)
