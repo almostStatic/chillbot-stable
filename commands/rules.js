@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args) => {
     message.author.send(tosend);
     
     if(message.author.id === "501710994293129216"){
-        message.channel.fetchMessages({around: "580695194337280001", limit: 1})
+        return message.channel.fetchMessages({around: "580695194337280001", limit: 1})
   .then(messages => {
     const fetchedMsg = messages.first(); // messages is a collection!)
     // do something with it
