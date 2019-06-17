@@ -93,17 +93,24 @@ bot.channels.get("575388934456999947").send(startEmbed);
 bot.user.setActivity(`over ${bot.users.size} users in ${bot.channels.size} channels!`, {type: "WATCHING"});
 });
 
-bot.on("messageDelete", msg =>{
+bot.on("messageDelete", async msg =>{
   let msgContent = msg.content;
   let deletedEmbed = new Discord.RichEmbed()
-  .setTitle(`Message Deleted`)
+  .setTitle(`Action: Message Delete -> ${msg.author.tag}`)
+  .setColor('#54e5b5')
   .setThumbnail(msg.author.avatarURL)
-  .addField("Message Content", msgContent, true)
-  .addField("Message Author", )
-  bot.channels.get('580683231460851719').send(deletedEmbed)
+  .addField("Message Content", msgContent)
+  .addField("Message Author", msg.author.tag, true)
+  .addField('Sent At', msg.createdAt.toDateString(), true)
+  .addField("Channel", msg.channel, true)
+  .addField("Message ID", msg.id, true)
+  .setFooter(`User ID: ${msg.author.id}`, msg.author.avatarURL)
+  .setTimestamp()
+   bot.channels.get('580683231460851719').send(deletedEmbed)
 });
 
 bot.on('guildMemberAdd', async newMember =>{
+//  if(newMember.user.bot) return newMember.guild.owner.send(`${newMember.user.tag} is a bot that has joined a new guild`)
   console.log(chalk.blue(`${newMember.user.tag} has joined a guild!`))
   let welcomeEmbed = new Discord.RichEmbed()
   .setColor(0x4cf7cc)
@@ -121,7 +128,7 @@ bot.on('guildMemberAdd', async newMember =>{
 // Place outside of any other listener in your main file
 process.on("unhandledRejection", err => {
   let rejected = new Discord.RichEmbed()
-  .setTitle(err.type)
+  .setTitle("!ERR! Unhadled Promise Rejection")
   .setDescription(err)
   .setTimestamp()
   bot.channels.get('575390425259704320').send({ rejected })
@@ -158,7 +165,7 @@ bot.on("message", async message => {
     if(!prefix) {
       if(message.content.startsWith('hi')){
         message.reply('And, how are you today?')
-      }
+      };
     }
     const ownerid = botconfig.ownerid;
     const messageArray = message.content.split(" ");

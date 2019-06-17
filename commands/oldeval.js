@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
 let usage = new Discord.RichEmbed()
   .setColor("#00ff00")
   .setTitle("Usage:")
-  .setDescription("**Command** c.eval <code> \n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n c.eval <code> \n c.eval message.channel.send(\"hiya\")")
+  .setDescription("**Command** c.oldeval <code> \n \nThis command is outdated and its use is deprecated. Use `c.eval`\n \n TYPE:**OWNER-ONLY | PERMISSION LEVEL 10** \n \n Get the bot to run some code \n \n c.eval <code> \n c.eval message.channel.send(\"hiya\")")
 
   let owners = ['137624084572798976', '501710994293129216', '586110954467491840']; // last id is my alt LMG__xD
   if(!owners.includes(message.author.id)){
@@ -24,23 +24,20 @@ let usage = new Discord.RichEmbed()
     let evaled = eval(code);
 
     if(!code) return message.channel.send({embed: usage});
-    let e = new Discord.RichEmbed()
-    .setTitle('Evaluating...')
+
     if (typeof evaled !== "string")
       evaled = require("util").inspect(evaled);
-      if(code.length > 1000) return message.reply('Output too long');
-       message.channel.send(e).then(a=>a.delete(1549));
-        const sucsess = new Discord.RichEmbed()
 
-        .setTitle(`Eval Command Sucseeded!`)
-        .setFooter(`Sucseeded by: ${message.author.username}#${message.author.discriminator} | ID: ${message.author.id}`)
-        .setColor(0x43ef43)
-        .addField('Input', `\`\`\`js\n${code}\n\`\`\``, true)
-        .addField('Output', `\`\`\`js\n${clean(evaled)}\n\`\`\``)//, true)
-        .setFooter(`NodeJS - Time Taken ${Date.now() - message.createdTimestamp} MS`, message.author.avatarURL)
-        .setTimestamp()    
-    message.channel.send(sucsess)
+   
+      message.channel.send(clean(evaled), {code:"xl"})
+        
+      const sucsess = new Discord.RichEmbed()
 
+      .setTitle(`Eval Command Sucseeded!`)
+      .setFooter(`Sucseeded by: ${message.author.username}#${message.author.discriminator} | ID: ${message.author.id}`)
+      .setColor(0x43ef43)
+      .setDescription(`Code run: \n\`\`\`js\n${code}\n\`\`\``)
+      message.channel.send(sucsess);
   } catch (err) {
     // EVAL ERROR LOG CHANNEL ID: 575604330195845149
     const errorEmbed = new Discord.RichEmbed()
@@ -56,13 +53,13 @@ let usage = new Discord.RichEmbed()
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
-    .setDescription(`c.neweval used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    .setDescription(`c.oldeval used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
     bot.channels.get("575619138576318484").send(used)
 
-  }
-}
+  };
+};
 
 
 module.exports.help = {
-  name: "neweval"
-}
+  name: "oldeval",
+};

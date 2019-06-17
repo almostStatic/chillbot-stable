@@ -22,22 +22,26 @@ let usage = new Discord.RichEmbed()
   try {
 
     let evaled = eval(code);
+    if(code == 'bot.token') return;
 
     if(!code) return message.channel.send({embed: usage});
-
-    if (typeof evaled !== "string")
+    let e = new Discord.RichEmbed()
+    .setTitle('Evaluating...')
+    if(typeof evaled !== "string")
       evaled = require("util").inspect(evaled);
+      if(code.length > 1000) return message.reply('Output too long\nFor full ouput, use `c.oldeval`');
+       message.channel.send(e).then(a=>a.delete());
+        const sucsess = new Discord.RichEmbed()
 
-   
-      message.channel.send(clean(evaled), {code:"xl"})
-        
-      const sucsess = new Discord.RichEmbed()
+        .setTitle(`Eval Command Sucseeded!`)
+        .setFooter(`Sucseeded by: ${message.author.username}#${message.author.discriminator} | ID: ${message.author.id}`)
+        .setColor(0x43ef43)
+        .addField('Input', `\`\`\`js\n${code}\n\`\`\``, true)
+        .addField('Output', `\`\`\`js\n${clean(evaled)}\n\`\`\``, true)
+        .setFooter(`NodeJS - Time Taken: ${Date.now() - message.createdTimestamp} MS`, message.author.avatarURL)
+        .setTimestamp()    
+    message.channel.send(sucsess)
 
-      .setTitle(`Eval Command Sucseeded!`)
-      .setFooter(`Sucseeded by: ${message.author.username}#${message.author.discriminator} | ID: ${message.author.id}`)
-      .setColor(0x43ef43)
-      .setDescription(`Code run: \n\`\`\`js\n${code}\n\`\`\``)
-      message.channel.send(sucsess);
   } catch (err) {
     // EVAL ERROR LOG CHANNEL ID: 575604330195845149
     const errorEmbed = new Discord.RichEmbed()
@@ -49,17 +53,16 @@ let usage = new Discord.RichEmbed()
     .setTimestamp()
 
     bot.channels.get("575604330195845149").send(errorEmbed);
-    message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``, errorEmbed);
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
-    .setDescription(`c.eval used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+    .setDescription(`c.neweval used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
     bot.channels.get("575619138576318484").send(used)
 
-  }
-}
+  };
+};
 
 
 module.exports.help = {
-  name: "eval"
-}
+  name: "eval",
+};
