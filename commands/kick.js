@@ -23,13 +23,10 @@ module.exports.run = async (bot, message, args) => {
           let servername = message.guild.name;
           let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
         if(!kUser) return message.channel.send("<:RedCrossMark:582240944863313934> I cannot find that user!");
-        let kReason = args.join(" ").slice(kUser.length);
+        let kReason = args.join(" ").slice(22);
 
         if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(" <:RedCrossMark:582240944863313934> **You do not have permissoins to use ths command**!");
         if(kUser.hasPermission("KICK_MEMBERS")) return message.channel.send(" <:RedCrossMark:582240944863313934> **ERROR:** The user is mod/admin, or has a higher role than me. I can't do that.");
-      //  if(!kUser.kickable){
-        //  message.reply("I cannot kick tht user! Do they have a higher role thn me? Do I have kick members permission?")
-        //}
         // Declare the var, create embed:::
         let kickEmbed = new Discord.RichEmbed()
         .setTitle(`Action: Kick -> ${kUser.user.tag}`)
@@ -43,7 +40,7 @@ module.exports.run = async (bot, message, args) => {
         .setFooter(`User ID: ${kUser.user.id}`, kUser.user.avatarURL)
     
         const reasonAnLink = new Discord.RichEmbed()
-        .setDescription(`**Reason:** ${kReason}\n[Rejoin](https://discord.gg/4e6AVfb)`)
+        .setDescription(`**Reason:** ${kReason}\n\n[Rejoin](https://discord.gg/4e6AVfb)`)
         .setColor('#dcf442')
         let reasonEmbed = new Discord.RichEmbed()
         .setDescription(`**Reason:** ${kReason}`)
