@@ -14,11 +14,14 @@ if(!reason){
 }
 let reasonEmbed = new Discord.RichEmbed()
 .setDescription(`**Reason** ${reason}`)
-if(!rMember.roles.has(gRole.id)) return message.reply("<:RedCrossMark:582240944863313934> That user is not muted. \n Mute them by using \n `c.mute @user-mention <reason>");
+if(!rMember.roles.has(gRole.id)) return message.reply(`
+<:RedCrossMark:582240944863313934> That user is **not** muted!
+  Mute them by \`/mute @user reason\`
+`);
 await(rMember.removeRole(gRole.id, `Unmute User: ${rMember.user.tag} \n Responsible User: ${message.author.tag}`));
 // <:RedCrossMark:582240944863313934>
 // <:GreenTick:580716592980164618>
-rMember.send(`<:GreenTick:580716592980164618> You have been unmuted from ${message.guild.name}`)
+rMember.send(`<:GreenTick:580716592980164618> You have been unmuted from **${message.guild.name}** by ${message.author.tag}`, reasonEmbed)
   .catch(err =>{
     message.reply(err)
     message.channel.send('<:RedCrossMark:582240944863313934> I cannot send messages to that user')
@@ -32,9 +35,11 @@ rMember.send(`<:GreenTick:580716592980164618> You have been unmuted from ${messa
   .addField("Unmuted At", message.createdAt.toDateString(), true)
   .addField("Reason", reason)
   .setTimestamp()
-  .setFooter('User Unmuted', rMember.user.avatarURL)
+  .setFooter(`ID: ${rMember.user.tag}`, rMember.user.avatarURL)
   logs.send(logsEmbed);
-message.channel.send(`<:GreenTick:580716592980164618> User \`${rMember.user.tag}\` has been unmuted`, reasonEmbed)
+  message.channel.send(`Muting **${rMember.user.tag}**...`).then(async(msg) =>{
+msg.edit(`<:GreenTick:580716592980164618> User **${rMember.user.tag}** has been unmuted`, reasonEmbed)
+});
 let used = new Discord.RichEmbed()
 .setAuthor(`Command Used:`, bot.user.avatarURL)
 .setColor(`#81868e`)

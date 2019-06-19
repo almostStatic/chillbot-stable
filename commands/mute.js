@@ -45,10 +45,11 @@ let muteEmbed = new Discord.RichEmbed()
 
 
   try{
-    await message.channel.send(`<:GreenTick:580716592980164618> User: ${rMember.user.tag} has been muted`, reasonEmbed)
+    await message.channel.send(`<:GreenTick:580716592980164618> User: **${rMember.user.tag}** has been muted`, reasonEmbed)
     await logsChannel.send(muteEmbed)
-    await rMember.send(`<:GreenTick:580716592980164618> You were muted from **${message.guild.name}**`, reasonEmbed);
+    await rMember.send(`<:GreenTick:580716592980164618> You were muted from **${message.guild.name}** by **${message.author.tag}**`, reasonEmbed);
   }catch(e){
+    message.reply('there was an error :x:')
     message.channel.send(`<:RedCrossMark:582240944863313934> There was an error: \`\`\`js\n${e}\n\`\`\` please contact \`sad (Eclipse)#3728\``)
     console.log(e.stack);
   }

@@ -1,18 +1,6 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
- // Correct Usage:
-        // /kick @user <reason>
-       
-          let nokickuser = new Discord.RichEmbed()
-
-          .setDescription(`❌ **Error 404:** You need to **mention** a user for this command to work!`)
-          .setColor("#ff0000")
-          let cantdo = new Discord.RichEmbed()
-
-          .setDescription("I have not got the ban Members Permission. Please check my roles and permissoins. If you are stilll encountering this problem, join my support server. (https://discord.gg/2dbQt8d)")
-          .setColor("#ff0000")
-
           let usage = new Discord.RichEmbed()
 
             .setColor("#00ff00")
@@ -31,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
         let kickEmbed = new Discord.RichEmbed()
         .setTitle(`Action: Kick -> ${kUser.user.tag}`)
         .setColor("#bf4848")
-        .addField("Kicked User", `${kUser} (${kUser.id})`, true)
+        .addField("Kicked User", `${kUser.user.tag} (${kUser.id})`, true)
         .addField("Kicked By", `<@${message.author.id}> (${message.author.id})`, true)
         .addField("Kicked In", message.channel, true)
         .addField("Kicked At", message.createdAt.toDateString(), true)
@@ -46,12 +34,13 @@ module.exports.run = async (bot, message, args) => {
         .setDescription(`**Reason:** ${kReason}`)
         .setColor("#4dd6a3");
         message.delete();
+     
         message.channel.send(`Kicking **${kUser.user.tag}**...`).then(async(msg) =>{
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!kickChannel) return message.channel.send("<:RedCrossMark:582240944863313934> Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
-        await kUser.send(`<:GreenTick:580716592980164618> You have been kicked from **${servername}** by **${message.author.tag}**`, reasonAnLink);
+        await kUser.send(`<:blobpolice:590900425318989826> <:GreenTick:580716592980164618> You have been kicked from **${servername}** by **${message.author.tag}**`, reasonAnLink);
        await message.guild.member(kUser).kick(kReason);
-        msg.edit(`<:GreenTick:580716592980164618> User: **${kUser.user.tag}** has been kicked from the server`, reasonEmbed);
+        await msg.edit(`<:blobpolice:590900425318989826> <:GreenTick:580716592980164618> User: **${kUser.user.tag}** has been kicked from the server`, reasonEmbed);
         kickChannel.send(kickEmbed);
         });
 
