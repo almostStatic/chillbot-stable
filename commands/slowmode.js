@@ -11,16 +11,18 @@ module.exports.run = async (bot, message, args) => {
             return text;
       }
       const slowmodeSetLogEmbed = new Discord.RichEmbed()
-      .setTitle(`Action: Slowmode`)
-      .setDescription(`**Channel:** ${message.channel} \n **Action:** Slowmode: <new: set> \n **Length:** ${count} seconds`)
+      .setTitle(`Action: Slowmode -> #${message.channel.name}`)
       .setColor("#bfed28")
+      .addField('Channel', message.channel, true)
+      .addField("Responsible User", message.author.tag, true)
+      .addField("Seconds", count)
       .setFooter(`Channel ID: ${message.channel.id}`)
     try {
 
       let logsChannel = message.guild.channels.find(`name`, "logs")
       logsChannel.send(slowmodeSetLogEmbed)
         message.channel.send(`${message.channel} is now in *s* *l* *o* *w*  *m* *o* *t* *i* *o* *n*`)
-        message.channel.send(`Normal users are now able to send one message once every ${count} seconds`)
+        message.channel.send(`Normal users are now able to send one message once every ${count} second(s)`)
         message.channel.setRateLimitPerUser(count, `Slowmode set to ${count} seconds. \n Responsible User: ${message.author.tag}`)
     } catch (err) {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
