@@ -34,8 +34,8 @@ module.exports.run = async (bot, message, args) => {
         .setDescription(`**Reason:** ${kReason}`)
         .setColor("#4dd6a3");
         message.delete();
-     
-        message.channel.send(`Kicking **${kUser.user.tag}**...`).then(async(msg) =>{
+      let emoji = message.guild.emojis.find(emoji => emoji.name === 'ayes')
+        message.channel.send(`${emoji} Kicking **${kUser.user.tag}**...`).then(async(msg) =>{
         let kickChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
         if(!kickChannel) return message.channel.send("<:RedCrossMark:582240944863313934> Can't find incidents channel, I will log the kick in this channel.", kickEmbed);
         await kUser.send(`<:blobpolice:590900425318989826> <:GreenTick:580716592980164618> You have been kicked from **${servername}** by **${message.author.tag}**`, reasonAnLink);
