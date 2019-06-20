@@ -2,32 +2,39 @@ const Discord = require('discord.js');
 
 module.exports.run = async(bot, message, args) =>{
     let toSend = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!toSend) return message.reply('You need to provide a user.')
     let partnerAd = new Discord.RichEmbed()
     .setTitle('Our Partner Ad for Chat and Chill')
-    .setDescription(`\`\`\`
-    ========================================
-    :tada: Hey! Welcome to *Chat and Chill*!
+    .setDescription(`\`\`\` 
+    **__Come and join today!__**
     
-       - We have ***our own custom bot!***
-       - We have relaxed rules
-       - We'll sponsor your bot and advertise it for you!
-       - We are open for partnerships and don't have any requirements
-       - Come for a great time and a bunch of memes!!!
-       - **Need help with coding your discord bot?** In our custom bot we have a command that lets you search the Discord.js docs in a simple command 
-       - Our server region is set to London!!!!
-    ========================================
-    Join Here: https://discord.gg/HNas9Ax
-    ========================================
+    \`\`\`asciidoc
+    = Welcome to Chat and Chill! =
+    [Here's what we have to offer]:
+    \`\`\` \`\`\`diff
+    + We have our own custom bot! --- That's there to help you
+    + We are looking for partners! (No partner requirements)
+    + We'll sponsor your bot and advertise it for you!
+    + We have relaxed rules... why not join?
+    + We also provide support if you need help making your own discord bot!
+    + Our server region is London!
+    
+    - We do NOT tolerate bullying or any sort of racisim. This can sometimes be dismissed
+    
+    --- We are not a full NSFW server but we do have NSFW Channels
+    --- Server Owner: sad (Eclipse)#3728
+      \`\`\` \`\`\`asciidoc
+    = Interested? =
+    [Join Here: https://discord.gg/HNas9Ax]
+    = Come and have a great time! =
+    
     \`\`\`
     `)
     .setTimestamp()
     if(message.mentions.members.size = 1){
-        message.channel.send(`
+        return message.channel.send(`
         A mention was not provided.
         The partner ad will be sent to the channel instead
-        `)
-        return message.channel.send({ partnerAd })
+        `, partnerAd)
     }
     toSend.send(partnerAd)
         .catch(err => {
@@ -38,5 +45,5 @@ module.exports.run = async(bot, message, args) =>{
 };
 
 module.exports.help = {
-    name: 'send-ad'
-}
+    name: 'send-ad',
+};
