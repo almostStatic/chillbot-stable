@@ -40,11 +40,10 @@ module.exports.run = async (bot, message, args) => {
     .setFooter(`ID: ${wUser.id}`, wUser.user.avatarURL);
 
     let reasonEmbed = new Discord.RichEmbed()
-
     .setColor("#4dd6a3")
     .setDescription(`**Reason:** ${reason}`)
     .setFooter(`Number of warns: ${warns[wUser.id].warns}`, wUser.user.avatarURL)
-  message.channel.send(`Warning **${wUser.user.tag}**...`).then(async(msg) =>{
+    message.channel.send(` Warning **${wUser.user.tag}**...`).then(async(msg) =>{
     let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
       if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
       message.delete();
