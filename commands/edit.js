@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 
 module.exports.run = async(bot, message, args) => {
+  let l = message.guild.emojis.find(emoji => emoji.name === "loading")
+  let t = message.guild.emojis.find(emoji =>emoji.name === "ayes")
     let channel = message.mentions.channels.first();
     let msg = args[1];
     let toedit = args.join(" ").slice(22 + msg.length)

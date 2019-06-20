@@ -2,6 +2,8 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
+      let l = message.guild.emojis.find(emoji => emoji.name === "loading");
+      let t = message.guild.emojis.find(emoji =>emoji.name === "ayes")
         
   
       reporthelp = "Report a user. Requires a channel named `reports`to work! If there is no reports channel, the bot will post the report in the current channel";
@@ -78,15 +80,13 @@ module.exports.run = async (bot, message, args) => {
      
      
       // send embeds, in order of decleration
-      message.channel.send("**Getting Commands...**").then((msg) =>{
-        (`<:GreenTick:580716592980164618> Check your DMs for a list of commands!`)
-        msg.react("580716592980164618")
+      message.channel.send(`${l} Getting Bot Commands...`).then(async(msg) =>{
+        message.author.send({embed: modadmin});
+        message.author.send({embed: cmds});
+        message.author.send({embed: extras});
+        message.author.send({embed: calccmds});  
+        await msg.edit(`${t} Check your DMs for a list of commands!`)
       });
-      message.author.send({embed: modadmin});
-      message.author.send({embed: cmds});
-      message.author.send({embed: extras});
-      message.author.send({embed: calccmds});
-
       let used = new Discord.RichEmbed()
       .setAuthor(`Command Used:`, bot.user.avatarURL)
       .setColor(`#81868e`)

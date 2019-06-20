@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
+    let l = message.guild.emojis.find(emoji => emoji.name === "loading")
+    let t = message.guild.emojis.find(emoji =>emoji.name === "ayes")
     let numberone = args[0];
     let numbertwo = args[1];
     let answer = numberone * numbertwo;
@@ -22,7 +24,7 @@ module.exports.run = async (bot, message, args) => {
     let embed = new Discord.RichEmbed()
     .setDescription(`${answer}`)
 
-    message.channel.send("Calculating...").then(a => a.edit(`Answer to: ${numberone} * ${numbertwo}`, embed));
+    message.channel.send(`${l} Calculating...`).then(a => a.edit(`${t} Answer to: ${numberone} * ${numbertwo}`, embed));
 
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)

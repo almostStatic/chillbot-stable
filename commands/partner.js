@@ -21,15 +21,15 @@ module.exports.run = async (bot, message, args) => {
     let logChannel = message.guild.channels.find(`name`, "partner-logs");
 
     if(!serverrep){
-        message.channel.send(`A server rep for the partnerring guild must be provided`, usage);
+        return message.channel.send(`A server rep for the partnerring guild must be provided`, usage);
     };
 
     if(!inviteurl){
-        message.channel.send('A valid invite URL must be provided', usage);
+        return message.channel.send('A valid invite URL must be provided', usage);
     };
 
     if(!desc){
-        message.channel.send('A server description must be provided', usage);
+        return message.channel.send('A server description must be provided', usage);
     };
 
     if(!partnerChannel){

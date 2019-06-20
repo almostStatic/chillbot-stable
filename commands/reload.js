@@ -40,7 +40,7 @@ let notthere = new Discord.RichEmbed()
   
   let filereloaded = new Discord.RichEmbed()
   .setTitle('File Reloaded')
-  .addField('File', commandName, true)
+  .addField('File', commandName + '.js', true)
   .addField("Reloaded At", message.createdAt.toDateString(), true)
   .addField("Reloaded By", message.author.tag, true)
   .setTimestamp()
@@ -54,6 +54,5 @@ let notthere = new Discord.RichEmbed()
 }
 
 module.exports.help = {
-
-  name: "reload"
-}
+  name: "reload",
+};

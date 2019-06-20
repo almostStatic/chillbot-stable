@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
+    let l = message.guild.emojis.find(emoji => emoji.name === "loading")
+    let t = message.guild.emojis.find(emoji =>emoji.name === "ayes")
     let numberone = parseInt(args[0]);
     let numbertwo = parseInt(args[1]);
     let answer = parseInt(numberone + numbertwo);
@@ -20,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
         return message.channel.send('<:RedCrossMark:582240944863313934> The answer is not a number')
     }
 
-    message.channel.send(`Calculating...`).then(msg => msg.edit(`Answer to: ${numberone} + ${numbertwo}`, embed));
+    message.channel.send(`${l} Calculating...`).then(msg => msg.edit(`${t} Answer to: ${numberone} + ${numbertwo}`, embed));
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)

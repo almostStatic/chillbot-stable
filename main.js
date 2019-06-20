@@ -109,6 +109,16 @@ bot.on("messageDelete", async msg =>{
    bot.channels.get('580683231460851719').send(deletedEmbed)
 });
 
+/*bot.on("channelCreate", (channel, creator) =>{
+  let createdEmbed = new Discord.RichEmbed()
+  .setTitle(`Action: Channel Created -> ${channel.name}`)
+  .addField("Channel Created", channel.name, true)
+  .addField("Responsible User", creator.tag, true)
+ // /eval bot.emit("channelCreate", (message.channel, message.author))
+  //bot.channels.get('').send({ createdEmbed });
+
+}); */
+
 bot.on('guildMemberAdd', async newMember =>{
 //  if(newMember.user.bot) return newMember.guild.owner.send(`${newMember.user.tag} is a bot that has joined a new guild`)
   console.log(chalk.blue(`${newMember.user.tag} has joined a guild!`))
@@ -124,14 +134,14 @@ bot.on('guildMemberAdd', async newMember =>{
 
 });
 
-// Place outside of any other listener in your main file
-process.on("unhandledRejection", err => {
-  let rejected = new Discord.RichEmbed()
-  .setTitle("!ERR! Unhadled Promise Rejection")
-  .setDescription(err)
-  .setTimestamp()
-  bot.channels.get('575390425259704320').send({ rejected })
-});
+// // Place outside of any other listener in your main file
+// process.on("unhandledRejection", err => {
+//   let rejected = new Discord.RichEmbed()
+//   .setTitle("!ERR! Unhadled Promise Rejection")
+//   .setDescription(err)
+//   .setTimestamp()
+//   bot.channels.get('575390425259704320').send({ rejected })
+// });
 
 bot.on('guildMemberRemove', oldMember =>{
   bot.channels.get('580688178692751382').send(`${oldMember.user.tag} has left the server :( :cry:`)
@@ -144,9 +154,9 @@ info         string     The warning   */
 bot.on("warn", info =>{
 
   let warnEmbed = new Discord.RichEmbed()
-  .setAuthor(`Error`, bot.user.avatarURL)
+  .setAuthor(`Warn`, bot.user.avatarURL)
   .setColor("#f4a442")
-  .setDescription(`**An error accoured:** \n\`\`\`js\n${info}\n\`\`\``)
+  .setDescription(`**Warning:** \`${info}\``)
   .setTimestamp()
   .setFooter(`Error`, bot.user.avatarURL)
   bot.channels.get("575390425259704320").send(warnEmbed)
@@ -154,6 +164,8 @@ bot.on("warn", info =>{
 
     // Message Event 
 bot.on("message", async message => {
+  var blacklistedUsers = [];
+  if(blacklistedUsers.includes(message.author.id)) return;
     if(message.author.bot) return;
     if(message.channel.type === "dm") return;
     const prefixes = botconfig.prefixes;
@@ -400,9 +412,7 @@ function play(guild, song) {
 			serverQueue.songs.shift();
 			play(guild, serverQueue.songs[0]);
 		})
-		bot.on('error', error => {
-			console.error(error);
-		});
+    .catch(err=>console.log(err))
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 }
 

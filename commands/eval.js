@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
+  let l = message.guild.emojis.find(emoji =>emoji.name === "loading")
   const code = args.join(" ");
 let usage = new Discord.RichEmbed()
   .setColor("#00ff00")
@@ -26,22 +27,22 @@ let usage = new Discord.RichEmbed()
 
     if(!code) return message.channel.send({embed: usage});
     let e = new Discord.RichEmbed()
-    .setTitle('Evaluating...')
+    .setDescription(`${l} **Processing your request...**`)
     if(typeof evaled !== "string")
       evaled = require("util").inspect(evaled);
-      if(code.length > 1000) return message.reply('Output too long\nFor full ouput, use `c.oldeval`');
-       message.channel.send(e).then(a=>a.delete());
+      if(code.length > 1000) return message.reply('Output too long\nFor full ouput, use `/oldeval`');
+       message.channel.send(e).then(async(m) =>{
         const sucsess = new Discord.RichEmbed()
 
         .setTitle(`Eval Command Sucseeded!`)
-        .setFooter(`Sucseeded by: ${message.author.username}#${message.author.discriminator} | ID: ${message.author.id}`)
+        .setDescription(`Sucseeded by: ${message.author.username}#${message.author.discriminator} | ID: ${message.author.id}`)
         .setColor(0x43ef43)
         .addField('Input', `\`\`\`js\n${code}\n\`\`\``, true)
         .addField('Output', `\`\`\`js\n${clean(evaled)}\n\`\`\``)
         .setFooter(`NodeJS - Time Taken: ${Date.now() - message.createdTimestamp} MS`, message.author.avatarURL)
         .setTimestamp()    
-    message.channel.send(sucsess)
-
+    await m.edit(sucsess)
+       });
   } catch (err) {
     // EVAL ERROR LOG CHANNEL ID: 575604330195845149
     const errorEmbed = new Discord.RichEmbed()
