@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
   };
   let logsChannel = message.guild.channels.find(`name`, "bot-moderation-logs");
   if(!logsChannel){
-    logsChannel = message.channel
+    logsChannel = message.channel;
   };
   if(!role) return message.channel.send(`<:RedCrossMark:582240944863313934> I couldn't find the mute role.\nSee a list of roles with the command \`c.roles\``);
   let gRole = message.guild.roles.find(`name`, "Muted");
@@ -49,7 +49,7 @@ let muteEmbed = new Discord.RichEmbed()
     await logsChannel.send(muteEmbed)
     await rMember.send(`<:GreenTick:580716592980164618> You were muted from **${message.guild.name}** by **${message.author.tag}**`, reasonEmbed);
   }catch(e){
-    message.reply('there was an error :x:')
+    message.reply(`There was an error!`)
     message.channel.send(`<:RedCrossMark:582240944863313934> There was an error: \`\`\`js\n${e}\n\`\`\` please contact \`sad (Eclipse)#3728\``)
     console.log(e.stack);
   }

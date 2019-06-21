@@ -38,10 +38,11 @@ let usage = new Discord.RichEmbed()
         .setDescription(`Sucseeded by: ${message.author.username}#${message.author.discriminator} | ID: ${message.author.id}`)
         .setColor(0x43ef43)
         .addField('Input', `\`\`\`js\n${code}\n\`\`\``, true)
-        .addField('Output', `\`\`\`js\n${clean(evaled)}\n\`\`\``)
+        .addField('Output', `\`\`\`js\n${clean(evaled)}\n\`\`\` (Eval)`)
         .setFooter(`NodeJS - Time Taken: ${Date.now() - message.createdTimestamp} MS`, message.author.avatarURL)
         .setTimestamp()    
     await m.edit(sucsess)
+        .catch(err=>message.reply(`**Error:** ${err}`))
        });
   } catch (err) {
     // EVAL ERROR LOG CHANNEL ID: 575604330195845149
