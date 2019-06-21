@@ -11,6 +11,7 @@ module.exports.run = async (bot, message, args) => {
     if(!args[0]){
         message.channel.send(usage)
     }
+    let l = message.guild.emojis.find(emoji =>emoji.name === "loading")
   if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(nopermsforu);
   let rMember = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
   if(!rMember) return message.channnel.send(`Member not found`);

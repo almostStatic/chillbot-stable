@@ -15,6 +15,9 @@ module.exports.run = async (bot, message, args) => {
           return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
         else
             return text;
+      };
+      if(!message.member.hasPermission("MANAGE_MESSAGES")){
+        return message.reply(`You need the Manage Messages permission to use this command!`)
       }
       const slowmodeSetLogEmbed = new Discord.RichEmbed()
       .setTitle(`Action: Slowmode -> #${message.channel.name}`)

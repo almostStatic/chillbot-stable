@@ -8,6 +8,7 @@ module.exports.run = async (bot, message, args) => {
 
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
     let servername = message.guild.name;
+    let l = message.guild.emojis.find(emoji=>emoji.name === "loading")
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply("You need the manage server permission to use this command!");
     let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
     if(!wUser) return message.reply("User not found!");
@@ -43,7 +44,7 @@ module.exports.run = async (bot, message, args) => {
     .setColor("#4dd6a3")
     .setDescription(`**Reason:** ${reason}`)
     .setFooter(`Number of warns: ${warns[wUser.id].warns}`, wUser.user.avatarURL)
-    message.channel.send(` Warning **${wUser.user.tag}**...`).then(async(msg) =>{
+    message.channel.send(`${l} Warning **${wUser.user.tag}**...`).then(async(msg) =>{
     let warnchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
       if(!warnchannel) return message.reply("Couldn't find modlogs channel, I have logged the warning in **__this channel.__**", warnEmbed);
       message.delete();
