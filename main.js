@@ -7,7 +7,7 @@ const ms = require("ms");
 const chalk = require('chalk');
 const ytdl = require("ytdl-core");
 const fetch = require('node-fetch');
-global.bot = new Discord.Client({disableEveryone: false});
+global.bot = new Discord.Client({disableEveryone: true});
 bot.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
@@ -109,6 +109,10 @@ bot.on("messageDelete", async msg =>{
    bot.channels.get('580683231460851719').send(deletedEmbed)
 });
 
+bot.on("disconnect", async() =>{
+  bot.channels.get("590464918541565971").send(`<:redtick:591177997101301770> **Disconneted** from Discord`)
+});
+
 /*bot.on("channelCreate", (channel, creator) =>{
   let createdEmbed = new Discord.RichEmbed()
   .setTitle(`Action: Channel Created -> ${channel.name}`)
@@ -182,6 +186,8 @@ bot.on("message", async message => {
     const messageArray = message.content.split(" ");
     const cmd = messageArray[0];
     const args = messageArray.slice(1);
+    var hex = message.member.displayColor
+
     if(!message.content.startsWith(prefix)) return;
     let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if(!coins[message.author.id]){
@@ -261,7 +267,7 @@ if(commandfile) commandfile.run(bot,message,args);
   .setTitle("XP & Level:")
   .addField(`${message.member.user.tag}'s XP:`, curxp)
   .addField(`${message.member.user.tag}'s Level:`, curlvl)
-  .setColor('RANDOM')
+  .setColor(hex)
   .setTimestamp()
   
   return message.channel.send(xpembed);
@@ -302,10 +308,6 @@ if(cmd === `${message.author.id}`){
 
   }
   
-if(cmd === `${prefix}await`){
-  message.channel.send(`Editting`).then(await(3000)).then(a => a.edit(`Editted after 3 seconds!`))
-  return;
-}
 
 
 if(cmd === "invite"){
@@ -319,7 +321,7 @@ if(cmd === "invite"){
     let aa = new Discord.RichEmbed()
 
     .setDescription("Yes, you are my owner!")
-    .setColor("RANDOM")
+    .setColor(hex)
     return message.channel.send(aa);
   }
 

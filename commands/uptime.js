@@ -57,7 +57,6 @@ module.exports.run = (bot, message, args) => {
     }
     dateString += dateStrings[dateStrings.length - 1];
     const embed = new Discord.RichEmbed()
-  .setTimestamp()
   .setThumbnail(message.author.iconURL)
   .addField(':runner: Servers:', `**${bot.guilds.size.toLocaleString()}**`, true)
   .addField(':information_desk_person: Users:', `**${bot.guilds.reduce((p, c) => p + c.memberCount, 0).toLocaleString()}**`, true)
@@ -65,14 +64,14 @@ module.exports.run = (bot, message, args) => {
   .addField(':white_check_mark: Uptime:', dateString)
   .setColor("RANDOM")
   .setFooter('Ready Timestamp:')
+.setTimestamp(bot.readyTimestamp)
 
-  .setTimestamp(bot.readyTimestamp)
     message.channel.send({embed})
         .catch(console.error); 
   let used = new Discord.RichEmbed()
   .setAuthor(`Command Used:`, bot.user.avatarURL)
   .setColor(`#81868e`)
-  .setDescription(`c.uptime used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
+  .setDescription(`/uptime used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
   bot.channels.get("575619138576318484").send(used)
 
 };

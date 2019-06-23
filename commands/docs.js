@@ -7,15 +7,16 @@ module.exports.run = async(bot, message, args) =>{
     const queryString = args.join(" ")
     const res = await fetch(`https://djsdocs.sorta.moe/main/stable/embed?q=${queryString}`);
     const embed = await res.json();
+    
     if(!queryString){
         return message.reply(`
         Please include a search term. Example:
         \`/docs client\`
-        `)
-    }
+        `);
+    };
     if (!embed) {
-        return message.reply("I couldn't find the requested information. Maybe look for something that actually exists the next time!");
-    }
+        return message.reply(`${bot.user.username} **couldn't** find the requested information.\nMaybe look for something that actually exists next time?`);
+    };
 
     await message.channel.send({ embed });
           //  >docs client
@@ -24,14 +25,3 @@ module.exports.run = async(bot, message, args) =>{
 module.exports.help = {
     name: 'docs',
 };
-
-/*
-
-Make a request to this url, replacing the placeholders based on documentation you want to access:
-
-project: main, rpc, commando 
-branch: master, stable (only for main)
-
-:information_source: A "queryString" is basically an URL encoded string, see https://github.com/TeeSeal/discord.js-docs-api for the full API documentation
-
-*/

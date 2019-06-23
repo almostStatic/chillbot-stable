@@ -59,6 +59,7 @@ module.exports.run = async (bot, message, args) => {
       let extras = new Discord.RichEmbed()
 
       .setTitle("Extras")
+      .addField("**/f [thing]**", "pay your respects")
       .addField("**/say**", "Get the bot to put your eords into an embed")
       .addField("**/tsay**", "Get the bot to speak your words, but **not** in a stylish Embed")
       .addField("**/hug @user**", "Hug someone")
