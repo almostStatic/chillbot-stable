@@ -3,6 +3,8 @@ const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
     let numberone = parseInt(args[0]);
     let numbertwo = parseInt(args[1]);
+    let l = message.guild.emojis.find(emoji=>emoji.name === "loading")
+    let err = message.guild.emojis.find(emoji=>emoji.name === "ano")
     let answer = numberone - numbertwo;
 
     if(!args[0] || !args[1]){
@@ -20,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
 
     let embed = new Discord.RichEmbed()
     .setDescription(answer);
-    message.channel.send(`Calculating...`).then(a => a.edit(`Answer to ${numberone} - ${numbertwo}`, answer));
+    message.channel.send(`${l} Calculating...`).then(a => a.edit(`Answer to ${numberone} - ${numbertwo}`, answer));
     let used = new Discord.RichEmbed()
     .setAuthor(`Command Used:`, bot.user.avatarURL)
     .setColor(`#81868e`)
