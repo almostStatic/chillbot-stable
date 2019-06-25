@@ -19,6 +19,9 @@ module.exports.run = async (bot, message, args) => {
       if(!message.member.hasPermission("MANAGE_MESSAGES")){
         return message.reply(`You need the Manage Messages permission to use this command!`)
       }
+
+
+
       const slowmodeSetLogEmbed = new Discord.RichEmbed()
       .setTitle(`Action: Slowmode -> #${message.channel.name}`)
       .setColor("#bfed28")
@@ -41,18 +44,18 @@ module.exports.run = async (bot, message, args) => {
       let logsChannel = message.guild.channels.find(channel => channel.name === "logs")
       logsChannel.send(slowmodeSetLogEmbed)
       await msg.edit(`${ayesss} **Done!**`, embed);
- //     /eval bot.destroy()
+
     });
       } catch (err) {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
-      }
+      };
     
       let used = new Discord.RichEmbed()
       .setAuthor(`Command Used:`, bot.user.avatarURL)
       .setColor(`#81868e`)
       .setDescription(`/slowmode used in ${message.guild.name} (${message.guild.id}) \n ${message.author.username}#${message.author.discriminator}, ${message.author.id}`)
       bot.channels.get("575619138576318484").send(used)
-    }
+    };
     
 
 module.exports.help = {
