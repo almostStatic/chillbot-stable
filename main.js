@@ -246,7 +246,12 @@ if(commandfile) commandfile.run(bot,message,args);
 
 
   });
-
+if(cmd === `${prefix}src`) {
+  let fileName = args[0];
+ fs.readFile(`./commands/${fileName}.js`, async(err, data) => {
+    await message.channel.send(`**Source:**\n\`\`\`js\n${data}\n\`\`\``);
+  });
+};
   if(cmd === `${prefix}files`){
     fs.readdir("./commands/", (err, files) => {
 
