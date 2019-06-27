@@ -5,7 +5,7 @@ module.exports.run = async(bot, message, args) =>{
     /poll TITLE OF THE EMBED | DESCRIPTIONOF THE EMBED
     */
     let title = args.join(" ");
-    let description = message.content.split("|").slice(6);
+    let description = message.content.split("|").join(" ").slice(title.length);
     console.log(description)
 
     let embed = new Discord.RichEmbed()

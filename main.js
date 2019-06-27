@@ -249,6 +249,9 @@ if(commandfile) commandfile.run(bot,message,args);
 if(cmd === `${prefix}src`) {
   let fileName = args[0];
  fs.readFile(`./commands/${fileName}.js`, async(err, data) => {
+   if(typeof data == "undefined") {
+    return message.reply('That commands does not exist!')
+   }
     await message.channel.send(`**Source:**\n\`\`\`js\n${data}\n\`\`\``);
   });
 };
