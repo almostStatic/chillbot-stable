@@ -8,6 +8,7 @@ const embed = new Discord.RichEmbed()
 .setDescription(emojiList)
 .setColor("RANDOM")
 
+
   message.channel.send(embed)
     .catch(console.error);
   let used = new Discord.RichEmbed()

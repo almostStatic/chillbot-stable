@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) => {
 
 let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 if(!bUser) return message.channel.send("<:RedCrossMark:582240944863313934> I cannnot find that user!");
-let bReason = args.join(" ").slice(bUser.length);
+let bReason = args.join(" ").slice(22);
 if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply(`<:RedCrossMark:582240944863313934> You can't use this command! `);
 if(bUser.hasPermission("MANAGE_GUILD")) return message.channel.send("<:RedCrossMark:582240944863313934> **Other staff may not be banned**");
 let chid = message.channel.id;
