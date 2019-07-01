@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
                 let t = message.guild.emojis.find(emoji =>emoji.name === "ayes")
                 // get the delete count, as an actual number.
                 if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply(`you may not use this command!`);       
-                const deleteCount = parseInt(args[0], 10);
+                const deleteCount = parseInt(args[0], 10)+1;
                 if(!deleteCount) return message.channel.send({embed: usage})
                 if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
               message.delete()
@@ -28,9 +28,13 @@ module.exports.run = async (bot, message, args) => {
                 const fetched = await message.channel.fetchMessages({limit: deleteCount});
                 message.channel.bulkDelete(fetched)
                   .catch(error => message.reply(` ❌ **ERROR:** Couldn't delete messages because of: ${error}`));
-                    message.channel.send(`${l} Deleting ${deleteCount} messages...`).then(async(msg) => {
-                      await msg.edit(`${t} I have deleted \`${deleteCount}\` messages!`)
-                    });        
+                    
+                  
+               message.channel.send(`${l} Deleting ${deleteCount} messages...`).then(async(msg) => {
+                    await msg.edit(`${t} I have deleted \`${deleteCount}\` messages!`)
+                    msg.delete(3000)
+                  });
+              
        
             let used = new Discord.RichEmbed()
             .setAuthor(`Command Used:`, bot.user.avatarURL)

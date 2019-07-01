@@ -65,6 +65,8 @@ bot.commands.set(props.help.name, props);
 bot.on("ready", async () => {
   console.log(chalk.green('ChillBot has started moderating chat and chill!'))
 
+
+    
   const allFilesLoadedEmbed = new Discord.RichEmbed()
   .setColor(`#42f459`)
   .setAuthor(`All bot commands loaded!`, bot.user.avatarURL)
@@ -125,7 +127,7 @@ bot.on("disconnect", async() =>{
 
 bot.on('guildMemberAdd', async newMember =>{
 //  if(newMember.user.bot) return newMember.guild.owner.send(`${newMember.user.tag} is a bot that has joined a new guild`)
-  console.log(chalk.blue(`${newMember.user.tag} has joined a guild!`))
+  console.log(chalk.blue(`${newMember.user.tag} has joined ${newMember.guild.name}!`))
   let welcomeEmbed = new Discord.RichEmbed()
   .setColor(0x4cf7cc)
   .setImage("https://www.firstmesquiteumc.org/wp-content/uploads/2016/10/welcome.png")
@@ -148,7 +150,9 @@ bot.on('guildMemberAdd', async newMember =>{
 // });
 
 bot.on('guildMemberRemove', oldMember =>{
+  oldMember.send(`I am sorry to see you go.\nIn case you change your mind, here is another invite: https://discord.gg/HNas9Ax`)
   bot.channels.get('580688178692751382').send(`${oldMember.user.tag} has left the server :( :cry:`)
+  console.log(chalk.red(`${oldMember.user.tag} has left ${oldMember.guild.name}`))
 });
 
 // warn
