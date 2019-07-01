@@ -445,7 +445,7 @@ function play(guild, song) {
     });
     console.log(chalk.red('[ERR] : Got disconnecred from discord. Reconnecting...'))
   });
-
+  bot.on('warn', err => bot.channels.get("595250165753839647").send('[WARNING]' + ' ' + err));
 
 
   bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
