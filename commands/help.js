@@ -16,6 +16,7 @@ module.exports.run = async (bot, message, args) => {
       .setTitle(`Mod/Admin Commands`) 
       .setColor('RANDOM')
       .setFooter("Mod/Admin Commands", message.author.avatarURL)
+      .addField("**/warns @user**", 'Mention a user to see how many warns they have')
       .addField("**/report @user <reason>**", reporthelp)
       .addField("**/warn @user <reason>**", warnhelp)
       .addField("**/mute @user <reason>**", `Mute a given user`)
