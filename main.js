@@ -188,7 +188,7 @@ bot.on("message", async message => {
     }
     const ownerid = botconfig.ownerid;
     const messageArray = message.content.split(" ");
-    const cmd = messageArray[0];
+    const cmd = messageArray[0].toLowerCase();
     const args = messageArray.slice(1);
     var hex = message.member.displayColor
 
@@ -431,7 +431,7 @@ function play(guild, song) {
 }
 
   });
-  
+
   bot.on('reconnecting', () =>{
 
     bot.channels.get('587603328142147584').send('[An error has occured.]').then((msg)=>{
