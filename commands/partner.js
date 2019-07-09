@@ -31,6 +31,10 @@ module.exports.run = async (bot, message, args) => {
     if(!desc){
         return message.channel.send('A server description must be provided', usage);
     };
+    
+    if (!serverrep && !inviteurl) {
+    return message.channel.send("Please provide valid args", usage)
+    };
 
     if(!partnerChannel){
         message.reply('**I cannot find the partnerChannel, please contact and Admin for help!**');
