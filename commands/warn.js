@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const fs = require("fs");
+const moment = require('moment')
 let warns = JSON.parse(fs.readFileSync("./warnings.json", "utf8"));
 
 module.exports.run = async (bot, message, args) => {
@@ -8,6 +9,7 @@ module.exports.run = async (bot, message, args) => {
 
   if(message.channel.type === "dm") return message.reply("❌ You may not use this command in a DM channel");
     let servername = message.guild.name;
+    let warnedAt = `${moment().format("YYYY-MM-DD HH:mm:ss")}`
     let l = message.guild.emojis.find(emoji=>emoji.name === "loading")
     if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply("You need the manage server permission to use this command!");
     let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
@@ -32,13 +34,13 @@ module.exports.run = async (bot, message, args) => {
     let warnEmbed = new Discord.RichEmbed()
     .setTitle(`Action: Warn -> ${wUser.user.tag}`)
     .setColor("#efc44f")
-    .addField("Warned User", `<@${wUser.id}> (${wUser.id})`, true)
-    .addField("Warned By", `${message.author} (${message.author.id})`, true)
-    .addField("Warned In", message.channel, true)
-    .addField("Warned At", message.createdAt.toDateString(), true)
-    .addField("Number of Warnings", warns[wUser.id].warns)
-    .addField("Reason", reason)
-    .setFooter(`ID: ${wUser.id}`, wUser.user.avatarURL);
+    .addField("> Warned User", `<@${wUser.id}> (${wUser.id})`, true)
+    .addField("> Warned By", `${message.author} (${message.author.id})`, true)
+    .addField("> Warned In", message.channel, true)
+    .addField("> Warned At", warnedAt, true)
+    .addField("> Number of Warnings", warns[wUser.id].warns)
+    .addField("> Reason", reason)
+    .setFooter(`> ID: ${wUser.id}`, wUser.user.avatarURL);
 
     let reasonEmbed = new Discord.RichEmbed()
     .setColor("#4dd6a3")
