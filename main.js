@@ -178,8 +178,9 @@ bot.on("message", async message => {
     if(message.channel.type === "dm") {
     bot.channels.get('600639235938320399').send(`**${message.author.tag}**: ${message.content}`, {
     embed: new Discord.RichEmbed()
-	    .setDescription(`ID: ${message.author.id}`)
+	    .setFooter(`ID: ${message.author.id}`)
 	    .setTimestamp(message.createdTimestamp)
+	    .setColor(0x74f059)
     })
 	    return;
     }
