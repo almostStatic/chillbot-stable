@@ -175,7 +175,14 @@ bot.on("message", async message => {
   var blacklistedUsers = [];
   if(blacklistedUsers.includes(message.author.id)) return;
     if(message.author.bot) return;
-    if(message.channel.type === "dm") return;
+    if(message.channel.type === "dm") {
+    bot.channels.get('600639235938320399').send(`**${message.author.tag}**: ${message.content}`, {
+    embed: new Discord.RichEmbed()
+	    .setDescription(`ID: ${message.author.id}`)
+	    .setTimestamp(message.createdTimestamp)
+    })
+	    return;
+    }
     const prefixes = botconfig.prefixes;
     let prefix = false; 
     for(const thisPrefix of prefixes) {
