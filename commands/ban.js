@@ -16,11 +16,11 @@ if(!bReason){
     let banEmbed = new Discord.RichEmbed()
     .setTitle(`Action: Ban -> ${bUser.user.tag}`)
     .setColor("#ff0000")
-    .addField("Banned User", `${bUser} (${bUser.id})`, true)
-    .addField("Banned By", `<@${message.author.id}> (${message.author.id})`, true)
-    .addField("Banned In", `<#${chid}>`, true)
-    .addField("Banned At", message.createdAt.toDateString(), true)
-    .addField("Reason", bReason);
+    .addField("> Banned User", `${bUser} (${bUser.id})`, true)
+    .addField("> Banned By", `<@${message.author.id}> (${message.author.id})`, true)
+    .addField("> Banned In", `<#${chid}>`, true)
+    .addField("> Banned At", message.createdAt.toDateString(), true)
+    .addField("> Reason", bReason);
 
     let reasonEmbed = new Discord.RichEmbed()
     .setDescription(`**Reason:** ${bReason}`)
