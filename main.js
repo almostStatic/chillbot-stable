@@ -442,10 +442,11 @@ function play(guild, song) {
   });
 
   bot.on('reconnecting', () =>{
+	  var time = `${moment().format("YYYY-MM-DD HH:mm:ss")}`;
 
       let reconnectingEmbed = new Discord.RichEmbed()
       .setTitle('Disconnected from Discord : Attempting to reconnect')
-      .addField('Disconnected At', `${moment().format("YYYY-MM-DD HH:mm:ss")}`, true)
+      .addField('Disconnected At', time, true)
       .setTimestamp()
       .setColor('#e5be3d')
       .setFooter('Bot Disconnected; attempting to reconnect', bot.user.avatarURL)  
