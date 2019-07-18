@@ -38,7 +38,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("> Warned By", `${message.author} (${message.author.id})`, true)
     .addField("> Warned In", message.channel, true)
     .addField("> Warned At", warnedAt, true)
-    .addField("> Number of Warnings", warns[wUser.id].warns)
+    .addField("> Number of Warnings", warns[wUser.id].warns, true)
     .addField("> Reason", reason)
     .setFooter(`> ID: ${wUser.id}`, wUser.user.avatarURL);
 
