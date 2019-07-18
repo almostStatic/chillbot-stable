@@ -1,10 +1,12 @@
 const Discord = require("discord.js");
+const m = require("moment");
 
 module.exports.run = async (bot, message, args) => {
 
 let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 if(!bUser) return message.channel.send("<:RedCrossMark:582240944863313934> I cannnot find that user!");
 let bReason = args.join(" ").slice(22);
+let bannedAt = `${m().format("YYYY-MM-DD HH:mm:ss")}`
 if(!message.member.hasPermission("BAN_MEMBERS")) return message.reply(`<:RedCrossMark:582240944863313934> You can't use this command! `);
 if(bUser.hasPermission("MANAGE_GUILD")) return message.channel.send("<:RedCrossMark:582240944863313934> **Other staff may not be banned**");
 let chid = message.channel.id;
@@ -16,10 +18,11 @@ if(!bReason){
     let banEmbed = new Discord.RichEmbed()
     .setTitle(`Action: Ban -> ${bUser.user.tag}`)
     .setColor("#ff0000")
-    .addField("> Banned User", `${bUser} (${bUser.id})`, true)
+    .addField("> Banned User", `**${bUser.user.tag}**`, true)
     .addField("> Banned By", `<@${message.author.id}> (${message.author.id})`, true)
     .addField("> Banned In", `<#${chid}>`, true)
-    .addField("> Banned At", message.createdAt.toDateString(), true)
+    .setFooter(`ID: ${bUser.user.id}`, bUser.user.avatarURL)
+    .addField("> Banned At", bannedAt, true)
     .addField("> Reason", bReason);
 
     let reasonEmbed = new Discord.RichEmbed()
@@ -30,7 +33,7 @@ if(!bReason){
     .setFooter('You were banned', bUser.user.avatarURL)
     .setTimestamp()
     .setDescription(`**Reason**: ${bReason}\n[Unban Application](https://forms.gle/i3h3PeN2YtmaQm2y6)`)
-    let incidentchannel = message.guild.channels.find(`name`, "bot-moderation-logs");
+    let incidentchannel = message.guild.channels.find(c=>c.name==='bot-moderation-logs');
         if(!incidentchannel) return message.channel.send("Can't find bot modlogs channel.");
 
             await message.channel.send(`Banning **${bUser.user.tag}**...`).then(async(msg) =>{
