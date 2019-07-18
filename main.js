@@ -54,7 +54,7 @@ bot.commands.set(props.help.name, props);
       .setTitle('Error')
       .addField('Errored', __filename, true)
       .addField('Error At', msg.createdAt.toDateString(), true)
-      .addField("Error", clean(err), {code:"xl"})
+      .addField("Error", clean(err))
       .setTimestamp()
       .setFooter('Error', bot.user.avatarURL);
         msg.edit(errorEmbed);
@@ -442,18 +442,15 @@ function play(guild, song) {
 
   bot.on('reconnecting', () =>{
 
-    bot.channels.get('587603328142147584').send('[An error has occured.]').then((msg)=>{
       let reconnectingEmbed = new Discord.RichEmbed()
       .setTitle('Disconnected from Discord : Attempting to reconnect')
-      .addField('Disconnected At', msg.createdAt.toDateString(), true)
+      .addField('Disconnected At', `${moment().format("YYYY-MM-DD HH:mm:ss")}`, true)
       .setTimestamp()
       .setColor('#e5be3d')
       .setFooter('Bot Disconnected; attempting to reconnect', bot.user.avatarURL)  
-      msg.edit(reconnectingEmbed)
-    });
+      bot.channels.get('587603328142147584').send(reconnectingEmbed)
     console.log(chalk.red('[ERR] : Got disconnecred from discord. Reconnecting...'))
   });
-  bot.on('warn', err => bot.channels.get("595250165753839647").send('[WARNING]' + ' ' + err));
 
 
   bot.login("NTcyNzMzMDA0MjU0OTM3MDg4.XNlQcw.VMX7ohfJgKZO-5CSir7aYqtLSUQ")
