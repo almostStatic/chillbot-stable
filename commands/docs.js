@@ -5,7 +5,7 @@ const qs = require('querystring')
 module.exports.run = async(bot, message, args) =>{
 
     const queryString = args.join(" ")
-    const res = await fetch(`https://djsdocs.sorta.moe/v2/embed?${queryString}`);
+    const res = await fetch(`https://djsdocs.sorta.moe/v1/main/stable/embed?q=${queryString}`);
     const embed = await res.json();
     
     if(!queryString){
