@@ -1,8 +1,8 @@
 {
 
-    "prefix": "c.",
-    "ownerid": "501710994293129216",
-    "prefixes": ["c.", "bot>", ">", "bot.run>>", "/"],
-    "token": "NTE3NzMwMDE2NTIwNTY4ODUz.XMMjOw.kVuyz_dMz8yTTabFkl1_q156E84"
+    "prefix": "DEF_PREFIX",
+    "ownerid": "OWNER_ID",
+    "prefixes": ["ARRAY OF BOT PREFIXES", "!"],
+    "token": "BOT_TOKEN_HERE"
 
 }
