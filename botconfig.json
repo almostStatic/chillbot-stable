@@ -1,8 +1,0 @@
-{
-
-    "prefix": "DEF_PREFIX",
-    "ownerid": "OWNER_ID",
-    "prefixes": ["ARRAY OF BOT PREFIXES", "!"],
-    "token": "BOT_TOKEN_HERE"
-
-}

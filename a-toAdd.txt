@@ -1,0 +1,5 @@
+ Get uptimerobot and express set up [MOST IMPORTANT]
+ Suggest.js, make it so it sends message suggestion to a channel in logs guild for chillbot
+ Adapt bot for use in all / any guild [SECOND MOST IMPORTANT]
+ Fix Emoji Fetch in idban and membercount commands 
+ Add bruh command
