@@ -3,7 +3,7 @@ const Discord = require("discord.js")
 const client = new Discord.Client({ disableEveryone: true })
 
 client.commands = new Discord.Collection();
-
+// COMMAND HANDLER
 fs.readdir("./cmds/", (err, cmds) => {
 
   if (err) { 
@@ -34,7 +34,6 @@ client.on("message", async(message) => {
 			embed: new Discord.RichEmbed()
 			.setFooter("ID: " + message.author.id)
 			.setTimestamp()
-			
 		});
 	};
 
@@ -44,6 +43,6 @@ client.on("message", async(message) => {
   let args = messageArray.slice(1);
   let commandfile = client.commands.get(cmd.slice(prefix.length));
   if(commandfile) commandfile.run(client,message,args);
-})
+});
 
 client.login(process.env.token)
