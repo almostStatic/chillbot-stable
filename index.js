@@ -1,5 +1,8 @@
 const asad = {
-		asadmessage: "Your asad ran into a problem that it couldn't handle, and now it needs to restart life"
+		asadmessage: "Your asad ran into a problem that it couldn't handle, and now it needs to restart life",
+		bot: {
+			dependencies: ['async-jsonstore-io', 'fs', 'discord.js', 'express', 'bodyParser', 'and others.'],
+		}
 }
 	const JsonStoreClient = require('async-jsonstore-io')
 	const jsonstore = new JsonStoreClient('840792d268405642c8d77dd8e9984ef7d6e5e888fc59c11a5ec97d4dc9ef78e1')
@@ -55,6 +58,16 @@ const asad = {
 	});
 
 	client.on("message", async(message) => {
+		// functions
+		async function error(err) {
+			return message.channel.send("", {
+				embed: new Discord.RichEmbed()
+				.setDescription(err)
+				.setColor('#FF2D00')
+			})
+		};
+
+		// message declerations
 		if (message.author.bot) return;
 		if (message.channel.type === "dm") {
 			client.channels.get('600639235938320399').send(`**${message.author.tag}**: ${message.content}`, {
@@ -69,19 +82,14 @@ const asad = {
 				return;
 			}
 		}).catch()
-	//	if (blacklisted.ids.includes(message.author.id)) return;
-// 6256 of 6315
+
 		let prefix = process.env.prefix;
 		let messageArray = message.content.split(" ");
 		let cmd = messageArray[0].toLowerCase();
 		let args = messageArray.slice(1);
 		let commandfile = client.commands.get(cmd.slice(prefix.length));
-		if(commandfile) { commandfile.run(client,message,args); }
-
-	//	message.reply("hello").then(console.log)
-	// Commmands included in index.js:
-	// say, b
-
+		if(commandfile) { commandfile.run(client,message,args,error); }
+		// Commands (say, b)
 		if (cmd === `${prefix}say`) {
 			if (message.channel.type == 'dm') {
 				return; 
