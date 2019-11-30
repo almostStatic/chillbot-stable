@@ -45,8 +45,9 @@ module.exports.run = async(client, message, args, error) => {
 };
 let myDate = new Date(client.readyTimestamp);
         var uptEmb = new Discord.RichEmbed()
-        .addField(":white_check_mark: Uptime:", `**${getUptime(client.uptime)}**`)
-        .setFooter(`Ready Timestamp: ${myDate.toString()}`)
+        .addField("Uptime:", `**${getUptime(client.uptime)}**`)
+        .setFooter(`Ready Timestamp: `)
+				.setTimestamp(client.readyTimestamp)
         .setColor(message.member.displayColor)
         message.channel.send(uptEmb);
 }
