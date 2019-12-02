@@ -15,6 +15,7 @@ module.exports.run = async(client, message, args) => {
 			if (collected.first().content.toLowerCase() == 'cancel') {
 				return message.reply("Command Cancelled.")
 			}
+			message.reply("Thank you, your feedback has been submitted!")
 				client.channels.get('648882351899803650').send("<@&649237683507560458>, new suggestion!", {
 					embed: new Discord.RichEmbed()
 					.setTitle("New Suggestion")
@@ -30,6 +31,7 @@ module.exports.run = async(client, message, args) => {
 			message.reply("You took too long!")
 		});
 	} else if (suggestion.length) {
+		message.reply("Thank you, your messgae has been sucsessfully submitted!")
 		client.channels.get('648882351899803650').send("<@&649237683507560458>, new suggestion!", {
 			embed: new Discord.RichEmbed()
 			.setTitle("New Suggestion")
