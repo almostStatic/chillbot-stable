@@ -35,7 +35,7 @@ module.exports.run = async(client, message, args) => {
 		client.channels.get('648882351899803650').send("<@&649237683507560458>, new suggestion!", {
 			embed: new Discord.RichEmbed()
 			.setTitle("New Suggestion")
-			.setColor("RANDOM")
+			.setColor(message.member.displayColor)
 			.addField("> Suggested By:", message.author.tag, true)
 			.addField("> Suggested At:", message.createdAt.toDateString(), true)
 			.addField("> Suggestion:", suggestion)

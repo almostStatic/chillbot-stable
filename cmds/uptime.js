@@ -41,7 +41,7 @@ module.exports.run = async(client, message, args, error) => {
             })
             .join(', ');
     };
-    return dur;
+    return (dur);
 };
 let myDate = new Date(client.readyTimestamp);
         var uptEmb = new Discord.RichEmbed()
@@ -49,7 +49,10 @@ let myDate = new Date(client.readyTimestamp);
         .setFooter(`Ready Timestamp: `)
 				.setTimestamp(client.readyTimestamp)
         .setColor(message.member.displayColor)
-        message.channel.send(uptEmb);
+        message.channel.send(uptEmb)
+					.catch(err=>{
+						getSupport();
+					});
 }
 
 module.exports.help = {

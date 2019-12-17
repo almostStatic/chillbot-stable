@@ -1,44 +1,50 @@
-const asad = {
+asad = {
 		asadmessage: "Your asad ran into a problem that it couldn't handle, and now it needs to restart life",
 		bot: {
-			dependencies: ['async-jsonstore-io', 'fs', 'discord.js', 'express', 'bodyParser', 'and others.'],
+			dependencies: ['async-jsonstore-io', 'fs', 'discord.js', 'express', 'bodyParser', 'and others. (found in ((//path/)))'],
 		}
 }
+const something = new RegExp("\\b[a-zA-Z0-9]+(?=\=.*)\g")
 const JsonStoreClient = require('async-jsonstore-io')
 const Discord = require("discord.js")
+const Chalk = require("chalk");
+const Express = require('express');
+const Moment = require("moment");
 const jsonstore = new JsonStoreClient('840792d268405642c8d77dd8e9984ef7d6e5e888fc59c11a5ec97d4dc9ef78e1')
 const fs = require("fs");
-const client = new Discord.Client({ disableEveryone: true })
-const express = require('express');
+const {	ownerID } = require("./info.json");
+const client = new Discord.Client({
+	 disableEveryone: true,
+	 apiRequestMethod: 'sequential',
+});
 const bodyParser = require('body-parser');
-let commands = ['>invite', '>ping', '>drink', '>membercount', '>slap', '>slowmode', '>suggest', '>uptime', '>reportbug']
 client.commands = new Discord.Collection();
-let premium = ['501710994293129216'] // premium users are immune to cooldowns <3
-let usedCmd = new Set();
 
-const app = express();
+let premium = ['501710994293129216']; // premium users are immune to cooldowns <3
+
+const app = Express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static('public'));
+app.use(Express.static('public'));
 
 app.get('/', (req, res) => {
 	res.sendStatus(200);
 });
 
-app.listen(3000, () => console.log('server started'));
+app.listen(3000, () => console.log(`Server Started`));
 
 // COMMAND HANDLER
 fs.readdir("./cmds/", (err, cmds) => {
 
 	if (err) { 
-		console.log(err);
+		console.error(err);
 	}
 	let jsfile = cmds.filter(f => f.split(".").pop() === "js")
 	console.log(jsfile.length)
 	if(jsfile.length <= 0) {
-		console.log("Commands Not Found");
+		console.error("Commands Not Found");
 		return;
 	}
 
@@ -49,20 +55,40 @@ fs.readdir("./cmds/", (err, cmds) => {
 });
 
 client.on("ready", async() => { 
+
 	client.user.setActivity(`${client.guilds.size} servers, Prefix: >`, { type: "WATCHING" })
-	console.log(`${client.user.username} is now online!`)
-	console.log(client.guilds.map(g=>g.toString()).join("\n"))
+	console.log(`${client.user.tag} is now online!`)
+	console.log(`Event Timestamp: ${Moment(Date.now())}`)
+	client.channels.get('575388934456999947').send(`**${client.user.username}** is online,\n**Event Timestamp:** ${Moment(Date.now())}`)
+	//console.log(client.guilds.map(g=>g.toString()).join("\n"))
+});
+client.on("error", async err => {
+	client.channels.get('575390425259704320').send("", {
+		embed: new Discord.RichEmbed()
+		.setColor("RED")
+		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
+	})
+})
+process.on("unhandledRejection", (err) => {
+		console.error(err);
+		client.channels.get('575390425259704320').send("", {
+		embed: new Discord.RichEmbed()
+		.setColor("RED")
+		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
+	});
 });
 
-process.on("unhandledRejection", (err) => {
-	console.log(asad.asadmessage);
-	console.error(err);
+client.on("reconnecting", () => {
+	client.channels.get('587603328142147584').send("", {
+		embed: new Discord.RichEmbed()
+		.setTitle("Reconnecting...")
+		.setFooter(`Client Disconnected`)
+		.setTimestamp()
+		.setColor([200, 50, 50])
+	});
 });
 
 client.on("message", async(message) => {
-	if (!message.content.startsWith(commands)) {
-		return;
-	}
 	// functions
 	async function error(err) {
 		return message.channel.send("", {
@@ -71,6 +97,13 @@ client.on("message", async(message) => {
 			.setColor('#FF2D00')
 		})
 	};
+  async function done(str) {
+		message.channel.send("", {
+			embed: new Discord.MessageEmbed()
+			.setDescription(str)
+			.setColor([0, 255, 0])
+		})
+	}
 	
 	jsonstore.get('b' + message.author.id).then(result => {
 		if(result == true) {
@@ -79,28 +112,17 @@ client.on("message", async(message) => {
 		}
 	}).catch(e=>{
 		if (e.code == 404) {
-			return;
 		}
 	})
-	premium.forEach(e => {
-			if (usedCmd.has(e)) {
-			usedCmd.delete(e)
-		}
-	});
-if (usedCmd.has(message.author.id)) { 
-		message.channel.send("", {
-			embed: new Discord.RichEmbed()
-			.setDescription("You may use a ChillBot command once every 5 seconds.\nThis is done to prevent spam, if you have any questions or wish to remove this cooldown, please contact staff on our support server [here](https://discord.gg/CmqEgU7)")
-			.setColor(message.member.displayColor)
-		});  
-	}	else {
+	let green = client.emojis.get('580716592980164618')
+	let red = client.emojis.get('582240944863313934')
 	let prefix = process.env.prefix;
 		if (!message.content.startsWith(prefix)) return;
 	let messageArray = message.content.split(" ");
 	let cmd = messageArray[0].toLocaleLowerCase();
 	let args = messageArray.slice(1);
 	let commandfile = client.commands.get(cmd.slice(prefix.length));
-	if (commandfile) commandfile.run(client,message,args,error,asad.bot.dependencies); 
+	if (commandfile) commandfile.run(client,message,args,done,error,green,red,prefix); 
 	if (message.author.bot) return;
 	if (message.channel.type === "dm") {
 		client.channels.get('600639235938320399').send(`**${message.author.tag}**: ${message.content}`, {
@@ -109,7 +131,6 @@ if (usedCmd.has(message.author.id)) {
 		.setTimestamp()
 		});
 			};
-			// 
 			
 	if (cmd === `${prefix}say`) {
 		if (message.channel.type == 'dm') {
@@ -132,11 +153,6 @@ if (usedCmd.has(message.author.id)) {
 				message.reply('Done!')
 			} 
 
-			usedCmd.add(message.author.id); 
-			setTimeout(() => {
-			usedCmd.delete(message.author.id); 
-			}, 5000); 
-			};
-		});
+});
 
 	client.login(process.env.token)

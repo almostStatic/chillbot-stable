@@ -1,8 +1,16 @@
 const Discord = require('discord.js')
 
 module.exports.run = async(client, message, args, error) => {
+	if (!message.guild.member(client.user).permissions.has("MANAGE_CHANNELS")) {
+		error("I need the **MANAGE CHANNELS** permission for this command to work!")
+	}
+
+	if (!message.member.permissions.has(["MANAGE_CHANNELS", "ADMINISTRATOR"])) {
+		error('You need the manage channnels or administrator permission in order to use this command!')
+	}
+
 	let filter = m => m.author.id === message.author.id;
-	let time = args[0];
+	let time = parseInt(args[0]);
 	if (isNaN(time) && time) {
 		error(`${message.author.tag}, the time in seconds needs to be a **number**.`)
 	};
