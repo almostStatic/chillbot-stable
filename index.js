@@ -155,7 +155,6 @@ client.on("message", async(message) => {
 			embed: new Discord.RichEmbed()
 			.setDescription(args.join(' '))
 			.setColor(message.member.displayColor)
-			.setFooter(`ChillBot say command, ${message.author.tag}\nIf the above user is missusing the command, please contact the bot's owner!`)
 		});
 	};
 	

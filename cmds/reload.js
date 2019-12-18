@@ -24,6 +24,18 @@ module.exports.run = async(client, message, args, green, red, error, getSupport)
 		const props = require(`./${commandName}.js`);
 		client.commands.set(commandName, props);
 		message.channel.send(`<:GreenTick:580716592980164618> The command **${commandName}** was reloaded!`)
+		client.channels.get('586187654047989790')
+			.send("", {
+				embed: new Discord.RichEmbed()
+				.setTimestamp()
+				.setTitle("Command Reloaded")
+				.addField("> Command reloaded", commandName, true)
+				.addField("> Reloaded By", message.author.tag, true)
+				.addField("> Reloaded At", message.createdAt.toDateString(), true)
+				.setFooter(`ID: ${message.author.id}`)
+				.setColor([0, 255, 255])
+			})
+
 };
 
 module.exports.help = {

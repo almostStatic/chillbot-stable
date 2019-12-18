@@ -12,7 +12,11 @@ module.exports.run = async(client, message, args, green, red) => {
 		});
 	};
 let wUser = message.guild.member(message.guild.members.get(args[0]) || message.mentions.users.first())
-let wReason = args.join(' ').slice(1);
+let wReason = args.slice(1).join(' ')
+if (!wReason) {
+	wReason = 'no reason given'
+}
+console.log(wReason)
 let ch = message.guild.channels.find(ch=>ch.name==='bot-moderation-logs')
 if(!ch) {ch=message.channel}
 
@@ -23,9 +27,18 @@ if(!ch) {ch=message.channel}
 	.addField("> Warned By", `${message.author.tag} | ${message.author.id}`)
 	.addField("> Warned In", message.channel)
 	.addField("> Warned At", Moment(new Date()))
-	message.channel.send(warnEmbed)
+	.addField("> Reason", wReason)
+	.setTimestamp()
 
-	
+ch.send({ warnEmbed });
+message.channel.send(`${process.env.gre} **${wUser.user.tag}** has been warned, **${wReason}**`);
+wUser.send(`You were warned in **${message.guild.name}** by **${message.author.tag}**`, {
+	embed: new Discord.RichEmbed()
+	.setDescription(`**Reason**: ${wReason}`)
+	.setColor(message.member.displayColor)
+})
+	.catch(er => {	})
+
 	if (!wUser) {
 		return message.channel.send("", {
 			embed: new Discord.RichEmbed()
