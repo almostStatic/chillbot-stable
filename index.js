@@ -54,9 +54,24 @@ fs.readdir("./cmds/", (err, cmds) => {
 	});
 });
 
-client.on("ready", async() => { 
+client.on("reconnecting", () => {
+	client.channels.get('587603328142147584')
+		.send("", {
+			embed: new Discord.RichEmbed()
+			.setTitle("Reconnecting...")
+			.addField("> Disconnected At", Moment(Date.now()))
+			.setColor([255, 156, 0])
+		});
+});
 
-	client.user.setActivity(`${client.guilds.size} servers, Prefix: >`, { type: "WATCHING" })
+client.on("ready", async() => { 
+    client.user.setPresence({
+        game: { 
+            name: `${client.guilds.size} servers, Prefix: >`,
+            type: 'WATCHING'
+        },
+        status: 'idle'
+    })
 	console.log(`${client.user.tag} is now online!`)
 	console.log(`Event Timestamp: ${Moment(Date.now())}`)
 	client.channels.get('575388934456999947').send(`**${client.user.username}** is online,\n**Event Timestamp:** ${Moment(Date.now())}`)

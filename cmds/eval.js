@@ -19,12 +19,23 @@ try {
 	if (typeof evaled !== "string")
 		evaled = require("util")
 			.inspect(evaled);
+		let cleaned = clean(evaled);
 
-	message.channel.send(clean(evaled), {code:"xl"});
+	message.channel.send("", {
+		embed: new Discord.RichEmbed()
+		.setTitle("Evaluation Sucsessful")
+		.setDescription(`\`\`\`xl\n${cleaned}\n\`\`\``)
+		.setColor([0, 255, 0])
+	});
 
 } catch (err) {
-		message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``)
-	//	client.channels.get();
+	message.channel.send("", {
+		embed: new Discord.RichEmbed()
+		.setTitle("Evaluation Unsucsessful")
+		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
+		.setColor([255, 0, 0])
+	})
+	//	client.channels.get('');
 };
 };
 

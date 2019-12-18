@@ -15,7 +15,7 @@ module.exports.run = async(client, message, args, error) => {
 		error(`${message.author.tag}, the time in seconds needs to be a **number**.`)
 	};
 	if (!time) {
-		message.reply("Please enter the number of **SECONDS** you would like the slowmode to be set to. The maximum amount is: 200\n\nType `cancel` to cancel, expires in 10 seconds.")
+		message.reply("Please enter the number of **SECONDS** you would like the slowmode to be set to. The maximum amount is: **21600** (6 Hours)\n\nType `cancel` to cancel, expires in 10 seconds.")
 		message.channel.awaitMessages(filter, {
 			max: 1,
 			time: 10000,
@@ -26,7 +26,7 @@ module.exports.run = async(client, message, args, error) => {
 				if (isNaN(collected.first().content)) {
 					error(`\`${collected.first().content}\` is not a number`)
 				}	
-			message.channel.setRateLimitPerUser(collected.first().content);
+			message.channel.setRateLimitPerUser(parseInt(collected.first().content));
 			message.channel.send("", {
 				embed : new Discord.RichEmbed()
 				.setDescription(`Slowmode set for ${collected.first().content} seconds`)
@@ -34,6 +34,7 @@ module.exports.run = async(client, message, args, error) => {
 			});
 		}); 
 	} else if (time) {
+			if (time > 21600) { return message.reply("Sorry, the maximum is **21600**") }
 		message.channel.setRateLimitPerUser(time)
 		message.channel.send("", {
 			embed: new Discord.RichEmbed() 
