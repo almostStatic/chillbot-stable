@@ -28,6 +28,7 @@ module.exports.run = async(client, message, args, getSupport, error) => {
 				})
 	} else if (color) {
 		message.channel.send("", {
+			embed: new Discord.RichEmbed()
 			.setTitle(color)
 			.setColor(color)
 		})
