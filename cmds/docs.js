@@ -20,23 +20,23 @@ module.exports.run = async(client, message, args) =>{
             time: 10000,
         }).then(async(collected)=>{
             if (collected.first().content.toLowerCase() == 'cancel') {
-                return message.reply('<:greentick:596293276881911849> Command cancelled')
+                return message.reply(process.env.gre + ' Command cancelled')
             }
             const queryString = collected.first().content;
             const res = await fetch(`https://djsdocs.sorta.moe/v1/main/stable/embed?q=${queryString}`);
             const info = await res.json();
            
             if (!info || !res) {
-                message.reply('<:redtick:596293277313925120> I can\'t fint the requiested information on the Discord.js Documentation!')
+                message.reply(process.env.re + ' I can\'t fint the requiested information on the Discord.js Documentation!')
             }
-             await message.channel.send({ embed: info})
+             await message.channel.send({ embed: info })
         }).catch(() => {
-            message.channel.send('<:redtick:596293277313925120> You took too long! Goodbye!');
+            message.channel.send(process.env.re + ' You took too long! Goodbye!');
           });
         return;
     };
     if (!embed) {
-        return message.reply(`<:redtick:596293277313925120> ${client.user.username} **couldn't** find the requested information.\nMaybe look for something that actually exists next time?`);
+        return message.reply(`${process.env.re} ${client.user.username} **couldn't** find the requested information.\nMaybe look for something that actually exists next time?`);
     };
 
     await message.channel.send({ embed });

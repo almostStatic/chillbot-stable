@@ -15,7 +15,7 @@ const fs = require("fs");
 const {	ownerID } = require("./info.json");
 const client = new Discord.Client({
 	 disableEveryone: true,
-	 apiRequestMethod: 'sequential',
+	 apiRequestMethod: 'sequential'
 });
 const bodyParser = require('body-parser');
 client.commands = new Discord.Collection();
@@ -151,6 +151,7 @@ client.on("message", async(message) => {
 		if (message.channel.type == 'dm') {
 			return; 
 		};
+		message.delete()
 		return message.channel.send("", {
 			embed: new Discord.RichEmbed()
 			.setDescription(args.join(' '))
