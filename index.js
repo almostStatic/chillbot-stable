@@ -5,6 +5,8 @@ asad = {
 		}
 }
 const something = new RegExp("\\b[a-zA-Z0-9]+(?=\=.*)\g")
+const eomtes = require("./emojiCharacters.js")
+;
 const JsonStoreClient = require('async-jsonstore-io')
 const Discord = require("discord.js")
 const Chalk = require("chalk");

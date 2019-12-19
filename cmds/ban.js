@@ -19,10 +19,34 @@ if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
 		error(`The user has not been provided or is no longer a member of the guild.`)
 	};
 
-	/*if (bannedUser.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) {
+	if (!bannedUser.banable) {
+		return error("The mentioned user is not bannable!\nPlease move my role higher or contact support " + process.env.supportServer)
+	}
+
+	if (bannedUser.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) {
 		error("That user cannot be banned. They either have the ban members or admin permissions!")
 	}
-*/
+
+	bannedUser.send(`You were banned from **${message.guild.name}** by **${message.author.tag}**`, {
+		embed: new Discord.RichEmbed()
+		.setDescription(`**Reason**: ${reason}`)
+		.setColor(message.member.displayColor)
+	})
+		.catch(er => {
+			message.channel.send("I attempted to notify " + bannedUser.user.tag + ` but their DMs were blocked; they were not notified of the ban.`)
+		});
+
+	await message.guild.member(bannedUser) 
+		.ban(reason = "\nUser Respomsible: " + message.author.tag + " | " + message.author.id)
+			.catch(err => {
+				message.channel.send("", {
+					embed: new Discord.RichEmbed()
+					.setTitle("Error")
+					.setDescription(err) 
+					.setFooter("Please contact support " + process.env.supportServer)
+				});
+			});
+
 
 	let banEmbed = new Discord.RichEmbed()
 	.setColor([255, 0, 0])
@@ -34,6 +58,7 @@ if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
 	.setFooter("Banned User ID: " + bannedUser.user.id)
 	.setTimestamp()
 		message.channel.send({ embed: banEmbed })	
+		ch.send({ embed: banEmbed })
 };
 
 module.exports.help = {

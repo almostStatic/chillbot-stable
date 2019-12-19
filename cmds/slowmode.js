@@ -11,6 +11,9 @@ module.exports.run = async(client, message, args, error) => {
 
 	let filter = m => m.author.id === message.author.id;
 	let time = parseInt(args[0]);
+	if (time > 21600) { 
+		return message.reply(process.env.re + "The maximum number is **21600** seconds, (6 hours)")
+	}
 	if (isNaN(time) && time) {
 		error(`${message.author.tag}, the time in seconds needs to be a **number**.`)
 	};
@@ -21,10 +24,10 @@ module.exports.run = async(client, message, args, error) => {
 			time: 10000,
 		}).then(async(collected) => {
 				if (collected.first().content.toLowerCase() == 'cancel') {
-					error("Command Cancelled")
+					error(process.env.gre + "Command Cancelled")
 				};
 				if (isNaN(collected.first().content)) {
-					error(`\`${collected.first().content}\` is not a number`)
+					error(`${process.env.re} \`${collected.first().content}\` is not a number`)
 				}	
 			message.channel.setRateLimitPerUser(parseInt(collected.first().content));
 			message.channel.send("", {
@@ -34,7 +37,7 @@ module.exports.run = async(client, message, args, error) => {
 			});
 		}); 
 	} else if (time) {
-			if (time > 21600) { return message.reply("Sorry, the maximum is **21600**") }
+			if (time > 21600) { return message.reply(process.env.re + "Sorry, the maximum is **21600**") }
 		message.channel.setRateLimitPerUser(time)
 		message.channel.send("", {
 			embed: new Discord.RichEmbed() 
