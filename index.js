@@ -4,20 +4,17 @@ asad = {
 			dependencies: ['async-jsonstore-io', 'fs', 'discord.js', 'express', 'bodyParser', 'and others. (found in ((//path/)))'],
 		}
 }
-const something = new RegExp("\\b[a-zA-Z0-9]+(?=\=.*)\g")
-const eomtes = require("./emojiCharacters.js")
-;
-const JsonStoreClient = require('async-jsonstore-io')
-const Discord = require("discord.js")
+const something = new RegExp("\\b[a-zA-Z0-9]+(?=\=.*)\g");
+const eomtes = require("./emojiCharacters.js");
+const Discord = require("discord.js");
 const Chalk = require("chalk");
 const Express = require('express');
 const Moment = require("moment");
-const jsonstore = new JsonStoreClient('840792d268405642c8d77dd8e9984ef7d6e5e888fc59c11a5ec97d4dc9ef78e1')
 const fs = require("fs");
 const {	ownerID } = require("./info.json");
 const client = new Discord.Client({
 	 disableEveryone: true,
-	 apiRequestMethod: 'sequential'
+	 apiRequestMethod: 'sequential',
 });
 const bodyParser = require('body-parser');
 client.commands = new Discord.Collection();
@@ -66,7 +63,8 @@ client.on("reconnecting", () => {
 		});
 });
 
-client.on("ready", async() => { 
+client.on("ready", async() => {
+	console.clear();
     client.user.setPresence({
         game: { 
             name: `${client.guilds.size} servers, Prefix: >`,
@@ -76,8 +74,15 @@ client.on("ready", async() => {
     })
 	console.log(`${client.user.tag} is now online!`)
 	console.log(`Event Timestamp: ${Moment(Date.now())}`)
-	client.channels.get('575388934456999947').send(`**${client.user.username}** is online,\n**Event Timestamp:** ${Moment(Date.now())}`)
-	//console.log(client.guilds.map(g=>g.toString()).join("\n"))
+	client.channels.get('575388934456999947')
+		.send(``, {
+			embed: new Discord.RichEmbed()
+			.setTitle("ChillBot is online")
+			.setDescription(`**Event Timestamp**: ${Moment(Date.now())}\n**Guilds**: ${client.guilds.size} | **Channels**: ${client.channels.size} | **Discod.js** v ${Discord.version} | **Memory Usage:** ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)} MB`)
+			.setColor([0, 255, 0])
+		})
+
+		//console.log(client.guilds.map(g=>g.toString()).join("\n"))
 });
 client.on("error", async err => {
 	client.channels.get('575390425259704320').send("", {
@@ -121,16 +126,15 @@ client.on("message", async(message) => {
 			.setColor([0, 255, 0])
 		})
 	}
-	
-	jsonstore.get('b' + message.author.id).then(result => {
-		if(result == true) {
-			//message.reply('You are blacklisted!')
-			return;
-		}
-	}).catch(e=>{
-		if (e.code == 404) {
-		}
-	})
+		if (message.channel.type === "dm") {
+		client.channels.get('600639235938320399').send(`**${message.author.tag}**: ${message.content}`, {
+		embed: new Discord.RichEmbed()
+		.setFooter("ID: " + message.author.id)
+		.setColor([0, 255, 0])
+		.setTimestamp()
+		});
+			};
+
 	let green = client.emojis.get('580716592980164618')
 	let red = client.emojis.get('582240944863313934')
 	let prefix = process.env.prefix;
@@ -141,13 +145,6 @@ client.on("message", async(message) => {
 	let commandfile = client.commands.get(cmd.slice(prefix.length));
 	if (commandfile) commandfile.run(client,message,args,done,error,green,red,prefix); 
 	if (message.author.bot) return;
-	if (message.channel.type === "dm") {
-		client.channels.get('600639235938320399').send(`**${message.author.tag}**: ${message.content}`, {
-		embed: new Discord.RichEmbed()
-		.setFooter("ID: " + message.author.id)
-		.setTimestamp()
-		});
-			};
 			
 	if (cmd === `${prefix}say`) {
 		if (message.channel.type == 'dm') {
@@ -160,16 +157,5 @@ client.on("message", async(message) => {
 			.setColor(message.member.displayColor)
 		});
 	};
-	
-			if (cmd === `${prefix}b`) {
-				if (message.author.id !== process.env.ownerid) {
-					return message.reply("You cannot use this command.")
-				}; 
-
-				jsonstore.send('b' + message.author.id, true)
-				message.reply('Done!')
-			} 
-
 });
-
 	client.login(process.env.token)

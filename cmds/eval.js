@@ -4,7 +4,7 @@ module.exports.run = async (clinet, message, args, error, getSupport, green, red
 if (message.author.id != process.env.ownerid) {
 	return error("You may not use this command")
 };
-
+//ifif()
 function clean(text) {
   if (typeof(text) === "string")
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
@@ -29,14 +29,13 @@ try {
 	});
 
 } catch (err) {
-	message.channel.send("", {
-		embed: new Discord.RichEmbed()
-		.setTitle("Evaluation Unsucsessful")
-		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
-		.setColor([255, 0, 0])
-	})
-	//	client.channels.get('');
-};
+		message.channel.send("", {
+			embed: new Discord.RichEmbed()
+			.setTitle("Evaluation Unsucsessful")
+			.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
+			.setColor([255, 0, 0])
+		})
+	};
 };
 
 module.exports.help = {
