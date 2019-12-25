@@ -12,9 +12,15 @@ module.exports.run = async(client, message, args) =>{
        await message.delete()
             .catch(err=>{});
         const filter = m => m.author.id === message.author.id;
-        message.reply(`What would you like to search the Discord.js Docs? Expires in 10 seconds.\n\nType \`cancel\` to cancel!`).then(msg=>{
-            msg.delete(10000)
-        })
+				message.channel.send(`${message.author}`, {
+					embed: new Discord.RichEmbed()
+					.setColor(message.member.displayColor)
+					.setDescription("What would you like to search the Discord.js Docs?\n\n> Expires in 10 Seconds, type `cancel` to cancel")
+				})
+						.then(msg => {
+							msg.delete(10000)
+						})
+			        
         message.channel.awaitMessages(filter, {
             max: 1,
             time: 10000,

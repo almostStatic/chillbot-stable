@@ -12,7 +12,7 @@ const Express = require('express');
 const Moment = require("moment");
 const fs = require("fs");
 const {	ownerID } = require("./info.json");
-const client = new Discord.Client({
+global.client = new Discord.Client({
 	 disableEveryone: true,
 	 apiRequestMethod: 'sequential',
 });
@@ -84,9 +84,22 @@ client.on("ready", async() => {
 
 		//console.log(client.guilds.map(g=>g.toString()).join("\n"))
 });
-
 client.on('guildCreate', (server) => {
-	console.log("i joined a new server!")
+	client.channels.get("659506604630081547")
+		.send("", {
+			embed: new Discord.RichEmbed()
+			.setColor([0, 255, 0])
+			.setTitle("Server Joined")
+			.addField("> Guild Owner & ID", `${server.owner.user.tag} | ${server.owner.id}`)
+			.addField("> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
+			.addField("> Added At", Moment(Date.now()))
+		})
+server.owner.send("", {
+	embed: new Discord.RichEmbed()
+	.setDescription(`Thank you for adding **ChillBot**!\nYou may view a full list of command by using \`>help\` note the bot will DM you.\nIf you need any help/assistance, you may join our support server [here](${process.env.supportServer})\nTo report bugs please use \`>reportbug\`\n> Commands are not case sensitive\n> The bot owner is \`static#4432\``)
+	.setTitle(`Thank you for adding ${client.user.username}!`)
+	.setColor([0, 255, 0])
+	})
 });
 
 client.on("error", async err => {
@@ -116,6 +129,8 @@ client.on("reconnecting", () => {
 });
 
 client.on("message", async(message) => {
+	if (message.author.bot) return;
+	if (!message.guild.available) return;
 	// functions
 	async function error(err) {
 		return message.channel.send("", {
@@ -149,12 +164,7 @@ client.on("message", async(message) => {
 	let args = messageArray.slice(1);
 	let commandfile = client.commands.get(cmd.slice(prefix.length));
 	if (commandfile) commandfile.run(client,message,args,done,error,green,red,prefix); 
-	if (message.author.bot) return;
-	if (!message.guild.available) return;
 	if (cmd === `${prefix}say`) {
-		if (message.channel.type == 'dm') {
-			return; 
-		};
 		message.delete()
 		return message.channel.send("", {
 			embed: new Discord.RichEmbed()
@@ -162,5 +172,6 @@ client.on("message", async(message) => {
 			.setColor(message.member.displayColor)
 		});
 	};
+
 });
 	client.login(process.env.token)
