@@ -40,7 +40,7 @@ module.exports.run = async(client, message, args) =>{
     };
 
     await message.channel.send({ embed });
-          //  >docs client
+
 };
 
 module.exports.help = {

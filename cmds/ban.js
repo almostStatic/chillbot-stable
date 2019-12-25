@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports.run = async(client, message, args, error) => {
 
 if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
-	error("You do not have permission to use this command!")
+	message.channel.send(process.env.re+" You do not have permission to use this command!")
 };
 
 	let bannedUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
@@ -16,11 +16,11 @@ if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
 	let bannedAt = message.createdAt.toDateString();
 
 	if (!bannedUser) {
-		error(`The user has not been provided or is no longer a member of the guild.`)
+		message.channel.send(process.env.re+`The user has not been provided or is no longer a member of the guild.`)
 	};
 
 	if (!bannedUser.banable) {
-		return error("The mentioned user is not bannable!\nPlease move my role higher or contact support " + process.env.supportServer)
+		return message.channel.send(process.env.re+"The mentioned user is not bannable!\nPlease move my role higher or contact support " + process.env.supportServer)
 	}
 
 	if (bannedUser.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) {
@@ -37,7 +37,7 @@ if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
 		});
 
 	await message.guild.member(bannedUser) 
-		.ban(reason = "\nUser Respomsible: " + message.author.tag + " | " + message.author.id)
+		.ban(reason + "\nUser Respomsible: " + message.author.tag + " | " + message.author.id)
 			.catch(err => {
 				message.channel.send("", {
 					embed: new Discord.RichEmbed()

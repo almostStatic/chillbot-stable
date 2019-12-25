@@ -67,7 +67,7 @@ client.on("ready", async() => {
 	console.clear();
     client.user.setPresence({
         game: { 
-            name: `${client.guilds.size} servers, Prefix: >`,
+            name: `${client.guilds.size} servers, ${client.users.size} users`,
             type: 'WATCHING'
         },
         status: 'idle'
@@ -84,6 +84,11 @@ client.on("ready", async() => {
 
 		//console.log(client.guilds.map(g=>g.toString()).join("\n"))
 });
+
+client.on('guildCreate', (server) => {
+	console.log("i joined a new server!")
+});
+
 client.on("error", async err => {
 	client.channels.get('575390425259704320').send("", {
 		embed: new Discord.RichEmbed()
@@ -121,7 +126,7 @@ client.on("message", async(message) => {
 	};
   async function done(str) {
 		message.channel.send("", {
-			embed: new Discord.MessageEmbed()
+			embed: new Discord.RichEmbed()
 			.setDescription(str)
 			.setColor([0, 255, 0])
 		})
@@ -145,7 +150,7 @@ client.on("message", async(message) => {
 	let commandfile = client.commands.get(cmd.slice(prefix.length));
 	if (commandfile) commandfile.run(client,message,args,done,error,green,red,prefix); 
 	if (message.author.bot) return;
-			
+	if (!message.guild.available) return;
 	if (cmd === `${prefix}say`) {
 		if (message.channel.type == 'dm') {
 			return; 
