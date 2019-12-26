@@ -6,6 +6,9 @@ module.exports.run = async(client, message, args) => {
 	}
 	 message.guild.fetchBans(true)
 		.then(async(bans) => {
+			if (bans.size == 0) {
+				return message.channel.send(`${process.env.gre} There are no users banned from **${message.guild.name}**!`)
+			}
 			let bList = bans.map(b => `${b.user.tag} | ${b.user.id}`.toString()).join("\n")
 			message.channel.send(`
 Users banned from **${message.guild.name}**:

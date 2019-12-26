@@ -21,7 +21,7 @@ try {
 			.inspect(evaled);
 		let cleaned = clean(evaled);
 
-	message.channel.send("", {
+	mesage.channel.send("Evaluated", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Evaluation Sucsessful")
 		.setDescription(`\`\`\`xl\n${cleaned}\n\`\`\``)
@@ -29,7 +29,7 @@ try {
 	});
 
 } catch (err) {
-		message.channel.send("", {
+		message.channel.send("Evaluated", {
 			embed: new Discord.RichEmbed()
 			.setTitle("Evaluation Unsucsessful")
 			.setDescription(`\`\`\`xl\n${err}\n\`\`\``)

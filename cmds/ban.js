@@ -16,7 +16,7 @@ if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
 	let bannedAt = message.createdAt.toDateString();
 
 	if (!bannedUser) {
-		message.channel.send(process.env.re+`The user has not been provided or is no longer a member of the guild.`)
+	return	message.channel.send(process.env.re+`The user has not been provided or is no longer a member of the guild.`)
 	};
 
 	if (!bannedUser.banable) {

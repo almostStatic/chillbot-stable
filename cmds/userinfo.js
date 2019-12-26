@@ -2,6 +2,7 @@
 
 const Discord = require("discord.js");
 module.exports.run = (client, message, args) => {
+//	let msg = await message.channel.send(``)
 		let u = message.guild.member(message.guild.members.get(args[0]) || message.mentions.users.first())
   let embed2 = new Discord.RichEmbed()
   .setColor(message.member.displayColor)

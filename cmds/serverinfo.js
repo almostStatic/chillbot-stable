@@ -46,7 +46,7 @@ module.exports.run = async (client, message, args, error) => {
 		.addField("> Server Region", message.guild.region)
 		.addField("> Roles", message.guild.roles.size)
 		.addField("> You Joined ", message.member.joinedAt.toDateString())
-		.addField("> Extra Information", `**AFK Timeout: ** ${message.guild.afkTimeout} (seconds)\n**Splash: ** ${message.guild.splash ? "Yes" : "No"}\n**Splash URL: ** ${splash}\n**System Channel: ** ${sysCh}\n**Emojis**: ${message.guild.emojis.size}\n**Server-wide 2FA:** ${mfaLvl}\n**Verified**: ${message.guild.verified ? "Yes" : "No"}\n**Server Icon URL**: [View](${message.guild.iconURL})\n**Verification Level**: ${verificationLvl}`)
+		.addField("> Extra Information", `**AFK Timeout: ** ${message.guild.afkTimeout} (seconds)\n**Splash: ** ${message.guild.splash ? "Yes" : "None set"}\n**Splash URL: ** ${splash}\n**System Channel: ** ${sysCh}\n**Emojis**: ${message.guild.emojis.size}\n**Server-wide 2FA:** ${mfaLvl}\n**Verified**: ${message.guild.verified ? "Yes" : "No"}\n**Server Icon URL**: [View](${message.guild.iconURL})\n**Verification Level**: ${verificationLvl}`)
 		.setFooter(`ID: ${message.guild.id}`, message.guild.iconURL)
 		message.channel.send({ embed })
 	}catch(e){

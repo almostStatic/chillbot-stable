@@ -53,6 +53,10 @@ fs.readdir("./cmds/", (err, cmds) => {
 	});
 });
 
+client.on("disconnected", async() => {
+	client.channels.get("659726031946776596").send(`**:warning: The client websocket has disconnected and will no longer attempt to reconnect.**\n(Event Timestamp: ${Moment(Date.now())})`)
+});
+
 client.on("reconnecting", () => {
 	client.channels.get('587603328142147584')
 		.send("", {
@@ -102,7 +106,19 @@ server.owner.send("", {
 	})
 });
 
-client.on("error", async err => {
+client.on("guildDelete", (server) => {
+	client.channels.get("659506604630081547")
+		.send("", {
+			embed: new Discord.RichEmbed()
+			.setColor([255, 0, 0])
+			.setTitle("Removed from server")
+			.addField("> Guild Owner & ID", `${server.owner.user.tag} | ${server.owner.id}`)
+			.addField("> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
+			.addField("> Removed At", Moment(Date.now()))
+		})
+})
+
+client.on("error", async (err) => {
 	client.channels.get('575390425259704320').send("", {
 		embed: new Discord.RichEmbed()
 		.setColor("RED")

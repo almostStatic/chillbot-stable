@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 module.exports.run = async(client, message, args, error, getSupport) => {
+	
 	const filter = m => m.author.id === message.author.id;
 	if (!message.guild.me.hasPermission(['MANAGE_CHANNELS', 'MOVE_MEMBERS'])) {
 		error("You do not have permission to use this command!")
