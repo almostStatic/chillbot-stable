@@ -1,23 +1,42 @@
-asad = {
-		asadmessage: "Your asad ran into a problem that it couldn't handle, and now it needs to restart life",
-		bot: {
-			dependencies: ['async-jsonstore-io', 'fs', 'discord.js', 'express', 'bodyParser', 'and others. (found in ((//path/)))'],
-		}
-}
-const something = new RegExp("\\b[a-zA-Z0-9]+(?=\=.*)\g");
-const eomtes = require("./emojiCharacters.js");
+const emotes = require("./emojiCharacters.js");
 const Discord = require("discord.js");
-const Chalk = require("chalk");
 const Express = require('express');
 const Moment = require("moment");
+const Sequelize = require('sequelize');
 const fs = require("fs");
-const {	ownerID } = require("./info.json");
+const sequelize = new Sequelize('database', 'username', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'database.sqlite',
+});		
+const Tags = sequelize.define('tags', {
+name: {
+	type: Sequelize.STRING,
+	unique: true,
+},
+description: Sequelize.TEXT,
+username: Sequelize.STRING,
+usage_count: {
+	type: Sequelize.INTEGER,
+	defaultValue: 0,
+	allowNull: false,
+},
+});
+
 global.client = new Discord.Client({
 	 disableEveryone: true,
 	 apiRequestMethod: 'sequential',
 });
 const bodyParser = require('body-parser');
 client.commands = new Discord.Collection();
+
+async function sleep(ms){
+    return new Promise(resolve => {
+        setTimeout(resolve, ms)
+    });
+};
 
 let premium = ['501710994293129216']; // premium users are immune to cooldowns <3
 
@@ -62,19 +81,29 @@ client.on("reconnecting", () => {
 		.send("", {
 			embed: new Discord.RichEmbed()
 			.setTitle("Reconnecting...")
-			.addField("> Disconnected At", Moment(Date.now()))
+			.addField("Disconnected At", Moment(Date.now()))
 			.setColor([255, 156, 0])
 		});
 });
 
 client.on("ready", async() => {
 	console.clear();
+	await console.log("https://github.com/discordjs/guide/blob/master/code-samples/sequelize/tags/sequelize.js")
+		/*
+	 * equivalent to: CREATE TABLE tags(
+	 * name VARCHAR(255),
+	 * description TEXT,
+	 * username VARCHAR(255),
+	 * usage INT
+	 * );
+	 */
+	Tags.sync();
     client.user.setPresence({
         game: { 
-            name: `${client.guilds.size} servers, ${client.users.size} users`,
-            type: 'WATCHING'
+            name: `⚠️ BETA VERSION v1.6 ⚠️`,
+            type: 'PLAYING'
         },
-        status: 'idle'
+        status: 'dnd'
     })
 	console.log(`${client.user.tag} is now online!`)
 	console.log(`Event Timestamp: ${Moment(Date.now())}`)
@@ -94,6 +123,7 @@ client.on('guildCreate', (server) => {
 			embed: new Discord.RichEmbed()
 			.setColor([0, 255, 0])
 			.setTitle("Server Joined")
+			.addField("> Guild Name", server.name)
 			.addField("> Guild Owner & ID", `${server.owner.user.tag} | ${server.owner.id}`)
 			.addField("> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
 			.addField("> Added At", Moment(Date.now()))
@@ -112,6 +142,7 @@ client.on("guildDelete", (server) => {
 			embed: new Discord.RichEmbed()
 			.setColor([255, 0, 0])
 			.setTitle("Removed from server")
+			.addField("> Guild Name", server.name)
 			.addField("> Guild Owner & ID", `${server.owner.user.tag} | ${server.owner.id}`)
 			.addField("> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
 			.addField("> Removed At", Moment(Date.now()))
@@ -146,7 +177,6 @@ client.on("reconnecting", () => {
 
 client.on("message", async(message) => {
 	if (message.author.bot) return;
-	if (!message.guild.available) return;
 	// functions
 	async function error(err) {
 		return message.channel.send("", {
@@ -161,33 +191,37 @@ client.on("message", async(message) => {
 			.setDescription(str)
 			.setColor([0, 255, 0])
 		})
-	}
-		if (message.channel.type === "dm") {
+	};
+		if (message.channel.type == "dm") {
 		client.channels.get('600639235938320399').send(`**${message.author.tag}**: ${message.content}`, {
 		embed: new Discord.RichEmbed()
 		.setFooter("ID: " + message.author.id)
 		.setColor([0, 255, 0])
 		.setTimestamp()
 		});
-			};
-
-	let green = client.emojis.get('580716592980164618')
-	let red = client.emojis.get('582240944863313934')
-	let prefix = process.env.prefix;
-		if (!message.content.startsWith(prefix)) return;
+	};
+	const prefix = process.env.prefix;
+	if (!message.content.startsWith(prefix)) return;
 	let messageArray = message.content.split(" ");
 	let cmd = messageArray[0].toLocaleLowerCase();
 	let args = messageArray.slice(1);
 	let commandfile = client.commands.get(cmd.slice(prefix.length));
-	if (commandfile) commandfile.run(client,message,args,done,error,green,red,prefix); 
-	if (cmd === `${prefix}say`) {
-		message.delete()
-		return message.channel.send("", {
-			embed: new Discord.RichEmbed()
-			.setDescription(args.join(' '))
-			.setColor(message.member.displayColor)
-		});
-	};
-
+	if (commandfile) commandfile.run(client,message,args,done,error,prefix); 
+	if (cmd == `${prefix}prefix`) { return message.channel.send("The current prefix is `>` and cannot be changed!") }
+	if (cmd == `${prefix}add-tag`) {
+			try {
+				// equivalent to: INSERT INTO tags (name, descrption, username) values (?, ?, ?);
+				const tag = await Tags.create({
+					name: args[0],
+					description: args.slice(1).join(' '),
+					username: message.author.tag, 
+				});
+				return message.reply(`Tag ${tag.name} added.`);
+			} catch (e) {
+				if (e.name === 'SequelizeUniqueConstraintError') {
+					return message.reply('That tag already exists.');
+				}
+				return message.reply('Something went wrong with adding a tag.');
+	}
 });
 	client.login(process.env.token)

@@ -35,7 +35,7 @@ module.exports.run = async (client, message, args, error) => {
 		};
 
 		let embed = new Discord.RichEmbed()
-		.setTitle(message.guild.name)
+		.setTitle(message.guild.name) 
 		.setThumbnail(message.guild.iconURL)
 		.setColor(message.member.displayColor)
 		.setTimestamp()

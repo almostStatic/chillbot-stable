@@ -13,7 +13,7 @@ module.exports.run = async(client, message, args, getSupport, error) => {
 			time: 15000
 		})
 			.then(async (got) => {
-				if (got.first().content.tolowerCase() == 'cancel') {
+				if (got.first().content.toLowerCase() == 'cancel') {
 					return message.reply(`${process.env.gre} Command Cancelled!`)
 				}
 				message.channel.send("", {

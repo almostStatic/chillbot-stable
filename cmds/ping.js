@@ -7,8 +7,8 @@ exports.run = async (client, message, args) => {
   .setColor("RANDOM");
   message.channel.send({embed: ping1}).then((msg) => {
   const ping2 = new Discord.RichEmbed()
-  .addField('__**API:**__', `${ping}`, true)
-  .addField('__**Ping:**__', `${msg.createdTimestamp - message.createdTimestamp} ms`, true)
+  .addField('__**API:**__', `${ping} MS`, true)
+  .addField('__**Ping:**__', `${msg.createdTimestamp - message.createdTimestamp} MS`, true)
   .setColor('RANDOM');
   msg.edit(ping2)
     });

@@ -2,8 +2,8 @@ const Discord = require("discord.js");
 
 module.exports.run = async(client, message, args, error) => {
 
-if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
-	message.channel.send(process.env.re+" You do not have permission to use this command!")
+if (!message.member.permissions.has(["BAN_MEMBERS"])) {
+	return message.channel.send(process.env.re+" You do not have permission to use this command!")
 };
 
 	let bannedUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
@@ -19,12 +19,9 @@ if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
 	return	message.channel.send(process.env.re+`The user has not been provided or is no longer a member of the guild.`)
 	};
 
-	if (!bannedUser.banable) {
-		return message.channel.send(process.env.re+"The mentioned user is not bannable!\nPlease move my role higher or contact support " + process.env.supportServer)
-	}
 
-	if (bannedUser.permissions.has(["BAN_MEMBERS", "ADMINISTRATOR"])) {
-		error("That user cannot be banned. They either have the ban members or admin permissions!")
+	if (bannedUser.permissions.has(["BAN_MEMBERS"])) {
+		return message.reply("That user cannot be banned. They either have the ban members or admin permissions!")
 	}
 
 	bannedUser.send(`You were banned from **${message.guild.name}** by **${message.author.tag}**`, {
@@ -36,9 +33,10 @@ if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
 			message.channel.send("I attempted to notify " + bannedUser.user.tag + ` but their DMs were blocked; they were not notified of the ban.`)
 		});
 
-	await message.guild.member(bannedUser) 
+	await message.guild.member(bannedUser)
 		.ban(reason + "\nUser Respomsible: " + message.author.tag + " | " + message.author.id)
 			.catch(err => {
+				console.log(err)
 				message.channel.send("", {
 					embed: new Discord.RichEmbed()
 					.setTitle("Error")
@@ -54,10 +52,10 @@ if (!message.member.permissions.has(["BAN_MEMBERS", 'ADMINISTRATOR'])) {
 	.addField(`> Memebr Banned`, `**${bannedUser.user.tag}**`, true)
 	.addField("> Banned At", bannedAt, true)
 	.addField("> Banned In", message.channel, true)
-	.addField("> Reason", reason, true)
+	.addField("> Reason", `r${reason}`, true)
 	.setFooter("Banned User ID: " + bannedUser.user.id)
 	.setTimestamp()
-		message.channel.send({ embed: banEmbed })	
+	//	message.channel.send({ embed: banEmbed })	
 		ch.send({ embed: banEmbed })
 };
 

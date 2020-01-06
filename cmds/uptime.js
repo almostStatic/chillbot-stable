@@ -1,6 +1,10 @@
 const Discord = require("discord.js")
 
 module.exports.run = async(client, message, args, error) => {
+	let upt = await message.channel.send("", {
+		embed: new Discord.RichEmbed()
+		.setDescription("Calculating...")
+	})
 	var getUptime = function(millis) {
     var dur = {};
     var units = [{
@@ -49,7 +53,7 @@ let myDate = new Date(client.readyTimestamp);
         .setFooter(`Ready Timestamp: `)
 				.setTimestamp(client.readyTimestamp)
         .setColor(message.member.displayColor)
-        message.channel.send(uptEmb)
+        upt.edit({embed: uptEmb})
 					.catch(err=>{
 						getSupport();
 					});

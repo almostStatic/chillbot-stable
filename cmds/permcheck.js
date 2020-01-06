@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 
 module.exports.run = async(client, message, args) => {
-	let member = message.mentions.members.first()
+	let member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
 	if (!member) {
 		member = message.member;
 	}

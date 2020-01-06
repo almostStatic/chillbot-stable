@@ -1,10 +1,13 @@
 // credit to danielpmc (github)
 
 const Discord = require("discord.js");
-module.exports.run = (client, message, args) => {
-//	let msg = await message.channel.send(``)
-		let u = message.guild.member(message.guild.members.get(args[0]) || message.mentions.users.first())
-  let embed2 = new Discord.RichEmbed()
+module.exports.run = async(client, message, args) => {
+	let msg = await message.channel.send("", {
+		embed: new Discord.RichEmbed()
+		.setDescription("Fetching user data...")
+	})
+		let u = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
+  let author = new Discord.RichEmbed()
   .setColor(message.member.displayColor)
   .setThumbnail(message.author.avatarURL)
 	.setTitle("User Information")
@@ -20,12 +23,12 @@ module.exports.run = (client, message, args) => {
   .setTimestamp()
   .setFooter(`ID: ${message.author.id}`, message.author.avatarURL);
 if (!u) {
-	return message.channel.send({ embed: embed2 })
+	return msg.edit({ embed: author })
 		.catch(err => {
-			message.reply(err)
+			msg.edit(err)
 		})
 }  
-let embed = new Discord.RichEmbed()
+let memberPinged = new Discord.RichEmbed()
   .setColor(u.displayColor)
   .setThumbnail(u.user.avatarURL)
 	.setTitle("User Information")
@@ -36,11 +39,11 @@ let embed = new Discord.RichEmbed()
   .addField("> Role(s) ", `${u.roles.map(r => r.name).join(", ")}`)
   .addField("> Highest Role ", u.highestRole.name)
 	.addField("> Avatar", `> [View](${u.user.avatarURL})`)
-  .addField(">Joined Guild At ", `${u.joinedAt.toDateString()}`)
+  .addField("> Joined Guild At ", `${u.joinedAt.toDateString()}`)
   .addField("> Joined Discord At ", `${u.user.createdAt.toDateString()}`)
   .setTimestamp()
 	.setFooter(`ID: ${u.id}`, u.user.avatarURL);
-  message.channel.send({embed})
+  msg.edit({ embed: memberPinged })
 }
 
 module.exports.help = {

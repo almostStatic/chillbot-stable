@@ -4,24 +4,27 @@ module.exports.run = async (clinet, message, args, error, getSupport, green, red
 if (message.author.id != process.env.ownerid) {
 	return error("You may not use this command")
 };
-//ifif()
+
 function clean(text) {
   if (typeof(text) === "string")
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
   else
       return text;
 }
+
 try {
 
 	const code = args.join(" ");
 	let evaled = eval(code);
-
+	if (!code) {
+		return message.channel.send("You need to give me some code to evaluate!")
+	}
 	if (typeof evaled !== "string")
 		evaled = require("util")
 			.inspect(evaled);
 		let cleaned = clean(evaled);
 
-	mesage.channel.send("Evaluated", {
+	message.channel.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Evaluation Sucsessful")
 		.setDescription(`\`\`\`xl\n${cleaned}\n\`\`\``)
@@ -29,7 +32,7 @@ try {
 	});
 
 } catch (err) {
-		message.channel.send("Evaluated", {
+		message.channel.send("", {
 			embed: new Discord.RichEmbed()
 			.setTitle("Evaluation Unsucsessful")
 			.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
