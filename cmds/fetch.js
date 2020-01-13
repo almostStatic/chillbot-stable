@@ -3,7 +3,8 @@ const fetch = require("node-fetch")
 const qs = require("querystring")
 module.exports.run = async(client, message, args) => {
 	let url = args.join(" ")
-await	fetch(qs.stringify(url))
+let res = await	fetch(qs.stringify(url))
+res.json()
 		.then(async res => {
 			json = await res.json()
 			message.channel.send(`**Fetched (JSON)**\n${json}`)

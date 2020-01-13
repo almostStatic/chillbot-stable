@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args) => {
 			embed.setFooter(`👍 ${memeUpvotes} | 👎 ${memeDownvotes} | 💬 ${memeNumComments}`);
 			message.channel.send({embed})
 	});
-}
+};
 
 module.exports.help = {
 	name: "meme",

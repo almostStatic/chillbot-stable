@@ -12,17 +12,17 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 	storage: 'database.sqlite',
 });		
 const Tags = sequelize.define('tags', {
-name: {
-	type: Sequelize.STRING,
-	unique: true,
-},
-description: Sequelize.TEXT,
-username: Sequelize.STRING,
-usage_count: {
-	type: Sequelize.INTEGER,
-	defaultValue: 0,
-	allowNull: false,
-},
+	name: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	description: Sequelize.TEXT,
+	username: Sequelize.STRING,
+	usage_count: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	}
 });
 
 global.client = new Discord.Client({
@@ -38,7 +38,7 @@ async function sleep(ms){
     });
 };
 
-let premium = ['501710994293129216']; // premium users are immune to cooldowns <3
+let owner = ['501710994293129216']; // premium users are immune to cooldowns <3
 
 const app = Express();
 
@@ -48,30 +48,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(Express.static('public'));
 
 app.get('/', (req, res) => {
-	res.sendStatus(200);
+	res.sendFile('/home/runner/public/main.html');
 });
+
+app.get('/reportbug', (req, res) => {
+	res.sendFile('/home/runner/public/reportbug/main.html')
+})
+
+app.get('/*', (req, res) => {
+	res.sendFile('/home/runner/public/notfound/main.html')
+})
 
 app.listen(3000, () => console.log(`Server Started`));
 
 // COMMAND HANDLER
 fs.readdir("./cmds/", (err, cmds) => {
-
 	if (err) { 
 		console.error(err);
 	}
 	let jsfile = cmds.filter(f => f.split(".").pop() === "js")
 	console.log(jsfile.length)
 	if(jsfile.length <= 0) {
-		console.error("Commands Not Found");
 		return;
-	}
+	};
 
 	jsfile.forEach((f, i) => {
 		let props = require(`./cmds/${f}`);
 		client.commands.set(props.help.name, props);
 	});
 });
-
 client.on("disconnected", async() => {
 	client.channels.get("659726031946776596").send(`**:warning: The client websocket has disconnected and will no longer attempt to reconnect.**\n(Event Timestamp: ${Moment(Date.now())})`)
 });
@@ -88,8 +93,8 @@ client.on("reconnecting", () => {
 
 client.on("ready", async() => {
 	console.clear();
-	await console.log("https://github.com/discordjs/guide/blob/master/code-samples/sequelize/tags/sequelize.js")
-		/*
+
+			/*
 	 * equivalent to: CREATE TABLE tags(
 	 * name VARCHAR(255),
 	 * description TEXT,
@@ -100,10 +105,10 @@ client.on("ready", async() => {
 	Tags.sync();
     client.user.setPresence({
         game: { 
-            name: `⚠️ BETA VERSION v1.6 ⚠️`,
-            type: 'PLAYING'
+            name: `${client.guilds.size} servers, ${client.users.size} users`,
+            type: 'WATCHING'
         },
-        status: 'dnd'
+        status: 'idle'
     })
 	console.log(`${client.user.tag} is now online!`)
 	console.log(`Event Timestamp: ${Moment(Date.now())}`)
@@ -123,14 +128,14 @@ client.on('guildCreate', (server) => {
 			embed: new Discord.RichEmbed()
 			.setColor([0, 255, 0])
 			.setTitle("Server Joined")
-			.addField("> Guild Name", server.name)
-			.addField("> Guild Owner & ID", `${server.owner.user.tag} | ${server.owner.id}`)
-			.addField("> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
-			.addField("> Added At", Moment(Date.now()))
+			.addField("\> Guild Name", server.name)
+			.addField("\> Guild Owner & ID", `${server.owner.user.tag} | ${server.owner.id}`)
+			.addField("\> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
+			.addField("\> Added At", Moment(Date.now()))
 		})
 server.owner.send("", {
 	embed: new Discord.RichEmbed()
-	.setDescription(`Thank you for adding **ChillBot**!\nYou may view a full list of command by using \`>help\` note the bot will DM you.\nIf you need any help/assistance, you may join our support server [here](${process.env.supportServer})\nTo report bugs please use \`>reportbug\`\n> Commands are not case sensitive\n> The bot owner is \`static#4432\``)
+	.setDescription(`Thank you for adding **ChillBot**!\nYou may view a full list of command by using \`>help\` note the bot will DM you.\nIf you need any help/assistance, you may join our support server [here](${process.env.supportServer})\nTo report bugs please use \`>reportbug\`\n> Commands are not case sensitive\n> The bot owner is \`static#7894\``)
 	.setTitle(`Thank you for adding ${client.user.username}!`)
 	.setColor([0, 255, 0])
 	})
@@ -142,10 +147,10 @@ client.on("guildDelete", (server) => {
 			embed: new Discord.RichEmbed()
 			.setColor([255, 0, 0])
 			.setTitle("Removed from server")
-			.addField("> Guild Name", server.name)
-			.addField("> Guild Owner & ID", `${server.owner.user.tag} | ${server.owner.id}`)
-			.addField("> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
-			.addField("> Removed At", Moment(Date.now()))
+			.addField("\> Guild Name", server.name)
+			.addField("\> Guild Owner & ID", `${server.owner.user.tag} | ${server.owner.id}`)
+			.addField("\> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
+			.addField("\> Removed At", Moment(Date.now()))
 		})
 })
 
@@ -154,6 +159,7 @@ client.on("error", async (err) => {
 		embed: new Discord.RichEmbed()
 		.setColor("RED")
 		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
+		.setTimestamp()
 	})
 })
 process.on("unhandledRejection", (err) => {
@@ -162,6 +168,7 @@ process.on("unhandledRejection", (err) => {
 		embed: new Discord.RichEmbed()
 		.setColor("RED")
 		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
+		.setTimestamp()
 	});
 });
 
@@ -201,14 +208,23 @@ client.on("message", async(message) => {
 		});
 	};
 	const prefix = process.env.prefix;
-	if (!message.content.startsWith(prefix)) return;
+	if (!message.content.startsWith(prefix)) {
+			if (message.content == 'hi') {
+				 message.reply('Hello, how are you today?')
+			};
+		return;
+	};
 	let messageArray = message.content.split(" ");
 	let cmd = messageArray[0].toLocaleLowerCase();
 	let args = messageArray.slice(1);
 	let commandfile = client.commands.get(cmd.slice(prefix.length));
 	if (commandfile) commandfile.run(client,message,args,done,error,prefix); 
 	if (cmd == `${prefix}prefix`) { return message.channel.send("The current prefix is `>` and cannot be changed!") }
+	if (cmd == `${prefix}t`) {
+		return message.channel.send('<a:loading:664585095927037958> Loading...')
+	}
 	if (cmd == `${prefix}add-tag`) {
+		let msg = await message.channel.send("Adding tag...")
 			try {
 				// equivalent to: INSERT INTO tags (name, descrption, username) values (?, ?, ?);
 				const tag = await Tags.create({
@@ -216,12 +232,21 @@ client.on("message", async(message) => {
 					description: args.slice(1).join(' '),
 					username: message.author.tag, 
 				});
-				return message.reply(`Tag ${tag.name} added.`);
+				return msg.edit(`${message.author}, A tag named \`${tag.name}\` was added!`);
 			} catch (e) {
 				if (e.name === 'SequelizeUniqueConstraintError') {
-					return message.reply('That tag already exists.');
+					return msg.edit('That tag already exists!');
 				}
-				return message.reply('Something went wrong with adding a tag.');
+				return msg.edit( `${message.author}` + 'Something went wrong with adding a tag.');
+	}};
+	if(cmd == `${prefix}tag`) {
+		tagName = args.join(' ')
+		let gotTag = await Tags.findOne({where: {name: tagName} })
+    if(gotTag) {
+    	gotTag.increment('usage_count')
+    	return message.channel.send(gotTag.get('description'))
+    }
+    return message.reply(`No such tag exists!`)
 	}
 });
 	client.login(process.env.token)

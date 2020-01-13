@@ -15,8 +15,11 @@ module.exports.run = async(client, message, args, error, getSupport, green, red)
 \`>warn [@user, or id] <reason>\` | Warns a specified user for a certain reason
 \`>ban [@user] <reason>\` | Bans a user from th current guild | BAN MEMBERS
 \`>bans\` | See the banned users in the guild and the reasons of their ban
+
 	`)
+	.addField('EXTRA MOD COMMANDS', '`>perms [@user or id]` | Displays the server permissions of a given user')
 	.addField("EXTRAS", `
+\`>checkinv [invite link]\` | Get the bot to display information about a certain invite link; the link must be valid
 \`>8ball [question]\` | Ask the bot a question and get its response (credit to [danielpmc](https://github.com/danielpmc))
 \`>serverinfo\` | Display server information
 \`>userinfo [@user, or id]\` | Displays some basic user information
@@ -28,8 +31,9 @@ module.exports.run = async(client, message, args, error, getSupport, green, red)
 `)
 	.addField(`DEVELOPER`, `
 \`>docs [search term]\` | Search the discord.js docs 
+\`>npm [package name]\` | Search [npmjs](https://npmjs.org/) for ang given package, Please ensure they are **URL Encoded**
 	`)
-.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nThe bot owner is: \`static#0772\``)
+.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nThe bot owner is: \`static#7894\``)
 	.setFooter("Commands do not work in DMs", client.user.avatarURL)
 	.setTimestamp()
 const msg = await message.channel.send("Check your DMs!")

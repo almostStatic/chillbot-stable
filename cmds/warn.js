@@ -24,7 +24,7 @@ module.exports.run = async(client, message, args, green, red) => {
 		return msg.edit(`${process.env.re} That user is not a member of this server!`)
 	}
 	let rembed = new Discord.RichEmbed()
-	.setDescription(`**Reason:** ${reason}`)
+	.setDescription(`\> **Reason:** ${reason}`)
 	.setColor(message.member.displayColor)
 
 	guildMember.send(`You were warned in **${message.guild.name}** by **${message.author.tag}**`, { embed: rembed })

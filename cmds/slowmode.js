@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 
 module.exports.run = async(client, message, args, error) => {
+	
 	if (!message.guild.member(client.user).permissions.has("MANAGE_CHANNELS")) {
 		error("I need the **MANAGE CHANNELS** permission for this command to work!")
 	}
@@ -14,7 +15,7 @@ module.exports.run = async(client, message, args, error) => {
 	if (time > 21600) { 
 		return message.reply(process.env.re + "The maximum number is **21600** seconds, (6 hours)")
 	}
-	if (isNaN(time) && time) {
+	if (isNaN(time) && (time)) {
 		error(`${message.author.tag}, the time in seconds needs to be a **number**.`)
 	};
 	if (!time) {
@@ -38,17 +39,15 @@ module.exports.run = async(client, message, args, error) => {
 		}); 
 	} else if (time) {
 			if (time > 21600) { return message.reply(process.env.re + "Sorry, the maximum is **21600**") }
-		message.channel.setRateLimitPerUser(time)
-		message.channel.send("", {
-			embed: new Discord.RichEmbed() 
-			.setDescription(`Slowmode set for ${time} seconds`)
-			.setColor('#42F000')
-	}).catch(() => {
-		return message.reply("You took too long!")
-	})
-		
-	}
-
+				message.channel.setRateLimitPerUser(time);
+				message.channel.send("", {
+					embed: new Discord.RichEmbed() 
+					.setDescription(`Slowmode set for ${time} seconds`)
+					.setColor('#42F000')
+			}).catch(() => {
+				return message.reply("You took too long!")
+			});
+	};
 };
 
 module.exports.help = { name: 'slowmode' }

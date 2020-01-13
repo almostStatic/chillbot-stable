@@ -26,6 +26,9 @@ module.exports.run = async(client, message, args) => {
 		.setDescription(`**Reason**: ${reason}`)
 		.setColor(message.member.displayColor)
 	})
+	if(guildMember.permissions.has('KICK_MEMBERS')) {
+		return msg.edit(`${process.env.re} You can't kick your mods! `)
+	}
 	let log = await logs.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Member Kicked")
@@ -38,9 +41,7 @@ module.exports.run = async(client, message, args) => {
 		.setThumbnail(guildMember.user.avatarURL)
 		.setColor([255, 156, 0])
 	})
-	if(guildMember.permissions.has("MANAGE_GUILD")) {
-		return msg.edit(`${process.env.re} This user is mod/admin.`)
-	}
+
 	message.guild.member(guildMember).kick(`Responsible User: ${message.author.tag}\nDetails: ${log.url}`)
 	msg.edit(`${process.env.gre} **${guildMember.user.tag}** was kicked!`, {
 		embed: new Discord.RichEmbed()
