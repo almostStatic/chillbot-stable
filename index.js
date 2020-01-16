@@ -195,17 +195,17 @@ client.on("message", async(message) => {
 		});
 	};
 
-		var jsonColor = await jsonstore.get('color' + message.author.id)
-			.catch((err) => { 
-				if (err.code == 404) {
+	var jsonColor = await jsonstore.get('color' + message.author.id)
+		.catch((err) => { 
+			if (err.code == 404) {
 
 				};
 			});
-
 		if(!jsonColor) {
 			jsonColor = message.member.displayColor;
 		}
 
+		
 	global.prefix = null;
 	let data = await	jsonstore.get('prefix' + message.guild.id)	
 		.catch(e =>{ if(e.code == 404) { } })

@@ -11,7 +11,7 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 	let guildMember = message.guild.member(message.mentions.users.first() || message.guild.members.get(userArg));
 	if (!guildMember) { return msg.edit(`${process.env.re} That user is no longer a member of this guild!`) }
 	if(!guildMember.managable) {
-		return msg.edit('cant do this to that user')
+		return msg.edit(`${process.env.re} I cannot manage that user. Please make sure my role is higher than them!`)
 	}
 	let logCh = message.guild.channels.find(ch => ch.name == 'logs') || message.channel;
 	guildMember.send(`You were softbanned in **${message.guild.name}** by **${message.author.tag}**`, {

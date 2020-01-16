@@ -1,13 +1,13 @@
 const Discord = require('discord.js')
 const fs = require('fs')
-//const warns = fs.readFileSync("./warns.json", "utf-8");
 const Moment = require("moment")
+const json = require('async-jsonstore-io')
+let jsonstore = new json(process.env.jstk)
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
-if(message.guild.me.permissions.has('MANAGE_MESSAGES')) {
-	message.delete();
-};
-	let msg = await message.channel.send("Fetching user...")
+module.exports.run = async(client,message,args,prefix,jsonColor,warns,sleep,done,error) => {
+	
+	message.delete().catch(err => {})
+	let msg = await message.channel.send("Warning...")
 	if (!message.member.permissions.has("MANAGE_MESSAGES")) {
 		return msg.edit(process.env.re+' You need the **manage messages** permision in order to use this command!')
 	}
@@ -21,17 +21,27 @@ if(message.guild.me.permissions.has('MANAGE_MESSAGES')) {
 		reason = "no reason given"
 	};
 
-	let guildMember = message.guild.member(message.mentions.users.first() || message.guild.members.get(userArg));
+	let guildMember = message.guild.member(message.guild.members.get(userArg) || message.mentions.users.first());
 
 	if (!guildMember) {
 		return msg.edit(`${process.env.re} That user is not a member of this server!`)
 	}
+
+		/*var warns = jsonstore.get('warns' + guildMember.id)
+			.catch((e) => {
+				if(e.code == 404) {
+
+				};
+			}); */
+	//let newWarn = await jsonstore.send('warns' + guildMember.id, warns + 1)
+	//	if(!warns) newWarn = '0';
 	let rembed = new Discord.RichEmbed()
 	.setDescription(`**Reason:** ${reason}`)
-	.setColor(message.member.displayColor)
+	.setColor(jsonColor)
+//	.setFooter("Number of warns: " + warns)
 
 	guildMember.send(`You were warned in **${message.guild.name}** by **${message.author.tag}**`, { embed: rembed })
-	msg.edit(`${process.env.gre} **${guildMember.user.tag}** has been warned`, {embed: rembed})
+	 msg.edit(`${process.env.gre} **${guildMember.user.tag}** has been warned`, {embed: rembed})
 };
 
 module.exports.help = {

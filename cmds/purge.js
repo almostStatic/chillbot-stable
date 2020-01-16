@@ -14,13 +14,10 @@ module.exports.run = async(client, message, args) => {
 	}
 	let fetched = await message.channel.fetchMessages({ limit: delNumber });
 	message.channel.bulkDelete(fetched)
-		.then(() => {
-			message.channel.send(`${process.env.gre} **${message.author.username}** has deleted ${delNumber} messages!\nThis message will auto-delete within the next 3 seconds...`)
-		})
-		.then(msg => {
+		const msg =	await message.channel.send(`${process.env.gre} **${message.author.username}** has deleted ${delNumber} messages!\nThis message will auto-delete within the next 3 seconds...`)
 			msg.delete(3000)
-		})
 			.catch(err => {
+				console.log(err)
 				message.channel.send(`There was an error\n${err}`)
 			})
 }
