@@ -1,14 +1,26 @@
 // credit to danielpmc (github)
 
 const Discord = require("discord.js");
-module.exports.run = async(client, message, args) => {
+
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+		var jsonColor = await jsonstore.get('color' + message.author.id)
+		.catch((err) => { 
+			if (err.code == 404) {
+
+			};
+		});
+	if(!jsonColor) { jsonColor = message.member.displayColor }
+
+	if(message.guild.me.permissions.has('MANAGE_MESSAGES')) {
+		message.delete();
+	}
 	let msg = await message.channel.send("", {
 		embed: new Discord.RichEmbed()
 		.setDescription("Fetching user data...")
 	})
 		let u = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
   let author = new Discord.RichEmbed()
-  .setColor(message.member.displayColor)
+  .setColor(jsonColor)
   .setThumbnail(message.author.avatarURL)
 	.setTitle("User Information")
   .addField("> Username ", `${message.author.tag}`, true)
@@ -25,11 +37,11 @@ module.exports.run = async(client, message, args) => {
 if (!u) {
 	return msg.edit({ embed: author })
 		.catch(err => {
-			msg.edit(err)
-		})
-}  
+			msg.edit("Sorry, there was an error. " + err)
+		});
+};  
 let memberPinged = new Discord.RichEmbed()
-  .setColor(u.displayColor)
+  .setColor(jsonColor)
   .setThumbnail(u.user.avatarURL)
 	.setTitle("User Information")
   .addField("> Username ", `${u.user.tag}`, true)
@@ -47,5 +59,5 @@ let memberPinged = new Discord.RichEmbed()
 }
 
 module.exports.help = {
-	name: 'userinfo'
-}
+	name: 'userinfo',
+};

@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
 	message.channel.send(`:cool: **${message.author.tag}** is chilling with **ChillBot**!! :cool:`)
 		.then(async msg => {
 			await msg.react('580716592980164618')

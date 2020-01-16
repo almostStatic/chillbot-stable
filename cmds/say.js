@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 
-module.exports.run = async (client, message, args)=> {
+module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error)=> {
 	message.delete();
 	let msg = await message.channel.send("Verifying your message...")
 	let type = args[0]
@@ -18,7 +18,7 @@ module.exports.run = async (client, message, args)=> {
 		return msg.edit("", {
 			embed: new Discord.RichEmbed()
 			.setDescription(content)
-			.setColor(message.member.displayColor)
+			.setColor(jsonColor)
 		})
 	}
 };

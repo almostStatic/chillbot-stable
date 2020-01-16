@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client, message, args, error, getSupport) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
 	message.channel.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Bot Information")
@@ -15,7 +15,7 @@ module.exports.run = async(client, message, args, error, getSupport) => {
 		.addField("> Memory Usage", `**${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}** MB` )
 		.addField("> Extras", `**Client Pings**: ${Math.trunc(message.client.pings)}\n**Client WS Ping**: ${message.client.ping}\n**Client Status**: ${message.client.status}`)
 		.setTimestamp()
-		.setColor(message.guild.me.displayColor)
+		.setColor(jsonColor)
 	})
 		.catch(er => {
 			message.reply(`There was an error, ${er}`)

@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client, message, args) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
 	let msg = await message.channel.send(`Processing... **Please wait!**`)
 	let userArg = args[0];
 	let reason = args.slice(1).join(" ")
@@ -24,7 +24,7 @@ module.exports.run = async(client, message, args) => {
 	guildMember.send(`You were kicked from **${message.guild.name}** by **${message.author.tag}**`, {
 		embed: new Discord.RichEmbed()
 		.setDescription(`**Reason**: ${reason}`)
-		.setColor(message.member.displayColor)
+		.setColor(jsonColor)
 	})
 	if(guildMember.permissions.has('KICK_MEMBERS')) {
 		return msg.edit(`${process.env.re} You can't kick your mods! `)
@@ -39,14 +39,14 @@ module.exports.run = async(client, message, args) => {
 		.setFooter(`ID: ${guildMember.user.id}`)
 		.setTimestamp()
 		.setThumbnail(guildMember.user.avatarURL)
-		.setColor([255, 156, 0])
+		.setColor(jsonColor)
 	})
 
 	message.guild.member(guildMember).kick(`Responsible User: ${message.author.tag}\nDetails: ${log.url}`)
 	msg.edit(`${process.env.gre} **${guildMember.user.tag}** was kicked!`, {
 		embed: new Discord.RichEmbed()
 		.setDescription(`**Reason**: ${reason}`)
-		.setColor(message.member.displayColor)
+		.setColor(jsonColor)
 	})
 };
 

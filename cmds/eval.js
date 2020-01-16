@@ -1,8 +1,8 @@
 const Discord = require("discord.js")
 
-module.exports.run = async (clinet, message, args, error, getSupport, green, red) => {
+module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
 if (message.author.id != process.env.ownerid) {
-	return error("You may not use this command")
+	return message.reply("You may not use this command")
 };
 
 function clean(text) {

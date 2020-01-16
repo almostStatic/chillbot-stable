@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client, message, args) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
 	if (!message.member.permissions.has("BAN_MEMBERS")) {
 		return message.channel.send(`${process.env.re} You do not have correct permissinos to use this command.\n> You need the **ban members** permission!`)
 	}

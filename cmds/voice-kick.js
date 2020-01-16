@@ -1,24 +1,27 @@
 const Discord = require("discord.js");
 
-module.exports.run = async(client, message, args, error, getSupport) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
 	
 	const filter = m => m.author.id === message.author.id;
-	if (!message.guild.me.hasPermission(['MANAGE_CHANNELS', 'MOVE_MEMBERS'])) {
-		error("You do not have permission to use this command!")
+	if (!message.guild.me.hasPermission('MOVE_MEMBERS')) {
+		return message.reply("You do not have permission to use this command!")
 	}
 	const member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
-	let reason = args.join(' ').slice(1);
+	let reason = args.slice(1).join(' ');
 	if (!member) {
-			error(`Please @mention the member or enter their user ID.`)
+			return message.reply(`Please @mention the member or enter their user ID.`)
 	};
 	if (!member.voiceChannel) {
-		error(`${meber} is not in a voice channel.`)
-			.catch(e => {});
+		return message.reply(`**${meber.user.tag}** is not in a voice channel.`)
 	};
+	let vc = member.voiceChannel;
 
 	member.setVoiceChannel(null);
 
-	message.react('👌');
+	message.channel.send(`${process.env.gre} Kicked **${member}** from voice channel ${vc.name}`, {
+		embed: new Discord.RichEmbed()
+		.setDescription("**Reason** " + reason)
+	})
 	message.channel.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Member Kicked")

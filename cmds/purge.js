@@ -8,13 +8,15 @@ module.exports.run = async(client, message, args) => {
 	if(isNaN(delCount)) {
 		return message.channel.send(`${process.env.re} You need to provide a valid number of messages to delete`)
 	}
-	let delNumber = parseInt(delCount);
+	let delNumber = Number(delCount);
 	if (delNumber > 100) {
 		return message.channel.send(`${process.env.re} You may only delete 1 - 100 messages at a time`)
 	}
 	let fetched = await message.channel.fetchMessages({ limit: delNumber });
 	message.channel.bulkDelete(fetched)
-	message.channel.send(`${process.env.gre} **${message.author.tag}** has deleted ${delNumber} messages!\nThis message will auto-delete within the next 3 seconds...`)
+		.then(() => {
+			message.channel.send(`${process.env.gre} **${message.author.username}** has deleted ${delNumber} messages!\nThis message will auto-delete within the next 3 seconds...`)
+		})
 		.then(msg => {
 			msg.delete(3000)
 		})

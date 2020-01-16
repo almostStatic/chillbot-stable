@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client, message, args, error) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+
 	let upt = await message.channel.send("Calculating...")
 	var getUptime = function(millis) {
     var dur = {};
@@ -49,10 +50,14 @@ let myDate = new Date(client.readyTimestamp);
         .addField("Uptime:", `**${getUptime(client.uptime)}**`)
         .setFooter(`Ready Timestamp: `)
 				.setTimestamp(client.readyTimestamp)
-        .setColor(message.member.displayColor)
+        .setColor(jsonColor)
         upt.edit("",{embed: uptEmb})
 					.catch(err=>{
-						getSupport();
+						message.channel.send("", {
+							embed: new Discord.RichEmbed()
+							.setDescription('ERROR: ' + err)
+							.setFooter('Please contact support by using the command >support')
+						})
 					});
 }
 

@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const Moment = require("moment");
-module.exports.run = async(client, message, args) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
 	if (message.author.id != process.env.ownerid) {
 		return message.reply(`${process.env.re} you may not use this command.`)
 	}

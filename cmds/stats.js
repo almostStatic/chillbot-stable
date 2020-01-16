@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client, message, args, error, getSupport) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+
 	message.channel.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Stats")
@@ -15,7 +16,7 @@ module.exports.run = async(client, message, args, error, getSupport) => {
 		.addField("\> Joined Your Server", message.guild.member(client.user).joinedAt.toDateString(), true)
 		.addField("\> Memory Usage", `**${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)}** MB` )
 		.setTimestamp()
-		.setColor([0, 255, 255])
+		.setColor(jsonColor)
 	})
 		.catch(er => {
 			message.reply(`There was an error, ${er}`)

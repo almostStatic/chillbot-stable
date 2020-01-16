@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-exports.run = async (client, message, args) => {
+exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
   let ping = Math.round(message.client.ping); 
   const ping1 = new Discord.RichEmbed()
   .setDescription(`:ping_pong: Please wait! It wont take long :) \n if you see this message its probs not a good thing`)
@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
   const ping2 = new Discord.RichEmbed()
   .addField('__**API:**__', `${ping} MS`, true)
   .addField('__**Ping:**__', `${msg.createdTimestamp - message.createdTimestamp} MS`, true)
-  .setColor('RANDOM');
+  .setColor(jsonColor);
   msg.edit(ping2)
     });
 };

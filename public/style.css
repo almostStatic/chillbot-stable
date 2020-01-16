@@ -1,5 +1,6 @@
 body {
-	background-color: lightcoral;
+	background-color: lightgreen;
+	color: orangered;
 };
 
 ::selection {

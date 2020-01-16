@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 
-module.exports.run = async (client, message, args) => {
-	let msg = await message.channel.send("Getting invite...")
+module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
+	let msg = await message.channel.send("Checking invite...")
 	let invite = args[0]
 	if(!invite) {
 		return msg.edit(`${process.env.re} You need to provide a valid invite!`)
@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args) => {
 		
 return msg.edit("", {
 					embed: new Discord.RichEmbed()
-					.setColor(message.member.displayColor)
+					.setColor(jsonColor)
 					.setTitle("Invite " + inv.code)
 					.addField("\> Link", `[Join ${inv.guild.name}](https://discord.gg/${inv.code})`, true)
 					.addField("\> Server", `${inv.guild.name} | ID: ${inv.guild.id}`)

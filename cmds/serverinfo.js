@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (client, message, args, error) => {
+module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
 	try {
 		let splash = `[View](${message.guild.splashURL})`;
 		let mfaLvl = message.guild.mfaLevel;
@@ -37,7 +37,7 @@ module.exports.run = async (client, message, args, error) => {
 		let embed = new Discord.RichEmbed()
 		.setTitle(message.guild.name) 
 		.setThumbnail(message.guild.iconURL)
-		.setColor(message.member.displayColor)
+		.setColor(jsonColor)
 		.setTimestamp()
 		.addField("> Owner", message.guild.owner.user.tag)
 		.addField("> Created On", message.guild.createdAt.toDateString())

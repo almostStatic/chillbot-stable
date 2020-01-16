@@ -1,8 +1,8 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client, message, args) => {
-	let unban = args[0]
-	let reason = args.slice(1).join(" ")
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+	let unban = args[0];
+	let reason = args.slice(1).join(" ");
 	if(!reason) {
 		reason = "no reason given"
 	}
@@ -17,7 +17,7 @@ module.exports.run = async(client, message, args) => {
 			message.channel.send(`${process.env.gre} I have unbanned \`${unban}\` (<@${unban}>)`, {
 				embed: new Discord.RichEmbed()
 				.setDescription(`**Reason**: ${reason}`)
-				.setColor(message.member.displayColor)
+				.setColor(jsonColor)
 			})
 		})
 			.catch(er => {

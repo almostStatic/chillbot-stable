@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client, message, args) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
 	let question = args.join(" ")
 	const answers = [
 			'As I See It Yes',
@@ -35,6 +35,7 @@ module.exports.run = async(client, message, args) => {
 					return message.channel.send(`${process.env.gre} ${message.author}, command Cancelled!`)
 				}
 				const embed = new Discord.RichEmbed()
+				.setColor(jsonColor)
 				.setAuthor(`8ball`, 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png')
 				.addField('Info:', `**Your Question:** ${question}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`);
 				message.channel.send({embed})
@@ -48,6 +49,7 @@ module.exports.run = async(client, message, args) => {
 		return;
 	}
 	const embed = new Discord.RichEmbed()
+	.setColor(jsonColor)
 .setAuthor(`8ball`, 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png')
 .addField('Info:', `**Your Question:** ${question}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`);
 	message.channel.send({embed}).catch(e => console.error(e))
