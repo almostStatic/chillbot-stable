@@ -20,6 +20,8 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 			'Very Doubtful',
 			'Without A Doubt',
 			'Yes',
+			"Impossible",
+			"bruh",
 			'Yes - Definitely'
 	];
 	if (!question) {

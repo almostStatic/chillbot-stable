@@ -1,19 +1,19 @@
 const Discord = require("discord.js");
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
 	message.delete().catch(err=>{})
 if (!message.member.permissions.has(["BAN_MEMBERS"])) {
 	return message.channel.send(process.env.re+" You do not have permission to use this command!")
 };
 
-	let bannedUser = message.guild.member(message.guild.members.get(args[0] || message.mentions.users.first()));
+	let bannedUser = message.guild.member(message.guild.members.get(args[0]) || message.mentions.users.first());
 	let reason = args.slice(1).join(' ')
 	let ch = message.guild.channels.find(r => r.name == 'logs')
 	if (!ch) {
 		ch = message.channel;
 		reason = args.slice(1).join(' ') + "\nThe log message was sent here as there is no channel called `logs`"
 	}
-	let bannedAt = message.createdAt.toDateString();
+	let bannedAt = message.createdAt.toDateString()//format("hh:mm:ss YYYY/MM/DD");
 
 	if (!bannedUser) {
 	return	message.channel.send(process.env.re+`The user has not been provided or is no longer a member of the guild.`)

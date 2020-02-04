@@ -6,7 +6,7 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 		member = message.member;
 	}
 	if (!message.guild.member(member)) {
-		return message.channel.send("The mentioned user is not in this serber.")
+		return message.channel.send("The mentioned user is not in this server.")
 	}
 	message.channel.send("", {
 		embed: new Discord.RichEmbed()
@@ -37,7 +37,7 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 **Use External Emojis**: ${member.permissions.has("EXTERNAL_EMOJIS") ? "<:GreenTick:580716592980164618>" : "<:RedCrossMark:582240944863313934>"}
 
 **__Voice Permissions__**
-**Cconnect**: ${member.permissions.has("CONNECT") ? "<:GreenTick:580716592980164618>" : "<:RedCrossMark:582240944863313934>"}
+**Connect**: ${member.permissions.has("CONNECT") ? "<:GreenTick:580716592980164618>" : "<:RedCrossMark:582240944863313934>"}
 **Speak**: ${member.permissions.has("SPEAK") ? "<:GreenTick:580716592980164618>" : "<:RedCrossMark:582240944863313934>"}
 **Mute Members**: ${member.permissions.has("MUTE_MEMBERS") ? "<:GreenTick:580716592980164618>" : "<:RedCrossMark:582240944863313934>"}
 **Deafean Members**: ${member.permissions.has("DEAFEN_MEMBERS") ? "<:GreenTick:580716592980164618>" : "<:RedCrossMark:582240944863313934>"}

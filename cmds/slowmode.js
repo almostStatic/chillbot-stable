@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
 	
 	if (!message.guild.member(client.user).permissions.has("MANAGE_CHANNELS")) {
 		return message.reply("I need the **MANAGE CHANNELS** permission for this command to work!")

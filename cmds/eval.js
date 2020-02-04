@@ -26,7 +26,7 @@ try {
 
 	message.channel.send("", {
 		embed: new Discord.RichEmbed()
-		.setTitle("Evaluation Sucsessful")
+		.setTitle("Evaluation Successful!")
 		.setDescription(`\`\`\`xl\n${cleaned}\n\`\`\``)
 		.setColor([0, 255, 0])
 	});

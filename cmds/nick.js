@@ -13,11 +13,12 @@ module.exports.run = async(client, message, args) => {
 	let nick = args.slice(1).join(' ')
 	if (!guildMember) {
 		return msg.edit(`${process.env.re} You need to mention a user!`)
-	}
+	};
+
 	message.guild.member(guildMember) 
 		.setNickname(nick, `Responsible User: ${message.author.tag}\nNickname changed at: ${mom(Date.now())}`)
 			.catch(er => {
-				msg.edit("There was an error!")
+				msg.edit(`${process.env.re} I do not have permission to change the nickname of that user!`)
 				return;
 			})
 	msg.edit(`${process.env.gre} I have changed **${guildMember.user.tag}**\'s nickname to **${nick}**!\n\n> Remember nicknames cannot be longre than 32 characters!!`)

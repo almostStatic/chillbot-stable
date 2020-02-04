@@ -1,10 +1,8 @@
 const Discord = require('discord.js')
 const fs = require('fs')
-const Moment = require("moment")
-const json = require('async-jsonstore-io')
-let jsonstore = new json(process.env.jstk)
+const moment = require("moment")
 
-module.exports.run = async(client,message,args,prefix,jsonColor,warns,sleep,done,error) => {
+module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
 	
 	message.delete().catch(err => {})
 	let msg = await message.channel.send("Warning...")
@@ -12,11 +10,13 @@ module.exports.run = async(client,message,args,prefix,jsonColor,warns,sleep,done
 		return msg.edit(process.env.re+' You need the **manage messages** permision in order to use this command!')
 	}
 	let userArg = args[0]
+	let logCh = message.guild.channels.find(x => x.id == logs)
+	if(!logCh) {};
 	let reason = args.slice(1).join(" ")
 	if (!userArg) {
 		return msg.edit(`${process.env.re} You need to provide a user to warn!`)
 	}
-	msg.edit('Parsing arguements...')
+	msg.edit('Warning this user seems to be taking longer than usual...')
 	if (!reason) {
 		reason = "no reason given"
 	};
@@ -25,7 +25,8 @@ module.exports.run = async(client,message,args,prefix,jsonColor,warns,sleep,done
 
 	if (!guildMember) {
 		return msg.edit(`${process.env.re} That user is not a member of this server!`)
-	}
+	};
+	
 
 		/*var warns = jsonstore.get('warns' + guildMember.id)
 			.catch((e) => {
@@ -41,9 +42,22 @@ module.exports.run = async(client,message,args,prefix,jsonColor,warns,sleep,done
 //	.setFooter("Number of warns: " + warns)
 
 	guildMember.send(`You were warned in **${message.guild.name}** by **${message.author.tag}**`, { embed: rembed })
-	 msg.edit(`${process.env.gre} **${guildMember.user.tag}** has been warned`, {embed: rembed})
-};
+	 msg.edit(`${process.env.gre} **${guildMember.user.tag}** has been warned`, {embed: rembed});
+	 if(logCh) { 
+		logCh.send("", {
+			embed: new Discord.RichEmbed()
+			.setTitle('Member Warned')
+			.setColor(jsonColor)
+			.setThumbnail(guildMember.user.avatarURL)
+			.addField("\> Member", guildMember.user.tag)
+			.addField("\> Moderator", message.author.tag)
+			.addField("\> Warned At", `${moment.utc(message.createdAt).format('hh:mm:ss DD/MM/YYYY')} (**UTC**)`)
+			.addField("\> Reason", reason)
+			.setFooter("ID: " + guildMember.id, guildMember.user.avatarURL)
+		});
+	 };
+	 };
 
 module.exports.help = {
-	name: 'warn'
+	name: 'warn',
 };

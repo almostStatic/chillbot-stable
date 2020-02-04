@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
 	let msg = await message.channel.send(`Softbanning...`)
 	if (!message.guild.me.permissions.has("BAN_MEMBERS")) {
-		return msg.edit(`${process.env.re} I need the Ban Members permission for this command to work!\nYou can use the \`>permcheck \``)
+		return msg.edit(`${process.env.re} I need the Ban Members permission for this command to work!\nYou can use the \`>perms \` command`)
 	}
 	let userArg = args[0];
 	let reason = args.slice(1).join(' ') || 'no reason given'
@@ -13,7 +13,7 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 	if(!guildMember.managable) {
 		return msg.edit(`${process.env.re} I cannot manage that user. Please make sure my role is higher than them!`)
 	}
-	let logCh = message.guild.channels.find(ch => ch.name == 'logs') || message.channel;
+	//let logCh = message.guild.channels.find(ch => ch.name == 'logs') || message.channel;
 	guildMember.send(`You were softbanned in **${message.guild.name}** by **${message.author.tag}**`, {
 		embed: new Discord.RichEmbed()
 		.setDescription(`**Reason**: ${reason}`)
@@ -30,7 +30,7 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 					.setDescription(`${process.env.re} Sorry, there was an error! Please [get help here](${process.env.supportServer}) and report the following error:\n\`\`\`xl\n${err}\n\`\`\``)
 				})
 			});
-		logChMsg = await logCh.send("", {
+	/*	logChMsg = await logCh.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Action: Softban -> " + guildMember.user.tag)
 		.addField("\> Member", guildMember.user.tag + ' | ' + guildMember.user.id)
@@ -39,11 +39,11 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 		.addField("\> Reason", reason)
 		.setColor([255, 156, 0])
 	})
-
+*/
 	msg.edit(`${process.env.gre} **${guildMember.user.tag}** was softbanned`, {
 		embed: new Discord.RichEmbed()
 		.setDescription(`**Reason:** ${reaosn}`)
-		.setColor(message.member.displayColor)
+		.setColor(jsonColor)
 	});
 };
 

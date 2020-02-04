@@ -1,0 +1,16 @@
+START
+username = input(username)
+password = input(password)
+
+if no username:
+	output("Sorry, you need to provide a username!")
+
+if no password:
+	output("Sorry, you need to provide a password!")
+
+if username is == "hello" and password == "helloworld#123!":
+	output("Hello, Welcome back!")
+	exit()
+
+output("invalid credentials")
+END

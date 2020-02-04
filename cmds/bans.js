@@ -10,13 +10,13 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 				return message.channel.send(`${process.env.gre} There are no users banned from **${message.guild.name}**!`)
 			}
 			let bList = bans.map(b => `${b.user.tag} (${b.user.id}) | ${b.reason}`.toString()).join("\n")
-			message.channel.send("Users banned from **" + message.guild.name + "**:\n```\n" + bList + "\n```", {
-	split: true
-})
+		message.channel.send(`Users banned from **${message.guild.name}**:\`\`\`\n${bList}\n\`\`\``, {
+			split: true, 
 		})
 			.catch(er => {
 				message.reply(`${process.env.re} | I was unable to find your bans list.\n> Check my permissions`)
 			})
+		}) 
 };
 
 module.exports.help = {

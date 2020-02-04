@@ -13,8 +13,8 @@ module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,erro
 return msg.edit("", {
 					embed: new Discord.RichEmbed()
 					.setColor(jsonColor)
-					.setTitle("Invite " + inv.code)
-					.addField("\> Link", `[Join ${inv.guild.name}](https://discord.gg/${inv.code})`, true)
+					.setTitle(`Invite ${inv.code}`)
+					.addField(`/> Invite`, `\> [Join ${inv.guild.name}](https://discord.gg/${inv.code})`, true)
 					.addField("\> Server", `${inv.guild.name} | ID: ${inv.guild.id}`)
 					.addField("\> Members", inv.memberCount, true)
 					.addField("\> Users Active", inv.presenceCount, true)

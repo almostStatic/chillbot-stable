@@ -5,9 +5,9 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 		embed: new Discord.RichEmbed()
 		.setColor(jsonColor)
 		.setDescription(message.createdTimestamp)
-	})
-}
+	});
+};
 
 module.exports.help = {
-	name: 'timestamp'
-}
+	name: 'timestamp',
+};

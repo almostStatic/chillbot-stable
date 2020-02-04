@@ -15,15 +15,15 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 			message.channel.send(`${message.author}`, {
 				embed: new Discord.RichEmbed()
 				.setColor(jsonColor)
-				.setDescription("What would you like to search the Discord.js Docs?\n\n> Expires in 10 Seconds, type `cancel` to cancel")
+				.setDescription("What would you like to search the Discord.js Docs?\n\n> Expires in 20 Seconds, type `cancel` to cancel")
 			})
 					.then(msg => {
-						msg.delete(10000)
+						msg.delete(20000)
 					})
 						
 			message.channel.awaitMessages(filter, {
 					max: 1,
-					time: 10000,
+					time: 20000,
 			}).then(async(collected)=>{
 					if (collected.first().content.toLowerCase() == 'cancel') {
 							return message.reply(process.env.gre + ' Command cancelled')

@@ -27,7 +27,7 @@ module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,erro
     fetchedMsg.pin()
   })
 		.catch(err => {
-			error(err)
+			return message.reply('I was unable to pin the message with ID ' + args[0])
 		})
 }
 
