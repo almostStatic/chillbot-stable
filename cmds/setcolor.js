@@ -1,6 +1,8 @@
 const Discord = require('discord.js')
 const js = require('async-jsonstore-io');
 const jsonstore = new js(process.env.jstk);
+const keyv = require("keyv");
+const colors = new keyv("sqlite://./database/colors.sqlite")
 
 module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
 	let msg = await message.channel.send('Setting color...')
@@ -11,10 +13,7 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 	let regex = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")
 	var result = regex.test(color);
 	if(result == true) {
-	jsonstore.send('color' + message.author.id, color)
-		.catch((err) => {
-			return msg.edit(`${process.env.re} There was an error! Please try again`)
-		});
+	colors.set('color' + message.author.id, color);
 		return msg.edit("", {
 			embed: new Discord.RichEmbed()
 			.setDescription(`${process.env.gre} **${message.author.tag}** has successfully updated their color preference to **${color}**`)
@@ -23,7 +22,8 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 	} else {
 		return msg.edit(`${process.env.re} You need to provide a valic HEX color code`, {
 			embed: new Discord.RichEmbed()
-			.setDescription(`**Examples:** \`#ff0000\` or \`#ffff00\``)
+			.setColor("RANDOM")
+			.setDescription(`**Examples:** \`#ff0000\` or \`#ffff00\`\nFor help, use a [Hex color picker](https://htmlcolorcodes.com/)!`)
 		})
 	}
 };

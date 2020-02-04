@@ -5,9 +5,9 @@ module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,erro
 	if(!person) {
 		message.channel.send("", {
 			embed: new Discord.RichEmbed()
-			.setAuthor(message.author.tag, message.member.avatarUEL)
+			.setAuthor(message.author.tag, message.author.avatarUEL)
 			.setColor(jsonColor)
-			.setImage(message.member.avatarURL)
+			.setImage(message.author.avatarURL)
 		})
 	} else if (person) {
 		return message.channel.send("", {

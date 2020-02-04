@@ -2,6 +2,10 @@ const jsonstoreclient = require('async-jsonstore-io')
 const jsonstore = new jsonstoreclient(process.env.jstk)
 const Discord = require("discord.js");
 const Express = require('express');
+const keyv = require("keyv");
+const prefixes = new keyv("sqlite://./database/prefixes.sqlite")
+const logs = new keyv("sqlite://./database/log.sqlite")
+const colors = new keyv("sqlite://./database/colors.sqlite")
 const Moment = require("moment");
 const fs = require("fs");
 let blacklisted = []
@@ -57,7 +61,7 @@ app.listen(3000, () => console.log(`Server Started`));
 // COMMAND HANDLER
 fs.readdir("./cmds/", (err, cmds) => {
 	if (err) { 
-		console.error(err);0
+		console.error(err);
 	}
 	let jsfile = cmds.filter(f => f.split(".").pop() === "js")
 	console.log(jsfile.length)
@@ -92,15 +96,11 @@ fs.readdir("./cmds/", (err, cmds) => {
 });*/
 client.on('messageDelete', async(msg) => {
 	if(msg.author.bot) return;
-		var jsonColor = await jsonstore.get('color' + msg.author.id)
-		.catch((err) => { 
-			if (err.code == 404) {
-				};
-			});
+		var jsonColor = await colors.get('color' + msg.author.id)
 		if(!jsonColor) {
 			jsonColor = msg.member.displayColor;
 		}
-	jsonstore.get('logs' + msg.guild.id)
+	logs.get('logs' + msg.guild.id)
 		.then((result) => {
 				if(!result) { return; }
 				let channel = msg.guild.channels.find(ch => ch.id == result)
@@ -135,6 +135,21 @@ client.on("reconnecting", () => {
 
 client.on("ready", async() => {
 	console.clear();
+/*	await logs.set("logslogs507889693816520724", "580683231460851719")
+	console.log("Logs #1 Exporteed")
+	await logs.set("logs658440270634942505", '667855411482853379')
+	console.log("Logs #2 Exporteed")
+	await logs.set("logs667518569621356560", "667535665176641536")
+	console.log("Logs #3 Exporteed")
+	await logs.set("logs333949691962195969", "508739007597903904")
+	console.log("Logs #4 Exporteed")
+	await logs.set("logs575388933941231638", "669707563847385108")
+	console.log("Logs #5 Exporteed")
+	await logs.set("logs646443369832120341", "661209055808716800")
+	console.log("Logs #6 Exporteed")
+	await logs.set("logs658440270634942505", '667855411482853379')
+	console.log("Logs #7 Exporteed")
+*/
 	  client.user.setPresence({
        game: {
            name: `${client.users.size} users in ${client.guilds.size} servers`,
@@ -142,6 +157,7 @@ client.on("ready", async() => {
         },
       status: 'idle'
     });
+		await logs.set("logs658440270634942505", "")
 	console.log(`${client.user.tag} is now online!`);
 	console.log(`Event Timestamp: ${Moment(Date.now())}`);
 	client.channels.get('575388934456999947')
@@ -259,9 +275,12 @@ client.on("message", async(message) => {
 	};
 
 	global.prefix = null;
-	let data = await jsonstore.get('prefix' + message.guild.id)	.catch(e =>{ if(e.code == 404) { } })
-
-	if(!data){ prefix = process.env.prefix } else { prefix = data; }
+	let data = await prefixes.get("prefix" + message.guild.id)
+	if (!data) {
+		prefix = process.env.prefix;
+	} else {
+		prefix = data;
+	}
 	if(!message.content.startsWith(prefix)) return;
 
 	let messageArray = message.content.split(" ");
@@ -270,20 +289,15 @@ client.on("message", async(message) => {
 	let commandfile = client.commands.get(cmd.slice(prefix.length));
 	if (blacklisted.includes(message.author.id) && commandfile) return message.channel.send(`**${message.author.tag}**, you are blacklisted from using **${client.user.username}**. You may no longer interact with this bot or its features.\nIf you believe this is a mistake, tuff. `)
 	if (commandfile) {
-			var jsonColor = await jsonstore.get('color' + message.author.id)
-		.catch((err) => { 
-			if (err.code == 404) {
-				};
-			});
+			var jsonColor = await colors.get("color" + message.author.id)
+
 		if(!jsonColor) {
 			jsonColor = message.member.displayColor;
 		}
-	let logs = await 	jsonstore.get('logs' + message.guild.id)
-		.catch((err) => {
-			if(err.code == 404) {
-			};
-		});
-		commandfile.run(client,message,args,prefix,jsonColor,logs,sleep,done,error)
-	};
+	let L = await logs.get("logs" + message.guild.id)
+	if(!L) L = null;
+
+		commandfile.run(client,message,args,prefix,jsonColor,L,sleep,done,error)
+		}
 });
 	client.login(process.env.token)

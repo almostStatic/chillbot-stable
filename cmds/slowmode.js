@@ -1,53 +1,33 @@
 const Discord = require('discord.js')
 
 module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
-	
-	if (!message.guild.member(client.user).permissions.has("MANAGE_CHANNELS")) {
-		return message.reply("I need the **MANAGE CHANNELS** permission for this command to work!")
-	}
-
-	if (!message.member.permissions.has("MANAGE_CHANNELS")) {
-		return message.reply('You need the manage channnels or administrator permission in order to use this command!')
-	}
-
-	let filter = m => m.author.id === message.author.id;
-	let time = parseInt(args[0]);
-	if (time > 21600) { 
-		return message.reply(process.env.re + "The maximum number is **21600** seconds, (6 hours)")
-	}
-	if (isNaN(time) && (time)) {
-		error(`${message.author.tag}, the time in seconds needs to be a **number**.`)
-	};
-	if (!time) {
-		message.reply("Please enter the number of **SECONDS** you would like the slowmode to be set to. The maximum amount is: **21600** (6 Hours)\n\nType `cancel` to cancel, expires in 10 seconds.")
-		message.channel.awaitMessages(filter, {
-			max: 1,
-			time: 10000,
-		}).then(async(collected) => {
-				if (collected.first().content.toLowerCase() == 'cancel') {
-					error(process.env.gre + "Command Cancelled")
+		let msg = await message.channel.send(`$One moment please...`)
+		if (!message.member.permissions.has('MANAGE_CHANNELS')) {
+			return msg.edit("You do not have permission to use this command!")
+		} else {
+			if (!message.guild.me.permissions.has('MANAGE_CHANNELS')) {
+				return msg.edit("I do not have permissions to set slowmode for this channel! Please check my role permissions!")
+			} else {
+				let count = args[0];
+				if (!count) {
+					return msg.edit("You need to provide a number for slowmode!")
+				} else {
+					let newCount = parseInt(count);
+					if (isNaN(newCount)) {
+						return msg.edit("Please give an actual number noob")
+					} else {
+						message.channel.setRateLimitPerUser(newCount)
+							.catch((err) => {
+								return msg.edit("Sorry, there was an error")
+							})
+						if(newCount == '0' || newCount == 0) {
+							return msg.edit(`${process.env.gre} Slowmode has been disabled for ${message.channel}`)
+						} 
+						return msg.edit(process.env.gre + " I have set slowmode for `" + newCount + "` seconds!")
+					};
 				};
-				if (isNaN(collected.first().content)) {
-					error(`${process.env.re} \`${collected.first().content}\` is not a number`)
-				}	
-			message.channel.setRateLimitPerUser(parseInt(collected.first().content));
-			message.channel.send("", {
-				embed : new Discord.RichEmbed()
-				.setDescription(`Slowmode set for ${collected.first().content} seconds`)
-				.setColor(jsonColor)
-			});
-		}); 
-	} else if (time) {
-			if (time > 21600) { return message.reply(process.env.re + "Sorry, the maximum is **21600**") }
-				message.channel.setRateLimitPerUser(time);
-				message.channel.send("", {
-					embed: new Discord.RichEmbed() 
-					.setDescription(`Slowmode set for ${time} seconds`)
-					.setColor(jsonColor)
-			}).catch(() => {
-				return message.reply("You took too long!")
-			});
-	};
+			};
+		};
 };
 
 module.exports.help = { name: 'slowmode' }
