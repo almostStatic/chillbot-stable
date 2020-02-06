@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 
-exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: 'ping',
+	aliases: ['latency'],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
   let ping = Math.round(message.client.ping); 
   const ping1 = new Discord.RichEmbed()
   .setDescription(`:ping_pong: Please wait! It wont take long :) \n if you see this message its probs not a good thing`)
@@ -12,8 +15,5 @@ exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
   .setColor(jsonColor);
   msg.edit(ping2)
     });
-};
-
-module.exports.help = {
-	name: 'ping',
-};
+}
+}

@@ -1,6 +1,9 @@
 const Discord = require('discord.js')
 
-module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
+module.exports = {
+	name: "getinv",
+	aliases: ["get-invite"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	devs = ['373900508026372097', '501710994293129216'];
 	if(!devs.includes(message.author.id)) {
 		return message.channel.send("You cannot use this command")
@@ -25,8 +28,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,
 				msg.edit(process.env.re+" There was an error. Most likely I do not have permission to create an invite to that server")
 			})
 	};
-};
-
-module.exports.help = {
-	name: 'getinv',
-};
+}
+}

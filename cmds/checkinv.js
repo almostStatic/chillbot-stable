@@ -1,6 +1,9 @@
 const Discord = require('discord.js')
 
-module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "getinv",
+	aliases: [],
+	async run(client,message,args,prefix,jsonColor,logs,sleep,done,error) {
 	let msg = await message.channel.send("Checking invite...")
 	let invite = args[0]
 	if(!invite) {
@@ -21,13 +24,9 @@ return msg.edit("", {
 					.addField("\> Channel", inv.channel.type == 'text' ? `<#${inv.channel.id}>` : inv.channel.name, true)
 					.setTimestamp()
 		})
-					
-				
-			
 	})
 		.catch(() => {
 			return msg.edit(`${process.env.re} There was an error with your invite! Please check it is valid`)
 		})
 }
-
-module.exports.help = {name:"checkinv"}
+}

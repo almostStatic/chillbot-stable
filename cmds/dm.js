@@ -1,7 +1,9 @@
 const Discord = require("discord.js")
 const Moment = require("moment");
-
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "dm",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if (message.author.id != process.env.ownerid) {
 		return message.reply(`${process.env.re} you may not use this command.`)
 	}
@@ -20,8 +22,6 @@ dmUser.send(msg)
 	})
 		.catch(er => {
 			message.channel.send(`${process.env.re} | Your message was **not** sent to **${dmUser.user.tag}**`)
-		});
-};
-module.exports.help = {
-	name: 'dm'
-};
+		})
+}
+}

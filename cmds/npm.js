@@ -2,7 +2,10 @@ const Discord = require('discord.js')
 const moment = require('moment')
 const fetch = require('node-fetch')
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: 'npm',
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	global.pkg = args.join(' ')
 	const msg = await message.channel.send("Fetching package...")
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
@@ -33,7 +36,4 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 
 	return msg.edit("", {embed: embed});
 }
-
-module.exports.help = {
-	name: 'npm'
 }

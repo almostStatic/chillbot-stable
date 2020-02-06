@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
 
-module.exports.run = async (client, message, args) => {
+module.exports = {
+	name: "role",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	const msg = await message.channel.send("Processing...")
 
 	if (!message.guild.me.permissions.has("MANAGE_ROLES")) {
@@ -34,8 +37,5 @@ module.exports.run = async (client, message, args) => {
 	} catch (e) {
 		msg.edit(`${message.author} ${process.env.re} I was unable to add/remove that role. Please ensure that I have permission to do so.\n\nIf this is still occuring, please contact support (${process.env.supportServer}) with the following error: \`${e}\``)
 	};
-};
-
-module.exports.help = {
-	name: "role",
-};
+}
+}

@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "kick",
+	aliases: ["boot"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let msg = await message.channel.send(`Processing... **Please wait!**`)
 	let userArg = args[0];
 	let reason = args.slice(1).join(" ")
@@ -48,8 +51,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 		.setDescription(`**Reason**: ${reason}`)
 		.setColor(jsonColor)
 	})
-};
-
-module.exports.help = {
-	name: "kick",
-};
+}
+}

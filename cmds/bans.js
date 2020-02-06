@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
-
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "bans",
+	aliases: ["banned"],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
+		
 	if (!message.member.permissions.has("BAN_MEMBERS")) {
 		return message.channel.send(`${process.env.re} You do not have correct permissinos to use this command.\n> You need the **ban members** permission!`)
 	}
@@ -17,8 +20,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 				message.reply(`${process.env.re} | I was unable to find your bans list.\n> Check my permissions`)
 			})
 		}) 
-};
-
-module.exports.help = {
-	name: "bans"
+	}
 }

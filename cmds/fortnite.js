@@ -3,7 +3,10 @@ const { stripIndents } = require("common-tags")
 const Client = require("fortnite");
 const ft = new Client(process.env.apiKey)
 
-module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
+module.exports = {
+	name: "fortnite",
+	aliases: ["fn", "ft"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	const msg = await message.channel.send("If you see this message for longer than 5 seconds I did not find information for that user. Please try again or ask support (`>support`)")
 	if (!args.join(' ')) {
 		return msg.edit("Incorrect usage.\n`" + prefix + "fortnite [USER] [PLATFORM(psn|xb1|pc)]` (defaults to PC)")
@@ -38,8 +41,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,
 	.addField("Duo", stripIndents`- **Wins**: ${duo.wins}\n- **K/D**: ${duo.kd}\n- **Eliminations**: ${duo.kills}\n- **Kills Per Match**: ${duo.kills_per_match}`, true)
 	.addField("Squads", stripIndents`- **Wins**: ${squad.wins}\n- **K/D**: ${squad.kd}\n- **Eliminations**: ${squad.kills}\n- **Kills Per Match**: ${squad.kills_per_match}`, true)
 	msg.edit("", { embed })
-};
-
-module.exports.help = {
-	name: "fortnite",
-};
+}
+}

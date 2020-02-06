@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 
-module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
+module.exports = {
+	name: "vice-kick",
+	aliases: [],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	
 	const filter = m => m.author.id === message.author.id;
 	if (!message.guild.me.hasPermission('MOVE_MEMBERS')) {
@@ -37,8 +40,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,
 			.setFooter("ID: " + member.id, member.user.avatarURL)
 		})
 			.catch((err) => {  });
-};
-
-module.exports.help = {
-	name: 'voice-kick',
-};
+}
+}

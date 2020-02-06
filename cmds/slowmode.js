@@ -1,6 +1,8 @@
 const Discord = require('discord.js')
-
-module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
+module.exports = {
+	name: "slowmode",
+	aliases: ["slow"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		let msg = await message.channel.send(`$One moment please...`)
 		if (!message.member.permissions.has('MANAGE_CHANNELS')) {
 			return msg.edit("You do not have permission to use this command!")
@@ -28,6 +30,6 @@ module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,
 				};
 			};
 		};
-};
+}
 
-module.exports.help = { name: 'slowmode' }
+}

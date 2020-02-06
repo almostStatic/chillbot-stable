@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client, message, args) => {
+module.exports = {
+	name: "purge",
+	aliases: ["clear"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(!message.guild.me.permissions.has("MANAGE_MESSAGES")) {
 		return message.channel.send(`${process.env.re} | I need the **MANAGE MESSAGES** permissions in order for this command to work!`)
 	}
@@ -19,9 +22,6 @@ module.exports.run = async(client, message, args) => {
 			.catch(err => {
 				console.log(err)
 				message.channel.send(`There was an error\n${err}`)
-			})
+			});
 }
-
-module.exports.help = {
-	name: "purge"
 }

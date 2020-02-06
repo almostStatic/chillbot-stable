@@ -4,7 +4,10 @@ let jsonstore = new json(process.env.jstk)
 let keyv = require('keyv');
 let LOGS_DB = new keyv("sqlite://./database/log.sqlite")
 
-module.exports.run = async(client,message,args,prefix,jsonColor,L,sleep,done,error) => {
+module.exports = {
+	name: 'setlogs',
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${process.env.re} You do not have permission to set/edit logs channel of this server!`)
 	let msg = await message.channel.send("Setting logs channel...")
 	let channelArgs = args[0];
@@ -38,6 +41,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,L,sleep,done,err
 		.setColor(jsonColor)
 		.setDescription(`${process.env.gre} **${message.author.tag}** has successfully changed the server's log channel to <#${channel.id}>!`)
 	});
-};
-
-module.exports.help = { name: 'setlogs' };
+}
+}

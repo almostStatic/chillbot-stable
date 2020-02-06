@@ -1,8 +1,10 @@
 const Discord = require('discord.js')
 const fs = require('fs')
 const moment = require("moment")
-
-module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
+module.exports = {
+	name: "warn",
+	aliases:[],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	
 	message.delete().catch(err => {})
 	let msg = await message.channel.send("Warning...")
@@ -56,8 +58,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,
 			.setFooter("ID: " + guildMember.id, guildMember.user.avatarURL)
 		});
 	 };
-	 };
-
-module.exports.help = {
-	name: 'warn',
-};
+	 }
+	}

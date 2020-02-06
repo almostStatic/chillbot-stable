@@ -3,12 +3,13 @@ const jsonstore = new jsonstoreclient(process.env.jstk)
 const Discord = require("discord.js");
 const Express = require('express');
 const keyv = require("keyv");
+const snipes = new keyv("sqlite://./database/snipes.sqlite")
 const prefixes = new keyv("sqlite://./database/prefixes.sqlite")
+const blacklisted = new keyv("sqlite://./database/blacklisted.sqlite")
 const logs = new keyv("sqlite://./database/log.sqlite")
 const colors = new keyv("sqlite://./database/colors.sqlite")
 const Moment = require("moment");
 const fs = require("fs");
-let blacklisted = []
 
 global.client = new Discord.Client({
 	 disableEveryone: true,
@@ -16,6 +17,7 @@ global.client = new Discord.Client({
 
 const bodyParser = require('body-parser');
 client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
 
 async function sleep(ms){
     return new Promise(resolve => {
@@ -59,47 +61,20 @@ app.get('/*', (req, res) => {
 app.listen(3000, () => console.log(`Server Started`));
 
 // COMMAND HANDLER
-fs.readdir("./cmds/", (err, cmds) => {
-	if (err) { 
-		console.error(err);
-	}
-	let jsfile = cmds.filter(f => f.split(".").pop() === "js")
-	console.log(jsfile.length)
-	if(jsfile.length <= 0) {
-		return;
-	};
-	jsfile.forEach((f, i) => {
-		let props = require(`./cmds/${f}`);
-		client.commands.set(props.help.name, props);
-	});
-});
+for (const file of commandFiles) {
+	const command = require(`./cmds/${file}`);
+	client.commands.set(command.name, command);
+}
 
-/*client.on('messageUpdate', async(oldMessage, newMessage) => {
-	let color = await jsonstore.get('color' + newMessage.author.id)
-		.catch((e)=>{if(e.code==404){}})
-	if(!color) color = newMessage.member.displayColor;
-
-	let logs = await jsonstore.get('logs' + newMessage.guild.id)
-		.catch((e) => { if (e.code == 404) { } });
-
-	let logChannel = await newMessage.guild.channels.find(x => x.id == logs);
-
-	if(!logChannel) return;
-
-	logChannel.send("", {
-		embed: new Discord.RichEmbed()
-		.setTitle('Message Edited')
-		.setColor(jsonColor)
-		.addField("Author", newMessage.author.tag)
-		.addField("Old Message", `${oldMessage.length >= 1024 ? oldMessage.content : oldMessage.subString(0, 1024)}`)
-})
-});*/
 client.on('messageDelete', async(msg) => {
-	if(msg.author.bot) return;
+	if (msg.author.bot) return;
 		var jsonColor = await colors.get('color' + msg.author.id)
-		if(!jsonColor) {
+		if (!jsonColor) {
 			jsonColor = msg.member.displayColor;
 		}
+		await snipes.set(msg.channel.id, msg.content).then(async() => {
+			await snipes.set("snipe" + msg.channel.id, msg.author.id)
+		});
 	logs.get('logs' + msg.guild.id)
 		.then((result) => {
 				if(!result) { return; }
@@ -116,7 +91,7 @@ client.on('messageDelete', async(msg) => {
 					.setColor(jsonColor)
 					.setTimestamp()
 					})
-			}).catch((err) => {});
+			}).catch((err) => {  });
 });
 
 client.on("disconnected", async() => {
@@ -157,7 +132,6 @@ client.on("ready", async() => {
         },
       status: 'idle'
     });
-		await logs.set("logs658440270634942505", "")
 	console.log(`${client.user.tag} is now online!`);
 	console.log(`Event Timestamp: ${Moment(Date.now())}`);
 	client.channels.get('575388934456999947')
@@ -169,7 +143,8 @@ client.on("ready", async() => {
 		});
 });
 
-client.on('guildCreate', (server) => {
+client.on('guildCreate', async(server) => {
+	T = await client.users.get(process.env.ownerid).tag;
 	client.channels.get("659506604630081547")
 		.send("", {
 			embed: new Discord.RichEmbed()
@@ -190,8 +165,8 @@ client.on('guildCreate', (server) => {
 
 	server.owner.send("", {
 		embed: new Discord.RichEmbed()
-		.setDescription(`Thank you for adding **ChillBot**!\nYou may view a full list of command by using \`>help\` note the bot will DM you.\nIf you need any help/assistance, you may join our support server [here](${process.env.supportServer})\nTo report bugs please use \`>reportbug\`\n> Commands are not case sensitive\n> The bot owner is \`static#6419\``)
-		.setFooter("COMMANDS DO NOT WORK IN DMS!!")
+		.setDescription(`Thanks for adding ChillBot!\nWe offer support in our [support server](${process.env.supportServer}). To view a full list of commands, use \`>help\` (commands do not work in DMs). The bot owner is: ${T} you may contact him if you are experiencing issues or have forgotten the prefix for your server. (We can reset it for you!)`)
+		.setFooter("COMMANDS DO NOT WORK IN DMS!!\nThis bot was added to `" + server.name + "`")
 		.setTitle(`Thank you for adding ${client.user.username}!`)
 		.setColor([0, 255, 0])
 		})
@@ -266,7 +241,9 @@ client.on("message", async(message) => {
 		if (message.author.bot) return;
 		if (message.webhookID) return;
 		if (message.channel.type == "dm") {
-		client.channels.get('600639235938320399').send(`**${message.author.tag}**: ${message.content}`, {
+	let myCh = await client.channels.get('600639235938320399')
+	
+	return myCh.send(`**${message.author.tag}**: ${message.content}`, {
 		embed: new Discord.RichEmbed()
 		.setFooter("ID: " + message.author.id)
 		.setColor([0, 255, 255])
@@ -282,22 +259,37 @@ client.on("message", async(message) => {
 		prefix = data;
 	}
 	if(!message.content.startsWith(prefix)) return;
+	const args = message.content.slice(prefix.length).split(/ +/);
+	const commandName = args.shift().toLowerCase();
+	const command = client.commands.get(commandName)
+		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+	let l = await blacklisted.get(message.author.id)
+	if(!l) l = 'N'
+	if (l == "Y" && command) return;
+	if (!command) return;
 
-	let messageArray = message.content.split(" ");
-	let cmd = messageArray[0].toLocaleLowerCase();
-	let args = messageArray.slice(1);
-	let commandfile = client.commands.get(cmd.slice(prefix.length));
-	if (blacklisted.includes(message.author.id) && commandfile) return message.channel.send(`**${message.author.tag}**, you are blacklisted from using **${client.user.username}**. You may no longer interact with this bot or its features.\nIf you believe this is a mistake, tuff. `)
-	if (commandfile) {
-			var jsonColor = await colors.get("color" + message.author.id)
-
-		if(!jsonColor) {
-			jsonColor = message.member.displayColor;
-		}
 	let L = await logs.get("logs" + message.guild.id)
 	if(!L) L = null;
-
-		commandfile.run(client,message,args,prefix,jsonColor,L,sleep,done,error)
-		}
+		var jsonColor = await colors.get("color" + message.author.id)
+	if(!jsonColor) {
+		jsonColor = message.member.displayColor;
+	}
+	try {
+		command.run(client,message,args,prefix,jsonColor,L,sleep,done,error);
+	} catch (error) {
+		console.error(error);
+		message.channel.send("", {
+			embed: new Discord.RichEmbed()
+				.setFooter("ERROR ID: " + message.id, client.user.avatarURL)
+				.setColor("#da0000")
+				.setAuthor(message.author.username, message.author.avatarURL)
+				.setTitle("Error")
+				.setDescription(`We're sorry, but there was an error!\n\nPlease, [report this issue](${process.env.supportServer})!`)
+				.addField("> Error", error.length >= 1024 ? "The error was too long! It was logged with ID " + message.id : error)
+		})
+	}
+//		commandfile.run(client,message,args,prefix,jsonColor,L,sleep,done,error)
+		
 });
 	client.login(process.env.token)
+	//	

@@ -1,6 +1,9 @@
 const Discord = require('discord.js')
 
-module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error)=> {
+module.exports = {
+	name: "say",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	message.delete();
 	let msg = await message.channel.send("Verifying your message...")
 	let type = args[0]
@@ -21,8 +24,5 @@ module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,erro
 			.setColor(jsonColor)
 		})
 	}
-};
-
-module.exports.help = {
-	name: 'say',
-};
+}
+}

@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
-
-module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
+module.exports = {
+	name: "ban",
+	aliases: [],
+ async run(client,message,args,prefix,jsonColor,logs,sleep,done,error) {
 	message.delete().catch(err=>{})
 if (!message.member.permissions.has(["BAN_MEMBERS"])) {
 	return message.channel.send(process.env.re+" You do not have permission to use this command!")
@@ -60,8 +62,5 @@ if (!message.member.permissions.has(["BAN_MEMBERS"])) {
 	.setTimestamp()
 	//	message.channel.send({ embed: banEmbed })	
 		ch.send({ embed: banEmbed })
-};
-
-module.exports.help = {
-	name: 'ban',
-};
+	},
+}

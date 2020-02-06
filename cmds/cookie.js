@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "cookie",
+	aliases: [],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if (!args.length) {
 		message.delete().catch(e => { })
 		const filter = m => m.author.id === message.author.id;
@@ -19,7 +22,4 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 		return message.channel.send(`:cookie: **${message.author.tag}** has given ${args.join(' ')} a cookie! :cookie:`)
 	}
 }
-
-module.exports.help = {
-	name: "cookie"
 }

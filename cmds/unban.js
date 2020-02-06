@@ -1,6 +1,8 @@
 const Discord = require("discord.js")
-
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "unban",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let unban = args[0];
 	let reason = args.slice(1).join(" ");
 	if(!reason) {
@@ -23,8 +25,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 			.catch(er => {
 				message.channel.send("The user is not banned from this server!")
 			})
-};
-
-module.exports.help = {
-	name: "unban",
-};
+}
+}

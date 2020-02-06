@@ -1,6 +1,8 @@
 const Discord = require("discord.js")
-
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "uptime",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 
 	let upt = await message.channel.send("Calculating...")
 	var getUptime = function(millis) {
@@ -60,7 +62,4 @@ let myDate = new Date(client.readyTimestamp);
 						})
 					});
 }
-
-module.exports.help = {
-	name: 'uptime',
-};
+}

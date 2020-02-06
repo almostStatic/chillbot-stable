@@ -2,7 +2,10 @@
 
 const Discord = require("discord.js");
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "userinfo",
+	aliases: ["user"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		
 
 	message.delete().catch((lmao) => {})
@@ -49,7 +52,4 @@ let memberPinged = new Discord.RichEmbed()
 	.setFooter(`ID: ${u.id}`, u.user.avatarURL);
   msg.edit({ embed: memberPinged })
 }
-
-module.exports.help = {
-	name: 'userinfo',
-};
+}

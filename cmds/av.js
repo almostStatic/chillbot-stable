@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "avatar",
+	aliases: ['pfp', 'icon', 'av'],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let person = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 	if(!person) {
 		message.channel.send("", {
@@ -15,9 +18,7 @@ module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,erro
 			.setAuthor(person.user.tag, person.user.avatarUEL)
 			.setColor(jsonColor)
 			.setImage(person.user.displayAvatarURL)
-			
-		})
-	}
-};
-
-module.exports.help = {name:"av"}
+		});
+		}
+	},
+}

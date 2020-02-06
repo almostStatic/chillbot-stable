@@ -2,11 +2,12 @@ const Discord = require("discord.js")
 const jsonstoreclient = require('async-jsonstore-io')
 const jsonstore = new jsonstoreclient('32381a85290515bf27e8f81000e0a7ab246ebdeb56db5ed9269a5851afabe20e')
 const rm = require('discord.js-reaction-menu')
-
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) =>{
+module.exports = {
+	name:"help",
+	aliases: ["helpme"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let OT = await client.users.get(process.env.ownerid).tag;
-		let p = await jsonstore.get("prefix" + message.guild.id)
-			.catch((e) => {if (e.code==404){}});
+		 p = prefix;
 			if(!p) p = ">"
 		let mods = new Discord.RichEmbed()
 			.setAuthor("ChillBot Help", client.user.avatarURL)
@@ -40,6 +41,8 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 	\`${p}updates\` | View the bot's changelog	
 	\`${p}guilds\` | view all the servers the bot is in
 	\`${p}guildids\` | see the ids of bot guilds (devs only)
+	\`${prefix}blacklist [PING or ID]\` | Blacklist someone for using ChillBot (devs only)
+	\`${prefix}whitelist\` | Whitelist someone from using ChillBot (opposite to blacklisting someone, devs only)
 	\`${p}getinv [guildID]\` | get an invite for the guild id you provided, bot must have sent one message and have create invites permission (devs only)
 		`)
 	.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`)
@@ -66,6 +69,7 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 	\`${p}say [TYPE]\` | get the bot to say something. Replace \`TYPE\` with either \`embed\` (for an embed) or \`text\` for a normal message
 	`)
 	.addField("Extra", `
+		\`${prefix}snipe\` | See the last deleted message in the channel (the bot must have been in the server when the message was deleted)
 	\`${prefix}fortnite [USER] [PLATFORM]\` | See someone's fortnite stats, Replace \`[PLATFORM]\` to either \`xb1\`, \`psn\`, or \`pc\` (defaults to pc)
 	`)
 		.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`)
@@ -87,8 +91,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 
 		
 		new rm.menu(message.channel, message.author.id, [cmds, mods, beta, devCmds], 120000, reactions = {first: '⏪', back: '◀', next: '▶', last: '⏩', stop: '⏹'});
-};
-
-module.exports.help = {
-	name: 'help',
-};
+}
+}

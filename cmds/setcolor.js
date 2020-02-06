@@ -4,7 +4,10 @@ const jsonstore = new js(process.env.jstk);
 const keyv = require("keyv");
 const colors = new keyv("sqlite://./database/colors.sqlite")
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "setcolor",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let msg = await message.channel.send('Setting color...')
 	let color = args[0];
 	if(!color) {
@@ -26,8 +29,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 			.setDescription(`**Examples:** \`#ff0000\` or \`#ffff00\`\nFor help, use a [Hex color picker](https://htmlcolorcodes.com/)!`)
 		})
 	}
-};
-
-module.exports.help = {
-	name: 'setcolor',
-};
+}
+}

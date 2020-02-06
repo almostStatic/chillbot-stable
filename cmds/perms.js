@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: 'perms',
+	aliases: ["permcheck", 'permsfor'],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
 	if (!member) {
 		member = message.member;
@@ -48,7 +51,4 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 	})
 		
 }
-
-module.exports.help = {
-	name: "perms"
 }

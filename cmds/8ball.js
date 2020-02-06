@@ -1,6 +1,8 @@
 const Discord = require("discord.js")
-
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "8ball",
+	aliases: ['b'],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let question = args.join(" ")
 	const answers = [
 			'As I See It Yes',
@@ -39,7 +41,7 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 				const embed = new Discord.RichEmbed()
 				.setColor(jsonColor)
 				.setAuthor(`8ball`, 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png')
-				.addField('Info:', `**Your Question:** ${question}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`);
+				.addField('Info:', `**Your Question:** ${col.first().content}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`);
 				message.channel.send({embed})
 					.catch(er => {
 						message.channel.send("An error occured. " + er)
@@ -55,8 +57,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 .setAuthor(`8ball`, 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png')
 .addField('Info:', `**Your Question:** ${question}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`);
 	message.channel.send({embed}).catch(e => console.error(e))
-};
-
-module.exports.help = {
-	name: "8ball",
-};
+	},
+}

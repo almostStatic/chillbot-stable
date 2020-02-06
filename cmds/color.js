@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name:"color",
+	aliases: [],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let color = args[0]
 	let filter = m => m.author.id === message.author.id;
 	if (!color) {
@@ -47,8 +50,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 				message.reply(er)
 			})
 	} */
-};
-
-module.exports.help = {
-	name: 'color',
-};
+	}
+}

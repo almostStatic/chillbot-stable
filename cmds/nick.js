@@ -1,6 +1,10 @@
 const Discord = require("discord.js")
 let mom = require('moment')
-module.exports.run = async(client, message, args) => {
+
+module.exports = {
+	name: "nick",
+	aliases: ["setnick", "set-nick", "set-nickname"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let msg = await message.channel.send(`One moment...`)
 	if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) {
 		return msg.edit(`${process.env.re} I need the **MANAGE_NICKNAMES** permission to do this!`)
@@ -23,8 +27,4 @@ module.exports.run = async(client, message, args) => {
 			})
 	msg.edit(`${process.env.gre} I have changed **${guildMember.user.tag}**\'s nickname to **${nick}**!\n\n> Remember nicknames cannot be longre than 32 characters!!`)
 }
-
-
-module.exports.help = {
-	name: 'setnick'
 }

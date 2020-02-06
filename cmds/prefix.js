@@ -1,9 +1,14 @@
 const Discord = require('discord.js')
 const jsonstoreclient = require('async-jsonstore-io')
 const jsonstore = new jsonstoreclient('32381a85290515bf27e8f81000e0a7ab246ebdeb56db5ed9269a5851afabe20e')
+const k = require("keyv");
+let prefixes = new k("sqlite://./database/prefixes.sqlite")
 
 
-module.exports.run = async(client, message, args, prefix) => {
+module.exports = {
+	name: 'prefix',
+	aliases: ["set-prefix"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		if(!message.member.permissions.has('MANAGE_GUILD')) {
 			return message.channel.send(`${process.env.re} **${message.author.username}**, you need the manage server permission to change the prefix!`)
 		}
@@ -20,11 +25,12 @@ module.exports.run = async(client, message, args, prefix) => {
 			return msg.edit(`${process.env.re} The prefix cannot be longer than 3 characters!`)
 		};
 
-		jsonstore.send('prefix' + message.guild.id, newPrefix)
-		msg.edit(`Prefix changed to: \`${newPrefix}\``)
+		if (newPrefix == prefix) {
+			return msg.edit("You really gonna change the server prefix to what it already is? cmon.")
+		}
+
+		prefixes.set('prefix' + message.guild.id, newPrefix)
+		msg.edit(`${process.env.gre} Prefix changed to: \`${newPrefix}\``)
 
 }
-
-module.exports.help = {
-	name: 'prefix',
-};
+}

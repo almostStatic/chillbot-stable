@@ -1,6 +1,8 @@
 const Discord = require('discord.js')
-
-module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
+module.exports = {
+	name: "idban",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(!message.guild.me.permissions.has('BAN_MEMBERS')) {
 		return message.channel.send(`${process.env.re} **${message.author.username}**, I need the ban members permission to ban members!`)
 	}
@@ -20,10 +22,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,
 				.setURL(process.env.supportServer)
 			})
 		})
-//
-
+	},
 }
-
-module.exports.help = {
-	name: 'idban',
-};

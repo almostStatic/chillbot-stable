@@ -1,16 +1,17 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const qs = require('querystring')
-
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) =>{
+module.exports = {
+	name: "docs",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 
 	const queryString = args.join(" ")
 	const res = await fetch(`https://djsdocs.sorta.moe/v1/main/stable/embed?q=${queryString}`);
 	const embed = await res.json();
-	
 	if(!queryString){
 			await message.delete()
-					.catch(err=>{});
+					.catch((err)=>{});
 			const filter = m => m.author.id === message.author.id;
 			message.channel.send(`${message.author}`, {
 				embed: new Discord.RichEmbed()
@@ -47,8 +48,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 
 	await message.channel.send({ embed });
 
-};
-
-module.exports.help = {
-    name: 'docs',
-};
+}
+}

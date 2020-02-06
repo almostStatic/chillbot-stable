@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
 const got = require("got")
-module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "meme",
+	aliases: [],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let ppl = [process.env.ownerid, "610008193220870145", "437255943181565962", "373900508026372097", "589328391069761538"]
 	const embed = new Discord.RichEmbed();
 	got('https://www.reddit.com/r/memes/random/.json').then(response => {
@@ -19,8 +22,5 @@ module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,erro
 			embed.setFooter(`👍 ${memeUpvotes} | 👎 ${memeDownvotes} | 💬 ${memeNumComments}`);
 			message.channel.send({embed})
 	});
-};
-
-module.exports.help = {
-	name: "meme",
-};
+}
+}

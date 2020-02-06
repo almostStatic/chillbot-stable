@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: "serverinfo",
+	aliases: ["server", "guildinfo", "guild"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	try {
 		let splash = `[View](${message.guild.splashURL})`;
 		let mfaLvl = message.guild.mfaLevel;
@@ -54,7 +57,4 @@ module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,erro
 		error(`Sorry, an error occured. Please contact support\n\`\`\`${e}\`\`\`\n${process.env.supportServer}`)
 	}
 }
-
-module.exports.help = {
-	name: 'serverinfo',
-};
+}

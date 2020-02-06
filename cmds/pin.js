@@ -1,6 +1,9 @@
 const Discord = require("discord.js")
 
-module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
+module.exports = {
+	name: 'pin',
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(!message.guild.me.permissions.has('MANAGE_MESSAGES')) {
 				return message.channel.send(`${process.env.re} **${message.author.username}**, I do not have the Manage Messages permission!\n\n> Check my permissions by using the command \`>perms\`! For more information, do \`>help\``)
 
@@ -30,7 +33,4 @@ module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,erro
 			return message.reply('I was unable to pin the message with ID ' + args[0])
 		})
 }
-
-module.exports.help = {
-	name: 'pin',
-};
+}

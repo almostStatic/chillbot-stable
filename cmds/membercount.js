@@ -1,5 +1,9 @@
 const Discord = require("discord.js")
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
+
+module.exports = {
+	name: "membercount",
+	aliases: ["members"],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	message.channel.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle(message.guild.name)
@@ -8,8 +12,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 		.addField("\> Total", message.guild.memberCount, true)
 		.setColor(jsonColor)
 	})
-};
-
-module.exports.help = {
-	name: 'membercount',
+}
 }

@@ -1,6 +1,9 @@
 const Discord = require('discord.js')
 
-module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,error) => {
+module.exports = {
+	name: "ra",
+	aliases: [],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(message.author.id != process.env.ownerid) {
 		return;
 	}
@@ -23,6 +26,4 @@ module.exports.run = async(client,message,args,prefix,jsonColor,logs,sleep,done,
 		};
 	});
 }
-module.exports.help = {
-	name: 'ra',
-};
+}

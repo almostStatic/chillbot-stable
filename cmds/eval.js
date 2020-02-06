@@ -1,6 +1,18 @@
-const Discord = require("discord.js")
+const Discord = require("discord.js");
+const json = require("async-jsonstore-io")
+const keyv = require('keyv')
+const jsonstore = new json(process.env.jstk)
+const snipes = new keyv("sqlite://./database/snipes.sqlite")
+const prefixes = new keyv("sqlite://./database/prefixes.sqlite")
+const blacklisted = new keyv("sqlite://./database/blacklisted.sqlite")
+const logs = new keyv("sqlite://./database/log.sqlite")
+const colors = new keyv("sqlite://./database/colors.sqlite")
 
-module.exports.run = async (client,message,args,prefix,jsonColor,sleep,done,error) => {
+
+module.exports = {
+	name: "eval",
+	aliases: ["run", "evaluate"],
+async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 if (message.author.id != process.env.ownerid) {
 	return message.reply("You may not use this command")
 };
@@ -28,7 +40,7 @@ try {
 		embed: new Discord.RichEmbed()
 		.setTitle("Evaluation Successful!")
 		.setDescription(`\`\`\`xl\n${cleaned}\n\`\`\``)
-		.setColor([0, 255, 0])
+		.setColor(jsonColor)
 	});
 
 } catch (err) {
@@ -39,8 +51,5 @@ try {
 			.setColor([255, 0, 0])
 		})
 	};
-};
-
-module.exports.help = {
-	name: 'eval',
-};
+},
+}
