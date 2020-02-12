@@ -1,7 +1,9 @@
 const Discord = require("discord.js")
 module.exports = {
 	name: "unban",
-	aliases: [],
+	aliases: ['unban'],
+	usage: 'unban <user id to unban> [reason]',
+	desc: 'Unban someone who has been banned from the server. Use the bans command to see the IDs of the banned user, then run the unban command on the ID of the user',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let unban = args[0];
 	let reason = args.slice(1).join(" ");

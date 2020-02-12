@@ -4,7 +4,7 @@ let db = new key("sqlite://./database/blacklisted.sqlite")
 
 module.exports = {
 	name: "blacklist",
-	aliases: ["blck"],
+	aliases: ["blck", 'blacklist'],
 	desc: 'Blacklist a user from using the bot. This command may onle be used **by the bot owners** themselves.',
 	usage: 'blacklist <user> <reason>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {

@@ -1,7 +1,9 @@
 const Discord = require("discord.js")
 module.exports = {
 	name: "uptime",
-	aliases: [],
+	aliases: ["uptime"],
+	usage: 'uptime',
+	desc: 'See how long the bot has been online for.',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 
 	let upt = await message.channel.send("Calculating...")

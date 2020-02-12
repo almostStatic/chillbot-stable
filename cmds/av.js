@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
 	name: "avatar",
-	aliases: ['pfp', 'icon', 'av'],
+	aliases: ['pfp', 'icon', 'av', 'avatar'],
 	desc: 'Get someone\'s avatar',
 	usage: 'avatar <user>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {

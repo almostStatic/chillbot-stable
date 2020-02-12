@@ -1,7 +1,7 @@
 Dc=require("discord.js");
 module.exports = {
 	name: "invite",
-	aliases: ["links", "add", "inv"],
+	aliases: ["links", "add", "inv", 'invite'],
 	usage: "invite",
 	desc: "Get some pretty useful links about the bot, the invite link to add the bot, the *website* and its support server",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {

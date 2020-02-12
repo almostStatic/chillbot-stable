@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 
 module.exports = {
 	name: "suggest",
-	aliases: [],
+	aliases: ['suggest'],
+	usage: 'suggest <suggestion>',
+	desc: 'Suggest something to be added to the bot. Spamming this will result in a blaklist',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let filter = m => m.author.id === message.author.id;
 	let suggestion = args.join(' ');

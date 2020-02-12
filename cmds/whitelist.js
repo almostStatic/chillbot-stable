@@ -4,7 +4,9 @@ let db = new keyv("sqlite://./database/blacklisted.sqlite");
 
 module.exports = {
 	name: "whitelist",
-	aliases: [],
+	aliases: ['whitelist'],
+	desc: 'Whitelist a user from using the bot. This is a dev-only thing. IE unblacklists them and lets them use ChillBot',
+	usage: 'whitelist <@user or ID> [reason]',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 				let devs = ["501710994293129216", "373900508026372097", "437255943181565962"];
 				if (!devs.includes(message.author.id)) {

@@ -4,7 +4,7 @@ const jsonstore = new jsonstoreclient('32381a85290515bf27e8f81000e0a7ab246ebdeb5
 const rm = require('discord.js-reaction-menu')
 module.exports = {
 	name:"help",
-	aliases: ["helpme"],
+	aliases: ["helpme", 'help'],
 	desc: "Get a list of usable bot commands. Along with a brief description and a lovely reaction menu.",
 	usage: 'help',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {

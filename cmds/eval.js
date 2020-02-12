@@ -11,7 +11,7 @@ const colors = new keyv("sqlite://./database/colors.sqlite")
 
 module.exports = {
 	name: "eval",
-	aliases: ["run", "evaluate"],
+	aliases: ["run", "evaluate", 'eval'],
 	desc: "Takes some javascript code and evaluates it! This is limited to out bot developers as it is very powerful.",
 	usage: "eval <code>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {

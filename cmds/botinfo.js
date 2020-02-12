@@ -4,7 +4,7 @@ let cmd = new keyv("sqlite://./database/cmdCount.sqlite")
 
 module.exports = {
 	name: "botinfo",
-	aliases: ["stats"],
+	aliases: ["stats", 'botinfo'],
 	desc: "Get some basic stats of the bot; ie how many servers its in or how many commands have been used, etc.",
 	usage: 'stats',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {

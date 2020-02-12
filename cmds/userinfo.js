@@ -4,7 +4,9 @@ const Discord = require("discord.js");
 
 module.exports = {
 	name: "userinfo",
-	aliases: ["user", "who", "whois"],
+	aliases: ["user", "who", "whois", 'userinfo'],
+	usage: 'userinfo <@user, or ID>',
+	desc: 'See some basic user infrormation',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	message.delete().catch((lmao) => {})
 	let msg = await message.channel.send("", {
@@ -21,8 +23,8 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
   .addField("> Playing ", `${message.member.presence.game === null ? "None" :  message.author.presence.game.state}`, true)
   .addField("> Nickname ", `${message.member.displayName}`, true)
   .addField(`> Roles [${message.member.roles.filter(r => r.id != message.guild.id).size}]`, `${message.member.roles.filter(r => r.id != message.guild.id).map(r => r).join(" ")}`)
-  .addField("> Highest Role ", message.member.highestRole.name, true)
-	.addField("> Avatar", `> [View](${message.member.user.avatarURL})`, true)
+  .addField("> Highest Role ", message.member.highestRole, true)
+	.addField("> Avatar", `> [View](${message.member.user.avatarURL}, "View ${message.author.tag}'s avatar")`, true)
   .addField("? Joined Guild At ", `${message.member.joinedAt.toDateString()}`, true)
   .addField("> Joined Discord At ", `${message.author.createdAt.toDateString()}`, true)
   .setTimestamp()
@@ -43,8 +45,8 @@ let memberPinged = new Discord.RichEmbed()
   .addField("> Playing ", `${u.user.presence.game === null ? "Nothing" :  u.user.presence.game.state}`, true)
   .addField("> Nickname ", `${u.nickname === null ? "None" : u.nickname}`, true)
 	  .addField(`> Roles [${u.roles.filter(r => r.id != message.guild.id).size}]`, `${u.roles.filter(r => r.id != message.guild.id).map(r => r).join(" ")}`)
-  .addField("> Highest Role ", u.highestRole.name, true)
-	.addField("> Avatar", `> [View](${u.user.avatarURL})`, true)
+  .addField("> Highest Role ", u.highestRole, true)
+	.addField("> Avatar", `> [View](${u.user.avatarURL}, "View ${u.user.tag}'s avatar")`, true)
   .addField("> Joined Guild At ", `${u.joinedAt.toDateString()}`, true)
   .addField("> Joined Discord At ", `${u.user.createdAt.toDateString()}`, true)
   .setTimestamp()

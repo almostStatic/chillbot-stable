@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 module.exports = {
 	name: "8ball",
-	aliases: ['b'],
+	aliases: ['8ball', 'b'],
 	desc: 'Ask the bot a question and get its reponse/idea about it. I\'m sure you know what 8ball really is.\nWhy not try it out?',
 	usage: "8ball <question>",
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {

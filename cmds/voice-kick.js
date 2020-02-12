@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 
 module.exports = {
 	name: "vice-kick",
-	aliases: [],
+	aliases: ['voice-kick', 'vckick'],
+	desc: 'Kick someone from their current voice channel',
+	usage: 'vckick <@user or ID>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	
 	const filter = m => m.author.id === message.author.id;

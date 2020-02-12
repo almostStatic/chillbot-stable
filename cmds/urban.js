@@ -4,8 +4,9 @@ const querystring = require('querystring')
 
 module.exports = {
 	name: 'urban',
-	aliases: [],
+	aliases: ['urban', 'define'],
 	desc: "Search the urban dictionary for something. It will show the first given result/definition. Can only be used in NSFW channels.",
+	usage: 'urban <word>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		const trim = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
 		if (!message.channel.nsfw) {

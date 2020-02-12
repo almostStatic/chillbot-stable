@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 
 module.exports = {
 	name: "ra",
-	aliases: [],
+	aliases: ['ra'],
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(message.author.id != process.env.ownerid) {
 		return;

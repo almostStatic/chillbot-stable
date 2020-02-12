@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 
 module.exports = {
 	name: "kick",
-	aliases: ["boot"],
+	aliases: ["boot", 'kick'],
 	desc: "Kicks a user from the server, you **and** the bot both need the `kick members` permission in order for it ti work. **NOTE**: If the user you want to kick has a higher role than me I cannot kick them from the server!",
 	usage: 'kick <user> [reason]',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {

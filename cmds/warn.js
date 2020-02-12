@@ -4,7 +4,9 @@ const moment = require("moment")
 
 module.exports = {
 	name: "warn",
-	aliases:[],
+	aliases:['warn'],
+	desc: 'Warns a user in the current server',
+	usage: 'warn <@user or ID>',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	message.delete().catch(err => {})
 	let msg = await message.channel.send("Warning...")

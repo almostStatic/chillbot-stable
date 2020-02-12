@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 module.exports = {
 	name: "bans",
-	aliases: ["banned"],
+	aliases: ["banned", 'bans'],
 	desc: 'See a list of users banned from the server, along with their IDs and the reason of their ban',
 	usage: "bans",
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {

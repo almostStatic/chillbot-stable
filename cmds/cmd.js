@@ -6,14 +6,11 @@ module.exports = {
 	desc: "View basic information for a command, includes of a description, required usage and a list of command aliases.",
 	usage: "cmdhelp <commandname>",
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-		if (message.author.id != process.env.ownerid) {
-			return message.channel.send('This command is still under BETA testing and is not yet fully implemenyed. Only the bot owner may use this command for testing purposes. Please contact him if you have any questions! `>support`');
-		};
 		const { commands } = client;
 		const { owner } = client;
 		const commandArg = args.join(' ');
 		if (!commandArg) {
-			return message.channel.send("You need to invlude the name of alias of a command to get help for!")
+			return message.channel.send("You need to invlude the name or alias of a command to get help for!")
 		};
 		let commandFound = client.commands.get(commandArg) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandArg));
 		if (!commandFound) {
