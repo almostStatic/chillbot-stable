@@ -2,7 +2,9 @@ const Discord = require("discord.js")
 const Moment = require("moment");
 module.exports = {
 	name: "dm",
-	aliases: [],
+	aliases: ["dm"],
+	desc: "DM a user, intended for support and may only be used by our bot devs!",
+	usage: "dm <user> <message>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if (message.author.id != process.env.ownerid) {
 		return message.reply(`${process.env.re} you may not use this command.`)

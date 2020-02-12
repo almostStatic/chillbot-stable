@@ -1,8 +1,10 @@
 const Discord = require('discord.js')
 
 module.exports = {
-	name: "getinv",
-	aliases: [],
+	name: "checkinv",
+	aliases: ["checkinv"],
+	desc: 'Get basic information about a discord server invite; the bot does not have to be in the server where the invite was created in',
+	usage: 'checkinv <invite-url or invite-code>',
 	async run(client,message,args,prefix,jsonColor,logs,sleep,done,error) {
 	let msg = await message.channel.send("Checking invite...")
 	let invite = args[0]

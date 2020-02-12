@@ -1,7 +1,9 @@
 const Discord = require("discord.js");
 
-module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error) => {
-
+module.exports = {
+	name: "suggest",
+	aliases: [],
+	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let filter = m => m.author.id === message.author.id;
 	let suggestion = args.join(' ');
 
@@ -42,7 +44,5 @@ module.exports.run = async(client,message,args,prefix,jsonColor,sleep,done,error
 			.setFooter("> ID: " + message.author.id)                            
 		})
 		}
-	};
-module.exports.help = {
-	name: 'suggest',
-};
+	}
+}

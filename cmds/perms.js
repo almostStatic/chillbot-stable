@@ -2,7 +2,9 @@ const Discord = require("discord.js")
 
 module.exports = {
 	name: 'perms',
-	aliases: ["permcheck", 'permsfor'],
+	aliases: ["permcheck", 'permsfor', 'perms'],
+	usage: 'perms <user>',
+	desc: 'See a list of permissions for the specified user. They need to be a member of **this** server in order for me to do so.',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let member = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
 	if (!member) {

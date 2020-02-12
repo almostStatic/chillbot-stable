@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 
 module.exports = {
 	name: 'ping',
-	aliases: ['latency'],
+	aliases: ['latency', 'ping'],
+	usage: 'ping',
+	desc: 'See the bot\'s latency',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
   let ping = Math.round(message.client.ping); 
   const ping1 = new Discord.RichEmbed()

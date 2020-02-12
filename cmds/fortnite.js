@@ -6,6 +6,7 @@ const ft = new Client(process.env.apiKey)
 module.exports = {
 	name: "fortnite",
 	aliases: ["fn", "ft"],
+	desc: "See someone's fortnite stats, to view a certain platform, just put either `xb1`, `pc` or `psn`. It will search for PC by default",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	const msg = await message.channel.send("If you see this message for longer than 5 seconds I did not find information for that user. Please try again or ask support (`>support`)")
 	if (!args.join(' ')) {

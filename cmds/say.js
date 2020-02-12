@@ -2,7 +2,9 @@ const Discord = require('discord.js')
 
 module.exports = {
 	name: "say",
-	aliases: [],
+	aliases: ['say'], 
+	usage: 'say <embed|text> <message>',
+	desc: 'Get the bot to say something. Must be in the form <prefix>say <embed OR text> <message>',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	message.delete();
 	let msg = await message.channel.send("Verifying your message...")

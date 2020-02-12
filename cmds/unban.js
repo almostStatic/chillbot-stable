@@ -15,8 +15,11 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		return message.channel.send(`I do not have permissions to unban this user.`)
 	}
 	message.guild.unban(unban, reason)
-		.then(() => {
-			message.channel.send(`${process.env.gre} I have unbanned \`${unban}\` (<@${unban}>)`, {
+		.then(async() => {
+			let user = await client.fetchUser(unban);
+			if(!user) return message.reply("User not found.");
+			let tag = `${user.username}#${user.discriminator}`;
+			message.channel.send(`${process.env.gre} ${tag} was unbanned`, {
 				embed: new Discord.RichEmbed()
 				.setDescription(`**Reason**: ${reason}`)
 				.setColor(jsonColor)

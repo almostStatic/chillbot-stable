@@ -2,7 +2,9 @@ const Discord = require("discord.js")
 
 module.exports = {
 	name: "membercount",
-	aliases: ["members"],
+	aliases: ["members", 'membercount'],
+	desc: "Gets the total members of a server and seperates them out; bot count, human count, etc, etc.",
+	usage: 'membercount',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	message.channel.send("", {
 		embed: new Discord.RichEmbed()

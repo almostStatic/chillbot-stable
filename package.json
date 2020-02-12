@@ -16,7 +16,8 @@
     "got": "10.2.2",
     "keyv": "^4.0.0",
     "moment": "2.24.0",
-    "node-fetch": "2.6.0"
+    "node-fetch": "2.6.0",
+    "py.js": "^0.1.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,7 +1,8 @@
 const Discord = require('discord.js')
 module.exports = {
 	name: "slowmode",
-	aliases: ["slow"],
+	aliases: ["slow", 'slowmode'],
+	desc: 'Sert slowmode for the current channel, minimum 1 second and maximum 21600 seconds (6 hours)',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		let msg = await message.channel.send(`$One moment please...`)
 		if (!message.member.permissions.has('MANAGE_CHANNELS')) {

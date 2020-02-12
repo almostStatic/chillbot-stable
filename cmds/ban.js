@@ -1,7 +1,9 @@
 const Discord = require("discord.js");
 module.exports = {
 	name: "ban",
-	aliases: [],
+	aliases: ["banish"],
+	desc: 'Ban a user from the server\nBots cannot be banned, as when they are re-invited discord just unbans them.\nTo remove/ban bots, use the kick command.',
+	usage: 'ban <user> [reason]',
  async run(client,message,args,prefix,jsonColor,logs,sleep,done,error) {
 	message.delete().catch(err=>{})
 if (!message.member.permissions.has(["BAN_MEMBERS"])) {

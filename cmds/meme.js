@@ -2,7 +2,9 @@ const Discord = require("discord.js")
 const got = require("got")
 module.exports = {
 	name: "meme",
-	aliases: [],
+	aliases: ['meme'],
+	usage: "meme",
+	desc: "Gets the bot to send some random meme off of reddit.",
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let ppl = [process.env.ownerid, "610008193220870145", "437255943181565962", "373900508026372097", "589328391069761538"]
 	const embed = new Discord.RichEmbed();

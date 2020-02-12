@@ -6,7 +6,9 @@ let LOGS_DB = new keyv("sqlite://./database/log.sqlite")
 
 module.exports = {
 	name: 'setlogs',
-	aliases: [],
+	aliases: ['setlogs'],
+	usage: 'setlogs <channel mention, name or ID',
+	desc: 'Set the logs channel for the server where mod actions, message deletes and edits will be logged',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(!message.member.permissions.has('MANAGE_GUILD')) return message.channel.send(`${process.env.re} You do not have permission to set/edit logs channel of this server!`)
 	let msg = await message.channel.send("Setting logs channel...")
@@ -18,13 +20,10 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		});
 	 };
 	let channel = message.mentions.channels.first() || message.guild.channels.find(ch => ch.name == channelArgs) || message.guild.channels.find(ch => ch.id == channelArgs);
-
-	try{
-		let F = await channel.send("TEST")
-	}catch(e){
-		return message.channel.send(`I do not have permission to send messages in <#${channel.id}>! Please fix this before retrying.`)
+	if (channel.type == "voice") {
+		return msg.edit(`${process.env.re} It cannot be a voice channel`)
 	}
-	F.delete();
+
 	let newLogs = await LOGS_DB.set("logs" + message.author.id, channel.id)
 
 	await channel.send("", {
@@ -36,7 +35,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		.addField("Updated To", `<#${channel.id}>`)
 	})
 
-	msg.edit(" ", {
+	msg.edit("", {
 		embed: new Discord.RichEmbed()
 		.setColor(jsonColor)
 		.setDescription(`${process.env.gre} **${message.author.tag}** has successfully changed the server's log channel to <#${channel.id}>!`)

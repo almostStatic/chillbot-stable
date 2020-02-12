@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 
 module.exports = {
 	name: "serverinfo",
-	aliases: ["server", "guildinfo", "guild"],
+	aliases: ["server", "guildinfo", "guild", 'serverinfo'],
+	usage: 'serverinfo',
+	desc: 'Displays some basic server Information',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	try {
 		let splash = `[View](${message.guild.splashURL})`;

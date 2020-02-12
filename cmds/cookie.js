@@ -2,7 +2,9 @@ const Discord = require("discord.js")
 
 module.exports = {
 	name: "cookie",
-	aliases: [],
+	aliases: ["cookie"],
+	desc: "Give someone a cookie!",
+	usage: "cookie <user>",
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if (!args.length) {
 		message.delete().catch(e => { })

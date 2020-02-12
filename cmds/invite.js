@@ -1,9 +1,12 @@
 Dc=require("discord.js");
 module.exports = {
 	name: "invite",
-	aliases: ["add", "inv"],
+	aliases: ["links", "add", "inv"],
+	usage: "invite",
+	desc: "Get some pretty useful links about the bot, the invite link to add the bot, the *website* and its support server",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	client.generateInvite(8).then(inv=>{embed=new Dc.RichEmbed()
+	.setAuthor(message.member.username, message.author.avatarURL)
 	.setTitle("Useful links for ChillBot")
 	.addField("Website", `[Click Here](https://chillbot.asad.codes/)`, true)
 	.addField("Support Server", `[Join For Support](https://discord.gg/CmqEgU7)`, true)

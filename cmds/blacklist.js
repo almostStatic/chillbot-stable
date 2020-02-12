@@ -5,6 +5,8 @@ let db = new key("sqlite://./database/blacklisted.sqlite")
 module.exports = {
 	name: "blacklist",
 	aliases: ["blck"],
+	desc: 'Blacklist a user from using the bot. This command may onle be used **by the bot owners** themselves.',
+	usage: 'blacklist <user> <reason>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		let devs = ["501710994293129216", "373900508026372097", "437255943181565962"];
 		if (!devs.includes(message.author.id)) {

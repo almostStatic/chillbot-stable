@@ -3,7 +3,9 @@ const fetch = require('node-fetch');
 const qs = require('querystring')
 module.exports = {
 	name: "docs",
-	aliases: [],
+	aliases: ["docs"],
+	desc: "Search the [discord.js](https://www.npmjs.com/package/discord.js) documentation, most useful for bot developers! This runs on the stable branch",
+	usage: "docs <query>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 
 	const queryString = args.join(" ")

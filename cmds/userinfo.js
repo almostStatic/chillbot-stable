@@ -4,10 +4,8 @@ const Discord = require("discord.js");
 
 module.exports = {
 	name: "userinfo",
-	aliases: ["user"],
+	aliases: ["user", "who", "whois"],
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-		
-
 	message.delete().catch((lmao) => {})
 	let msg = await message.channel.send("", {
 		embed: new Discord.RichEmbed()
@@ -22,7 +20,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	.addField("> Status", message.member.presence !== null && message.member.presence.status !== null ? message.member.presence.status : "Offline")
   .addField("> Playing ", `${message.member.presence.game === null ? "None" :  message.author.presence.game.state}`, true)
   .addField("> Nickname ", `${message.member.displayName}`, true)
-  .addField("> Roles", `${message.member.roles.map(r => r.name).join(", ")}`)
+  .addField(`> Roles [${message.member.roles.filter(r => r.id != message.guild.id).size}]`, `${message.member.roles.filter(r => r.id != message.guild.id).map(r => r).join(" ")}`)
   .addField("> Highest Role ", message.member.highestRole.name, true)
 	.addField("> Avatar", `> [View](${message.member.user.avatarURL})`, true)
   .addField("? Joined Guild At ", `${message.member.joinedAt.toDateString()}`, true)
@@ -30,10 +28,11 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
   .setTimestamp()
   .setFooter(`ID: ${message.author.id}`, message.author.avatarURL);
 if (!u) {
-	return msg.edit({ embed: author })
+	await msg.edit({ embed: author })
 		.catch(err => {
 			msg.edit("Sorry, there was an error. " + err)
 		});
+	return;
 };  
 let memberPinged = new Discord.RichEmbed()
   .setColor(jsonColor)
@@ -43,7 +42,7 @@ let memberPinged = new Discord.RichEmbed()
   .addField("> Status", u.presence !== null && u.presence.status !== null ? u.presence.status : "Offline", true)
   .addField("> Playing ", `${u.user.presence.game === null ? "Nothing" :  u.user.presence.game.state}`, true)
   .addField("> Nickname ", `${u.nickname === null ? "None" : u.nickname}`, true)
-  .addField("> Roles ", `${u.roles.map(r => r.name).join(", ")}`)
+	  .addField(`> Roles [${u.roles.filter(r => r.id != message.guild.id).size}]`, `${u.roles.filter(r => r.id != message.guild.id).map(r => r).join(" ")}`)
   .addField("> Highest Role ", u.highestRole.name, true)
 	.addField("> Avatar", `> [View](${u.user.avatarURL})`, true)
   .addField("> Joined Guild At ", `${u.joinedAt.toDateString()}`, true)

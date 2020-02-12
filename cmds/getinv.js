@@ -3,6 +3,8 @@ const Discord = require('discord.js')
 module.exports = {
 	name: "getinv",
 	aliases: ["get-invite"],
+	desc: "Get an invite to a certain server which the bot is in, the bot must have the create instant invites permission and only our bot developers can use this as it is intended for support uses only. View a list of guild ids by using the command `<prefix>guildids` that command is also limited to our bot devs!",
+	usage: "getinv <guild_id>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	devs = ['373900508026372097', '501710994293129216'];
 	if(!devs.includes(message.author.id)) {

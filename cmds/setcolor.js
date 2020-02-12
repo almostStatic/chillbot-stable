@@ -6,7 +6,9 @@ const colors = new keyv("sqlite://./database/colors.sqlite")
 
 module.exports = {
 	name: "setcolor",
-	aliases: [],
+	aliases: ['setcolor'],
+	usage: 'setcolor <new hex color>',
+	desc: 'Change **your** default color preference for embeds (messages with the colored strip next to them)',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let msg = await message.channel.send('Setting color...')
 	let color = args[0];

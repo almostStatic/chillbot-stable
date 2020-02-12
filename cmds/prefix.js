@@ -7,7 +7,9 @@ let prefixes = new k("sqlite://./database/prefixes.sqlite")
 
 module.exports = {
 	name: 'prefix',
-	aliases: ["set-prefix"],
+	aliases: ["set-prefix", 'prefix'],
+	usage: 'prefix <new prefix>',
+	desc: `Set the new prefix for the current server, the bot will no longer respond do its defailt prefix \`>\` unlesss changed back to it. If you\'ve mucked up somewhere and need help, us at the [support server](${process.env.supportServer}) can reset it for you!`,
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		if(!message.member.permissions.has('MANAGE_GUILD')) {
 			return message.channel.send(`${process.env.re} **${message.author.username}**, you need the manage server permission to change the prefix!`)

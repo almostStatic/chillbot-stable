@@ -1,19 +1,17 @@
 const Discord = require('discord.js')
 const fs = require('fs')
 const moment = require("moment")
+
 module.exports = {
 	name: "warn",
 	aliases:[],
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-	
 	message.delete().catch(err => {})
 	let msg = await message.channel.send("Warning...")
 	if (!message.member.permissions.has("MANAGE_MESSAGES")) {
 		return msg.edit(process.env.re+' You need the **manage messages** permision in order to use this command!')
 	}
 	let userArg = args[0]
-	let logCh = message.guild.channels.find(x => x.id == logs)
-	if(!logCh) {};
 	let reason = args.slice(1).join(" ")
 	if (!userArg) {
 		return msg.edit(`${process.env.re} You need to provide a user to warn!`)

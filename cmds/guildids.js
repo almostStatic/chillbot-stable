@@ -1,7 +1,9 @@
 const Discord = require('discord.js')
 module.exports = {
 	name: "guildids",
-	aliases: [],
+	aliases: ['guildids'],
+	desc: "View a list of GUILD_IDS that the bot is in. This command is also limited to our devs only",
+	usage: 'guildids',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let devs = ['501710994293129216', '373900508026372097']
 	if(!devs.includes(message.author.id)) {

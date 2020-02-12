@@ -2,7 +2,9 @@ const Discord = require("discord.js")
 
 module.exports = {
 	name:"color",
-	aliases: [],
+	aliases: ["color"],
+	desc: "Preview a hex colour!",
+	usage: "color <color>",
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let color = args[0]
 	let filter = m => m.author.id === message.author.id;

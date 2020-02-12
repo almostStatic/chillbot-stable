@@ -4,7 +4,9 @@ const snipes = new keyv("sqlite://./database/snipes.sqlite")
 
 module.exports = {
 	name: "snipe",
-	aliases: ['s'],
+	aliases: ['s', 'snipe'],
+	desc: 'View the last deleted message in the channel, ignores bots.',
+	usage: 'snipe',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error){
 		let snipedMsg = await snipes.get(message.channel.id)
 	 let author = await snipes.get("snipe" + message.channel.id)

@@ -2,7 +2,9 @@ const Discord = require("discord.js")
 
 module.exports = {
 	name: "role",
-	aliases: [],
+	aliases: ['role'],
+	desc: 'Give or remove a role from a user, if they already have a role then I will remove it, if they do not have it then they will have the role added to them',
+	usage: 'role <role id, mention or name> <user id, or mention>',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	const msg = await message.channel.send("Processing...")
 
@@ -29,10 +31,18 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	try {
 		if (guildMember.roles.has(guildRole.id)) {
 			guildMember.removeRole(guildRole.id)
-			msg.edit(`${process.env.gre} Updated roles for **${guildMember.user.tag}**, \`- ${roleArg}\``)
+			msg.edit('', {
+				embed: new Discord.RichEmbed()
+				.setColor(jsonColor)
+				.setDescription(`${guildMember.user.tag} has lost the ${roleArg} role`)
+			})
 		} else {
 			guildMember.addRole(guildRole.id)
-			msg.edit(`${process.env.gre} Updated roles for **${guildMember.user.tag}**, \`+ ${roleArg}\``)
+			msg.edit(``, {
+				embed: new Discord.RichEmbed()
+				.setColor(jsonColor)
+				.setDescription(`${guildMember.user.tag} has received the ${roleArg} role`)
+			})
 		}
 	} catch (e) {
 		msg.edit(`${message.author} ${process.env.re} I was unable to add/remove that role. Please ensure that I have permission to do so.\n\nIf this is still occuring, please contact support (${process.env.supportServer}) with the following error: \`${e}\``)

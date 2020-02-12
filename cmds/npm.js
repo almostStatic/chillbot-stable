@@ -4,20 +4,21 @@ const fetch = require('node-fetch')
 
 module.exports = {
 	name: 'npm',
-	aliases: [],
+	desc: 'Search [npmjs](https://www.npmjs.com/) for any package',
+	usage: 'npm <package>',
+	aliases: ["npm"],
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	global.pkg = args.join(' ')
 	const msg = await message.channel.send("Fetching package...")
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
-	if (res.status === 404) {
+	if (res.status == 404) {
 		return msg.edit(process.env.re + " I could not find the specified package. Please try again")
 	}
 	const body = await res.json();
 	if (body.time.unpublished) {
-		return msg.edit('The specified package is unpublished');
+		return msg.edit(process.env.re + 'The specified package is unpublished');
 	}
 	const version = body['dist-tags'] ? body.versions[body['dist-tags'].latest] : {};
-//	const maintainers = this._trimArray(body.maintainers.map((user: { name: string }) => user.name));
 	const dependencies = version.dependencies ? version.dependencies : null;
 	const embed = new Discord.RichEmbed()
 		.setColor(jsonColor)

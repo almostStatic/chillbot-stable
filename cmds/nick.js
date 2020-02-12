@@ -3,7 +3,9 @@ let mom = require('moment')
 
 module.exports = {
 	name: "nick",
-	aliases: ["setnick", "set-nick", "set-nickname"],
+	aliases: ["nick", "setnick", "set-nick", "set-nickname"],
+	usage: 'nick <user> <new nickname>',
+	desc: 'Sets the nickname of a given user. Note that I cannot change people\'s nicknames who are above me as I will not have the correct permissions to do so',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let msg = await message.channel.send(`One moment...`)
 	if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) {

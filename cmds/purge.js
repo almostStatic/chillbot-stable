@@ -2,7 +2,9 @@ const Discord = require("discord.js")
 
 module.exports = {
 	name: "purge",
-	aliases: ["clear"],
+	aliases: ["clear", 'purge'],
+	desc: 'Delete a specific amount of messages in a channel. Cannot delete messages older than 14 days',
+	usage: 'purge <number of messages to delete>',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(!message.guild.me.permissions.has("MANAGE_MESSAGES")) {
 		return message.channel.send(`${process.env.re} | I need the **MANAGE MESSAGES** permissions in order for this command to work!`)

@@ -3,6 +3,8 @@ const Discord = require("discord.js");
 module.exports = {
 	name: "avatar",
 	aliases: ['pfp', 'icon', 'av'],
+	desc: 'Get someone\'s avatar',
+	usage: 'avatar <user>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let person = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
 	if(!person) {

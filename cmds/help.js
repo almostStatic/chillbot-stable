@@ -5,6 +5,8 @@ const rm = require('discord.js-reaction-menu')
 module.exports = {
 	name:"help",
 	aliases: ["helpme"],
+	desc: "Get a list of usable bot commands. Along with a brief description and a lovely reaction menu.",
+	usage: 'help',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let OT = await client.users.get(process.env.ownerid).tag;
 		 p = prefix;
@@ -69,6 +71,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	\`${p}say [TYPE]\` | get the bot to say something. Replace \`TYPE\` with either \`embed\` (for an embed) or \`text\` for a normal message
 	`)
 	.addField("Extra", `
+	\`${prefix}hug [@user]\` | Hug someone
 		\`${prefix}snipe\` | See the last deleted message in the channel (the bot must have been in the server when the message was deleted)
 	\`${prefix}fortnite [USER] [PLATFORM]\` | See someone's fortnite stats, Replace \`[PLATFORM]\` to either \`xb1\`, \`psn\`, or \`pc\` (defaults to pc)
 	`)

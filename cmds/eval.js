@@ -12,44 +12,46 @@ const colors = new keyv("sqlite://./database/colors.sqlite")
 module.exports = {
 	name: "eval",
 	aliases: ["run", "evaluate"],
+	desc: "Takes some javascript code and evaluates it! This is limited to out bot developers as it is very powerful.",
+	usage: "eval <code>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-if (message.author.id != process.env.ownerid) {
-	return message.reply("You may not use this command")
-};
-
-function clean(text) {
-  if (typeof(text) === "string")
-    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-  else
-      return text;
-}
-
-try {
-
-	const code = args.join(" ");
-	let evaled = eval(code);
-	if (!code) {
-		return message.channel.send("You need to give me some code to evaluate!")
-	}
-	if (typeof evaled !== "string")
-		evaled = require("util")
-			.inspect(evaled);
-		let cleaned = clean(evaled);
-
-	message.channel.send("", {
-		embed: new Discord.RichEmbed()
-		.setTitle("Evaluation Successful!")
-		.setDescription(`\`\`\`xl\n${cleaned}\n\`\`\``)
-		.setColor(jsonColor)
-	});
-
-} catch (err) {
-		message.channel.send("", {
-			embed: new Discord.RichEmbed()
-			.setTitle("Evaluation Unsucsessful")
-			.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
-			.setColor([255, 0, 0])
-		})
+	let devs = [process.env.ownerid, "437255943181565962"]
+	if (!devs.includes(message.author.id)) {
+		return message.reply("You may not use this command")
 	};
-},
-}
+
+	async function clean(text) {
+		if (typeof(text) === "string")
+			return await text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+		else
+				return await text;
+	}
+
+	try {
+		const code = args.join(" ");
+		let evaled = await eval(code);
+		if (!code) {
+			return await message.channel.send("You need to give me some code to evaluate!")
+		}
+		if (typeof evaled !== "string")
+			evaled = await require("util")
+				.inspect(evaled);
+			let cleaned = await clean(evaled);
+
+		await message.channel.send("", {
+			embed: new Discord.RichEmbed()
+			.setTitle("Evaluation Successful!")
+			.setDescription(`\`\`\`xl\n${cleaned}\n\`\`\``)
+			.setColor(jsonColor)
+		});
+
+	} catch (err) {
+		await	message.channel.send("", {
+				embed: new Discord.RichEmbed()
+				.setTitle("Evaluation Unsuccessful")
+				.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
+				.setColor([255, 0, 0])
+			})
+		};
+	},
+};
