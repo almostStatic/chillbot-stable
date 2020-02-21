@@ -1,8 +1,8 @@
-const jsonstoreclient = require('async-jsonstore-io');
-const jsonstore = new jsonstoreclient(process.env.jstk);
 const Discord = require("discord.js");
 const Express = require('express');
 const keyv = require("keyv");
+const botperms = new keyv("sqlite://./database/botperms.sqlite");
+const welcomes = new keyv("sqlite://./database/cwelcome.sqlite");
 const cmdCount = new keyv("sqlite://./database/cmdCount.sqlite");
 const snipes = new keyv("sqlite://./database/snipes.sqlite");
 const prefixes = new keyv("sqlite://./database/prefixes.sqlite");
@@ -12,6 +12,8 @@ const logs = new keyv("sqlite://./database/log.sqlite");
 const colors = new keyv("sqlite://./database/colors.sqlite");
 const Moment = require("moment");
 const fs = require("fs");
+const trim = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
+
 
 global.client = new Discord.Client({
 	 disableEveryone: true,
@@ -69,6 +71,26 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 };
 
+client.on('messageUpdate', async(oldMessage, newMessage) => {
+	if (oldMessage.author.bot) return;
+	let logID = await logs.get('logs' + oldMessage.guild.id)
+	let color = await colors.get('color' + oldMessage.author.id)
+	if (!color) color = '#0CEADC';
+	if (!logID) return;
+	let channel = await newMessage.guild.channels.find(c => c.id == logID);
+	if (!channel) return;
+	channel.send("", {
+		embed: new Discord.RichEmbed()
+		.setTitle('Message Edited in #' + oldMessage.channel.name)
+		.setThumbnail(oldMessage.author.avatarURL)
+		.setColor(color)
+		.addField("Old Message", trim(oldMessage.content, 1024), true)
+		.addField("New Message", trim(newMessage.content, 1024), true)
+		.setFooter("Edited At", newMessage.author.avatarURL)
+		.setTimestamp()
+	})
+})
+
 client.on('messageDelete', async(msg) => {
 	if (msg.author.bot) return;
 		var jsonColor = await colors.get('color' + msg.author.id)
@@ -101,6 +123,28 @@ client.on("disconnected", async() => {
 	client.channels.get("659726031946776596").send(`**:warning: The client websocket has disconnected and will no longer attempt to reconnect.**\n\(Event Timestamp: ${Moment(Date.now())})`)
 });
 
+client.on("guildMemberAdd", async(member) => {
+	if (member.guild.id == '575388933941231638') {
+		let channel = member.guild.channels.find(x => x.name == 'general');
+		let d = await welcomes.get(member.id)
+		let role = member.guild.roles.find(x => x.name == 'Member')
+		let stat = member.guild.roles.find(x => x.name == 'Statistician');
+		if (!d) {
+			await welcomes.set(member.id, "Y");
+			channel.send(`Thank you for joining our server ${member}! By joining, you have unlocked the \`>calc\` command! Use \`>cmd calc\` for some extra info. Please take a look at <#576012164654039051> and <#677528160895500289> before continuing. Hope you have a nice time here!`)
+			member.addRole(stat.id, "Granting permission to use the calc command")
+			member.addRole(role.id, `Automatic role added; Member`)
+		}
+		if (d == 'Y') {
+			channel.send(`Welcome back ${member}! Why did you leave in the first place? :c`)
+			member.addRole(stat.id, "Granting permission to use the calc command");
+			member.addRole(role.id, `Automatic role added; Member`)
+		}
+	} else {
+		return;
+	};
+});
+
 client.on("reconnecting", () => {
 	client.channels.get('587603328142147584')
 		.send("", {
@@ -128,6 +172,7 @@ client.on("ready", async() => {
 	await logs.set("logs658440270634942505", '667855411482853379')
 	console.log("Logs #7 Exporteed")
 */
+await botperms.set(process.env.ownerid, "Y")
 	  client.user.setPresence({
        game: {
            name: `${client.users.size} users in ${client.guilds.size} servers`,
@@ -137,6 +182,7 @@ client.on("ready", async() => {
     });
 	console.log(`${client.user.tag} is now online!`);
 	console.log(`Event Timestamp: ${Moment(Date.now())}`);
+
 	client.channels.get('575388934456999947')
 		.send(``, {
 			embed: new Discord.RichEmbed()
@@ -260,23 +306,74 @@ client.on("message", async(message) => {
 		prefix = process.env.prefix;
 	} else {
 		prefix = data;
-	}
+	} // 5abea3ab3d
 	if(!message.content.startsWith(prefix)) return;
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+	let segPerms = await botperms.get("cc" + message.author.id);
+	if (!segPerms) segPerms = "lol no u cant use Fake xddd"
 	let l = await blacklisted.get(message.author.id)
 	if(!l) l = 'N'
 	if (l == "Y" && command) return;
 	if (command && (!message.guild.me.permissions.has("EMBED_LINKS"))) return message.channel.send("I need the embed links permission. Please contact an admin to fix my perms!");
-	if (!command) return;
-
-	let L = await logs.get("logs" + message.guild.id)
-	if(!L) L = null;
-		var jsonColor = await colors.get("color" + message.author.id)
+	var jsonColor = await colors.get("color" + message.author.id)
 	if(!jsonColor) {
 		jsonColor = "#0CEADC";
 	};
+	let tag;
+	var _u;
+	if (!command && segPerms == 'Y') {
+		let [arg] = args;
+		if (!arg) {
+			return message.channel.send("", {
+				embed: new Discord.RichEmbed()
+				.setColor(jsonColor)
+				.setDescription(`${message.author.tag} has ${message.content.slice(prefix.length).split(/ +/).shift()}ed in chat`)
+			});
+		};
+		let target;
+		let usr;
+		let diffUSER;
+		let ext = args.slice(1).join(' ')
+		if (!ext) ext = '';
+		usr = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+		try {
+			const uu = await client.fetchUser(usr.user.id).catch(() => client.fetchUser(args[0]));
+	  	// use user
+		t = `${uu.username}#${uu.discriminator}`;
+		return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`${message.author.tag} has ${message.content.slice(prefix.length).split(/ +/).shift()}ed ${t} ${ext}`)
+				.setColor(jsonColor)
+			});
+		} catch(e) {
+  		return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setColor(jsonColor)
+				.setDescription(`${message.author.tag} has ${message.content.slice(prefix.length).split(/ +/).shift()}ed ${args[0]} ${ext}`)
+			})
+		}
+	/*	try {
+			diffUSER = await client.fetchUser(usr.user.id)
+			tag = `${diffUSER.username}#${diffUSER.discriminator}`;
+		} catch(e) {
+			diffUSER = await client.fetchUser(args[0])
+				.catch((err) => {
+					if (err.code == 50035) {
+
+					};
+					return;
+				});
+				*/
+			//tag = `${diffUSER.username}#${diffUSER.discriminator}`;
+		//};
+	 /**/
+	//})
+	} else {};
+	if (!command && segPerms != "Y") return;
+	let L = await logs.get("logs" + message.guild.id)
+	if(!L) L = null;
 	try {
 		command.run(client,message,args,prefix,jsonColor,L,sleep,done,error);
 		let old = await cmdCount.get("cmds");

@@ -18,7 +18,13 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 			.setColor([255, 0, 0])
 		})
 	}
-dmUser.send(msg)
+dmUser.send("", {
+	embed: new Discord.RichEmbed()
+	.setTitle("New Message")
+	.setDescription(msg)
+	.setColor(jsonColor)
+	.setFooter(`Sent By: ${message.author.tag}`)
+})
 	.then(() => {
 		message.channel.send(`${process.env.gre} | Your message was sent to **${dmUser.user.tag}**`)
 	})

@@ -7,7 +7,7 @@ module.exports = {
 	usage: 'checkinv <invite-url or invite-code>',
 	async run(client,message,args,prefix,jsonColor,logs,sleep,done,error) {
 	let msg = await message.channel.send("Checking invite...")
-	let invite = args[0]
+	let invite = args[0];
 	if(!invite) {
 		return msg.edit(`${process.env.re} You need to provide a valid invite!`)
 	}
