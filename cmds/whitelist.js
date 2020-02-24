@@ -8,10 +8,24 @@ module.exports = {
 	desc: 'Whitelist a user from using the bot. This is a dev-only thing. IE unblacklists them and lets them use ChillBot',
 	usage: 'whitelist <@user or ID> [reason]',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-				let devs = ["501710994293129216", "373900508026372097", "437255943181565962"];
-				if (!devs.includes(message.author.id)) {
-					return message.channel.send(`You cannot use this command.`)
-				}
+		let server = client.guilds.get('575388933941231638');
+		let staff = server.roles.find(x => x.name == '♕ Bot Staff ♕')
+		let mem = server.member(message.author);
+		if (!mem) {
+			return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`You cannot use this command!`)
+				.setColor(jsonColor)
+			})
+		}
+		if (!mem.roles.has(staff.id)) {
+			return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`You cannot use this command!`)
+				.setColor(jsonColor)
+			});
+		}
+
 		let PING = args[0];
 		if (!PING) return message.channel.send("You need to provide someome to whitelist (ie. unblacklist)")
 		if (message.mentions.members.first()) {

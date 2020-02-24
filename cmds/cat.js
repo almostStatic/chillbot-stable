@@ -9,12 +9,13 @@ module.exports = {
 		if(!message.guild.me.permissions.has("EMBED_LINKS")) {
 			return message.channel.send("I need the Embed Links permission for this command to work.")
 		}
-		const { file } = await fetch('https://aws.random.cat/meow').then((res) => res.json());
-		await message.channel.send("", {
+		let data = await fetch("https://api.thecatapi.com/v1/images/search").then(res => res.json());
+		message.channel.send({
 			embed: new Discord.RichEmbed()
-			.setImage(file)
+			.setTitle("Meow")
+			.setImage(data[0].url)
 			.setColor(jsonColor)
-			.setTitle("meow")
+			.setTimestamp()
 		})
 	},
 }

@@ -8,10 +8,23 @@ module.exports = {
 	desc: 'Blacklist a user from using the bot. This command may onle be used **by the bot owners** themselves.',
 	usage: 'blacklist <user> <reason>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-		let devs = ["501710994293129216", "373900508026372097", "437255943181565962"];
-		if (!devs.includes(message.author.id)) {
-			return message.channel.send(`You can't use this command!`)
-		};
+		let server = client.guilds.get('575388933941231638');
+		let staff = server.roles.find(x => x.name == '♕ Bot Staff ♕')
+		let mem = server.member(message.author);
+		if (!mem) {
+			return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`You cannot use this command!`)
+				.setColor(jsonColor)
+			})
+		}
+		if (!mem.roles.has(staff.id)) {
+			return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`You cannot use this command!`)
+				.setColor(jsonColor)
+			});
+		}
 		let userArg = args[0];
 		if (!userArg) {
 			return message.channel.send("You need to provide someone to blacklist");

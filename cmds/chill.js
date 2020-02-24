@@ -2,16 +2,13 @@ const Discord = require("discord.js")
 module.exports = {
 	name: "chill",
 	aliases: ["chill"],
-	desc: process.env.gre + "Chil with ChillBot!",
+	desc: process.env.gre + " Take a chill pill",
 	usage: "chill",
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	message.channel.send(``, {
 		embed: new Discord.RichEmbed()
-		.serDescription(`:cool: **${message.author.tag}** is chilling with **ChillBot**!! :cool:`)
+		.setDescription(`${message.author.tag} has taken a :pill: which has restored :sunglasses: 10000000000000000000 as well as :heart: 10000000000000000000, reaching maximum chillness in the process!`)
 		.setColor(jsonColor)
 	})
-		.then(async msg => {
-			await msg.react('580716592980164618')
-		});
 	},
 };

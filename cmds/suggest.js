@@ -4,7 +4,7 @@ module.exports = {
 	name: "suggest",
 	aliases: ['suggest'],
 	usage: 'suggest <suggestion>',
-	desc: 'Suggest something to be added to the bot. Spamming this will result in a blaklist',
+	desc: 'Suggest something to be added to the bot. Spamming this will result in a blaklist (as it pings the owner)',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let filter = m => m.author.id === message.author.id;
 	let suggestion = args.join(' ');
@@ -19,7 +19,11 @@ module.exports = {
 			if (collected.first().content.toLowerCase() == 'cancel') {
 				return message.reply("Command Cancelled.")
 			}
-			message.reply("Thank you, your feedback has been submitted!")
+			message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setColor(jsonColor)
+				.setDescription(`Thanks ${message.author.tag}, your suggestion has been received!`)
+			})
 				client.channels.get('648882351899803650').send("<@&649237683507560458>, new suggestion!", {
 					embed: new Discord.RichEmbed()
 					.setTitle("New Suggestion")
@@ -35,7 +39,11 @@ module.exports = {
 			message.reply("You took too long!")
 		});
 	} else if (suggestion.length) {
-		message.reply("Thank you, your messgae has been sucsessfully submitted!")
+			message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setColor(jsonColor)
+				.setDescription(`Thanks ${message.author.tag}, your suggestion has been received!`)
+			})
 		client.channels.get('648882351899803650').send("<@&649237683507560458>, new suggestion!", {
 			embed: new Discord.RichEmbed()
 			.setTitle("New Suggestion")

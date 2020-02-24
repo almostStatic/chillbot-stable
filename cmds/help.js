@@ -13,9 +13,9 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 			if(!p) p = ">"
 		let mods = new Discord.RichEmbed()
 			.setAuthor("ChillBot Help", client.user.avatarURL)
-		.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 2/4**")
+		.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 2/4**\nUse `" + prefix + "cmd [command name]` for extra info, like a description, aliases and more!")
 		
-			.addField("MODERATION COMMANDS", `
+			.addField("Mod Commands", `
 	\`${p}warn [@user] <reason>\` | Warns a user who is a member of the current server
 	\`${p}kick [@user, or id] <reason>\` | Kicks the user from the current guild
 	\`${p}slowmode [number of seconds]\` | Sets slowmode in the current channel for the amount of seconds provided. Must be less than 21600 seconds (6 Hours)
@@ -28,6 +28,9 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	\`${p}ban [@user] <reason>\` | Bans a user from th current guild
 	\`${p}bans\` | See the banned users in the guild and the reasons of their ban
 		`)
+		.addField("Mod Commands (1024 char limit :/)", `
+			\`${p}setprefix [new prefix]\` | Changes the prefix for the current server. If you have forgotten (or need help regarding your server's prefix, join our [support server](${process.env.supportServer}))
+		`)
 	.setColor(jsonColor)
 	.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`)
 		.setFooter("Commands do not work in DMs", client.user.avatarURL)
@@ -36,11 +39,10 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		let devCmds = new Discord.RichEmbed()
 		.setColor('#ff0000')
 			.setAuthor("ChillBot Help", client.user.avatarURL)
-		.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 4/4**")
+		.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 4/4**\nUse `" + prefix + "cmd [command name]` for extra info, like a description, aliases and more!")
 			.addField(`DEVELOPER`, `
 	\`${p}docs [search term]\` | Search the discord.js docs 
 	\`${p}npm [package name]\` | Search [npmjs](https://npmjs.org/) for any given package, Please ensure they are **URL Encoded**
-	\`${p}updates\` | View the bot's changelog	
 	\`${p}guilds\` | view all the servers the bot is in
 	\`${p}guildids\` | see the ids of bot guilds (devs only)
 	\`${prefix}blacklist [PING or ID]\` | Blacklist someone for using ChillBot (devs only)
@@ -55,24 +57,25 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		let cmds = new Discord.RichEmbed()
 		.setColor(jsonColor)
 		.setAuthor("ChillBot Help", client.user.avatarURL)
-	.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 1/4**")
+	.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 1/4**\nUse `" + prefix + "cmd [command name]` for extra info, like a description, aliases and more!")
 		.addField("Commands", `
 	\`${prefix}cookie [person to donate]\` | Send a cookie someone's way. This can be done to anything (so you could use \`${prefix}cookie himself\`)
 	\`${prefix}cat\` | Random cat :cat:
-	\`${p}updates\` | See the most recent updates to the bot
 	\`${p}checkinv [invite link]\` | Get the bot to display information about a certain invite link; the link must be valid
 	\`${p}8ball [question]\` | Ask the bot a question and get its response (credit to [danielpmc](https://github.com/danielpmc))
 	\`${p}serverinfo\` | Display server information
 	\`${p}userinfo [@user, or id]\` | Displays some basic user information
 	\`${p}botinfo\` | Displays basic bot information
 	\`${p}meme\` | Gets the bot to display a random meme found on reddit
-	\`${p}membecount\` | Get the total number of members and bots in the current server
+	\`${p}membercount\` | Get the total number of members and bots in the current server
 	\`${p}uptime\` | See how long that bot has been online for!
-	\`${p}say [TYPE]\` | get the bot to say something. Replace \`TYPE\` with either \`embed\` (for an embed) or \`text\` for a normal message
+	\`${p}say [TYPE] [message]\` | get the bot to say something. Replace \`TYPE\` with either \`embed\` (for an embed) or \`text\` for a normal message
 	`)
-	.addField("Extra", `
+	.addField("Commands (1024 char limit :/)", `
 	\`${prefix}hug [@user]\` | Hug someone
-		\`${prefix}snipe\` | See the last deleted message in the channel (the bot must have been in the server when the message was deleted)
+	\`${p}setcolor [hex color code]\` | set your embed color preference (the coloured strip next to them fancy messages)
+	\`${prefix}snipe\` | See the last deleted message in the channel (the bot must have been in the server when the message was deleted)
+	\`${prefix}love [@user]\` | See how much someone sle (the person you pinged) loves you!
 	\`${prefix}fortnite [USER] [PLATFORM]\` | See someone's fortnite stats, Replace \`[PLATFORM]\` to either \`xb1\`, \`psn\`, or \`pc\` (defaults to pc)
 	`)
 		.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`)
@@ -80,11 +83,9 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		.setTimestamp()
 	let beta = new Discord.RichEmbed()
 		.setAuthor("ChillBot Help", client.user.avatarURL)
-	.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 3/4**")
+	.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 3/4**\nUse `" + prefix + "cmd [command name]` for extra info, like a description, aliases and more!")
 	.setColor(jsonColor)
 	.addField("BETA", `
-	\`${p}setcolor [hex color code]\` | set your embed color preference (the coloured strip next to them fancy messages)
-	\`${p}resetcolor\` | reset your personal color preference (to the default; which is the color of your highest role)
 	\`${p}setlogs [#channel or id]\` | set the preferred log channel of the specified server
 	[Report Bug](https://chillbot.asad.codes/reportbug)
 	`)

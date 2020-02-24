@@ -6,6 +6,7 @@ module.exports = {
 	desc: "DM a user, intended for support and may only be used by our bot devs!",
 	usage: "dm <user> <message>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
+	message.delete().catch((e) => {})
 	if (message.author.id != process.env.ownerid) {
 		return message.reply(`${process.env.re} you may not use this command.`)
 	}
@@ -18,7 +19,13 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 			.setColor([255, 0, 0])
 		})
 	}
-dmUser.send(msg)
+dmUser.send("", {
+	embed: new Discord.RichEmbed()
+	.setTitle("New Message")
+	.setDescription(msg)
+	.setColor(jsonColor)
+	.setFooter(`Sent By: ${message.author.tag}`)
+})
 	.then(() => {
 		message.channel.send(`${process.env.gre} | Your message was sent to **${dmUser.user.tag}**`)
 	})

@@ -6,10 +6,26 @@ module.exports = {
 	desc: "Get an invite to a certain server which the bot is in, the bot must have the create instant invites permission and only our bot developers can use this as it is intended for support uses only. View a list of guild ids by using the command `<prefix>guildids` that command is also limited to our bot devs!",
 	usage: "getinv <guild_id>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-	devs = ['373900508026372097', '501710994293129216'];
-	if(!devs.includes(message.author.id)) {
-		return message.channel.send("You cannot use this command")
-	} else {
+
+		let server = client.guilds.get('575388933941231638');
+		let staff = server.roles.find(x => x.name == '♕ Bot Staff ♕')
+		let mem = server.member(message.author);
+		if (!mem) {
+			return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`You cannot use this command!`)
+				.setColor(jsonColor)
+			})
+		}
+		if (!mem.roles.has(staff.id)) {
+			return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`You cannot use this command!`)
+				.setColor(jsonColor)
+			});
+		}
+
+
 			let msg = await message.channel.send("Creating invite...")
 			let srv = client.guilds.get(args[0]);
 			if(!args[0]) return msg.edit(`Please provide a valid GUILD_ID. For a list, use \`${prefix}guildids\``)
@@ -29,6 +45,6 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 				console.log(err)
 				msg.edit(process.env.re+" There was an error. Most likely I do not have permission to create an invite to that server")
 			})
-	};
+	
 }
 }

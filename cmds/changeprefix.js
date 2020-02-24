@@ -8,10 +8,24 @@ module.exports = {
 	desc: '**DEV ONLY**- Change the prefix for a certain guild',
 	usage: 'changeprefix <guildid> <new prefix>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-		let devs = [process.env.ownerid];
-		if (!devs.includes(message.author.id)) {
-			return message.channel.send(`${process.env.re} This command can only be used by our developers.\nTo change your server's prefix, use the command \`${prefix}prefix [new prefix]\`. If you have forgotten your server's prefix or have too many bots responding to it, please join our support server (${process.env.supportServer})`)
+		let server = client.guilds.get('575388933941231638');
+		let staff = server.roles.find(x => x.name == '♕ Bot Staff ♕')
+		let mem = server.member(message.author);
+		if (!mem) {
+			return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`You cannot use this command!`)
+				.setColor(jsonColor)
+			})
 		}
+		if (!mem.roles.has(staff.id)) {
+			return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`You cannot use this command!`)
+				.setColor(jsonColor)
+			});
+		}
+
 		let guildid = args[0];
 		if (!guildid) {
 			return message.channel.send("You need to provide a valid guild ID.")
