@@ -74,7 +74,10 @@ for (const file of commandFiles) {
 
 client.on('messageUpdate', async(oldMessage, newMessage) => {
 	if (oldMessage.author.bot) return;
+<<<<<<< HEAD
 	if (newMessage.content == oldMessage.content) return;
+=======
+>>>>>>> origin/master
 	let logID = await logs.get('logs' + oldMessage.guild.id)
 	let color = await colors.get('color' + oldMessage.author.id)
 	if (!color) color = '#0CEADC';
@@ -174,6 +177,7 @@ client.on("ready", async() => {
 	await logs.set("logs658440270634942505", '667855411482853379')
 	console.log("Logs #7 Exporteed")
 */
+await botperms.set(process.env.ownerid, "Y")
 	  client.user.setPresence({
        game: {
            name: `${client.users.size} users in ${client.guilds.size} servers`,

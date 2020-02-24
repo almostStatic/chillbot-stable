@@ -9,6 +9,7 @@ module.exports = {
 	usage: 'assign <user> <upgrade|downgrade>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		// >assign @user #upgrade
+<<<<<<< HEAD
 		pre = prefix;
 		let supportServer = client.guilds.get("575388933941231638");
 		let ServerMember = supportServer.member(message.author);
@@ -17,11 +18,23 @@ module.exports = {
 		}
 		let Perms = ["stat", "cc", 'botstaff', 'tester'];
 		let staffRole = supportServer.roles.find(x => x.name == '♕ Bot Staff ♕');
+=======
+		let supportServer = client.guilds.get("575388933941231638");
+		let ServerMember = supportServer.member(message.member);
+		if (!ServerMember) {
+			return message.reply("you need to be a member of my support server to even have a dream of this command working.")
+		}
+		let Perms = ["stat", "cc"];
+		let staffRole = supportServer.roles.find(x => x.name == 'Bot Staff');
+>>>>>>> origin/master
 		if (!staffRole) return message.reply("Bot Staff role not found in supportServer. Contact an admin in the support server!")
 		if (!supportServer.member(message.author).roles.has(staffRole.id)) {
 			return message.channel.send(`${process.env.re} You must be a bot staff to use this command!`)
 		}
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
 		if (!args[0]) {
 			return message.channel.send(`${process.env.re} You need to provide a user for this command to work!`)
 		}
@@ -31,8 +44,12 @@ module.exports = {
 				.setTitle("Assign Help")
 				.setDescription("I see. You are a new member of our bot staff and don't know how to use the `>assign` command...")
 				.addField("Usage", `Using the assign command is simple; use it in the form \`${prefix}assign <@user or ID> <permission>\`.`)
+<<<<<<< HEAD
 				.addField("Assignable Permissions", `**Statistician** (\`stat\`) :\n  - Acess to the \`${prefix}calc <calculation>\`\n\n**Bot Staff** (botstaff) :\n  - Acess to the \`${prefix}\assign <user> <permission>\`\n  - Acess to the \`${pre
 				}changeprefix <server id> <new prefix>\` (for example \`${prefix}prefixchange ${message.guild.id} !!\` will change the prefix for ${message.guild.name} to !!)`)
+=======
+				.addField("Assignable Permissions", `**Statistician** (\`stat\`) : `)
+>>>>>>> origin/master
 			})
 		};
   	let mem = message.guild.members.get(message.mentions.users.first() || message.guild.members.get(args[0]));
@@ -55,6 +72,7 @@ module.exports = {
 		if (!upgrade.startsWith("stat")) {
 			return message.channel.send(`${process.env.re} Invalid permission; the types of permissions are: ${Perms.map(x => `\`${x}\``.toString()).join(', ')}`)
 		};*/
+<<<<<<< HEAD
 		// ♕ Testers assignment (tester) 
 		if (upgrade.toLowerCase().startsWith("t")) {
 			let TestersRole = supportServer.roles.find(r => r.name == '♕ Testers');
@@ -126,6 +144,8 @@ module.exports = {
 				})
 			}
 		};
+=======
+>>>>>>> origin/master
 		// cc assignment (fake commands)
 		if (upgrade.startsWith('cc')) {
 			let PERM = await botPerms.get("cc" + otherUser.id);
