@@ -1,6 +1,4 @@
 const Discord = require('discord.js')
-const js = require('async-jsonstore-io');
-const jsonstore = new js(process.env.jstk);
 const keyv = require("keyv");
 const colors = new keyv("sqlite://./database/colors.sqlite")
 
@@ -15,6 +13,18 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(!color) {
 		return msg.edit(`${process.env.re} **${message.author.username}**, You need to include a color to set your preference to!`)
 	}
+	if (!color.startsWith('#')) {
+		color = `#${args[0]}`
+	} else {
+		color = args[0];
+	};
+	if (args[0].toLowerCase() == '#white') {
+		color = '#FFFFFF';
+	} else if (args[0].toLowerCase() == '#red') {
+		color = "#da0000";
+	} else if (args[0].toLowerCase() == '#yellow') {
+		color = "#FFFF00";
+	} 
 	let regex = new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")
 	var result = regex.test(color);
 	if(result == true) {

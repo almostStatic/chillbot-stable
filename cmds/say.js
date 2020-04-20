@@ -14,17 +14,18 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		return msg.edit(`**${message.author.tag}**, You need to provide a message type!\n\n> Either \`embed\` or \`text\``)
 	}
 	if (!["embed", "text"].includes(type.toLowerCase())) {
-		return msg.edit("That is not a valid type!")
-	}
+		message.channel.send(args.join(' '));
+		msg.delete();
+	};
 	if (type == 'text') {
-		return msg.edit(content)
-	}
+		return msg.edit(content);
+	};
 	if (type == 'embed') {
-		return msg.edit("", {
-			embed: new Discord.RichEmbed()
-			.setDescription(content)
-			.setColor(jsonColor)
-		})
-	}
-}
-}
+			return msg.edit("", {
+				embed: new Discord.RichEmbed()
+				.setDescription(content)
+				.setColor(jsonColor)
+			});
+		};
+	},
+};

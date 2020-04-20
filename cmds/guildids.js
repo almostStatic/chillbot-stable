@@ -23,7 +23,9 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 			});
 		}
 
-		message.author.send(client.guilds.map(x => x.id.toString()).join('\n'))
+		message.author.send(client.guilds.map(x => `${x.name} - ${x.id} owned by ${x.ownerID}`.toString()).join('\n'), {
+			split: true,
+		})
 		message.react('580716592980164618')
 	
 }

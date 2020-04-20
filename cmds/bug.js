@@ -22,6 +22,7 @@ module.exports = {
 		let bug = args.join(' ')
 		if (!bug) return message.reply("You need to supply a bug in order for this command to work!")
 		client.channels.get("681273991415070730").send(`:warning: New Bug: ${args.join(' ')}`)
-		message.channel.send("Bug Report Successful.")
+		message.delete().catch((err) => {});
+		message.channel.send("Bug Report Successful.");
 	},
 }

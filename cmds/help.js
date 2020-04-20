@@ -11,6 +11,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let OT = await client.users.get(process.env.ownerid).tag;
 		 p = prefix;
 			if(!p) p = ">"
+			footerText = `You can also join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`;
 		let mods = new Discord.RichEmbed()
 			.setAuthor("ChillBot Help", client.user.avatarURL)
 		.setDescription("```diff\n+ Everything in <> is not required\n- Everything in [] is required\n```\n\n**Page 2/4**\nUse `" + prefix + "cmd [command name]` for extra info, like a description, aliases and more!")
@@ -30,9 +31,11 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		`)
 		.addField("Mod Commands (1024 char limit :/)", `
 			\`${p}setprefix [new prefix]\` | Changes the prefix for the current server. If you have forgotten (or need help regarding your server's prefix, join our [support server](${process.env.supportServer}))
+			\`${p}roleinfo [@role, rolename or roleid]\` | Displays information about a certain role, including members and display color
+			\`${p}rolecolor [hex color] [@role, name or ID]\` | Changes the color of a specified role
 		`)
 	.setColor(jsonColor)
-	.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`)
+	.addField("Support", footerText)
 		.setFooter("Commands do not work in DMs", client.user.avatarURL)
 		.setTimestamp()
 
@@ -49,7 +52,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	\`${prefix}whitelist\` | Whitelist someone from using ChillBot (opposite to blacklisting someone, devs only)
 	\`${p}getinv [guildID]\` | get an invite for the guild id you provided, bot must have sent one message and have create invites permission (devs only)
 		`)
-	.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`)
+	.addField("Support", footerText)
 		.setFooter("Commands do not work in DMs", client.user.avatarURL)
 		.setTimestamp()
 
@@ -77,8 +80,10 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	\`${prefix}snipe\` | See the last deleted message in the channel (the bot must have been in the server when the message was deleted)
 	\`${prefix}love [@user]\` | See how much someone sle (the person you pinged) loves you!
 	\`${prefix}fortnite [USER] [PLATFORM]\` | See someone's fortnite stats, Replace \`[PLATFORM]\` to either \`xb1\`, \`psn\`, or \`pc\` (defaults to pc)
+	\`${prefix}pee <@user/ID>\` | Pee on someone, there is a 5 second cooldown
+	\`${prefix}editsnipe\` | View the last editted message in the current channel
 	`)
-		.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`)
+		.addField("Support", footerText)
 		.setFooter("Commands do not work in DMs", client.user.avatarURL)
 		.setTimestamp()
 	let beta = new Discord.RichEmbed()
@@ -89,7 +94,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	\`${p}setlogs [#channel or id]\` | set the preferred log channel of the specified server
 	[Report Bug](https://chillbot.asad.codes/reportbug)
 	`)
-		.addField("Support", `You may join our **[Support server](${process.env.supportServer})**\nContact **${OT}** if you have any issues`)
+		.addField("Support", footerText)
 	.setFooter("Commands do not work in DMs", client.user.avatarURL)
 	.setTimestamp()
 

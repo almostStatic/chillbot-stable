@@ -24,7 +24,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		}
 
 
-message.author.send(`>>> Guilds:\n\`\`\`\n${client.guilds.map(r=>r.name.toString()).join("\n")}\n\`\`\``)
+message.author.send(`>>> Guilds:\n\`\`\`\n${client.guilds.map(r=>r.name.toString()).join("\n")}\n\`\`\``, {split:true})
 
 }
 }

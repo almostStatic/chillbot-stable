@@ -22,7 +22,7 @@ module.exports = {
 			embed.addField(`${memeTitle}`, `**[View thread](${memeUrl})**`);
 			embed.setImage(memeImage);
 			embed.setFooter(`👍 ${memeUpvotes} | 👎 ${memeDownvotes} | 💬 ${memeNumComments}`);
-			message.channel.send({embed})
+			message.channel.send({ embed });
 	});
 }
 }

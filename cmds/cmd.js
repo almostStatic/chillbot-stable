@@ -12,7 +12,7 @@ module.exports = {
 		if (!commandArg) {
 			return message.channel.send("You need to invlude the name or alias of a command to get help for!")
 		};
-		let commandFound = client.commands.get(commandArg) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandArg));
+		let commandFound = client.commands.get(commandArg.toLowerCase()) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandArg.toLowerCase()));
 		if (!commandFound) {
 			return message.channel.send("", {
 				embed: new Discord.RichEmbed()

@@ -22,16 +22,16 @@ module.exports = {
 			message.channel.send({
 				embed: new Discord.RichEmbed()
 				.setColor(jsonColor)
-				.setDescription(`Thanks ${message.author.tag}, your suggestion has been received!`)
+				.setDescription(`ty ${message.author.username}, I have recorded your suggestion :-)`)
 			})
 				client.channels.get('648882351899803650').send("<@&649237683507560458>, new suggestion!", {
 					embed: new Discord.RichEmbed()
 					.setTitle("New Suggestion")
 					.setColor(jsonColor)
-					.addField("> Suggested By:", message.author.tag, true)
-					.addField("> Suggested At:", message.createdAt.toDateString(), true)
-					.addField("> Suggestion:", collected.first().content)
-					.setFooter("> ID: " + message.author.id)                            
+					.addField("❯ Suggested By:", message.author.tag + " (" + message.author.id + ")", true)
+					.addField("❯ Suggested At:", message.createdAt.toDateString(), true)
+					.addField("❯ Suggestion:", collected.first().content)
+					.setFooter("❯ ID: " + message.author.id)                            
 					// 
 					//add reaction to message suggestion to black list user from suggesting again
 				})
@@ -48,10 +48,10 @@ module.exports = {
 			embed: new Discord.RichEmbed()
 			.setTitle("New Suggestion")
 			.setColor(message.member.displayColor)
-			.addField("> Suggested By:", message.author.tag, true)
-			.addField("> Suggested At:", message.createdAt.toDateString(), true)
-			.addField("> Suggestion:", suggestion)
-			.setFooter("> ID: " + message.author.id)                            
+			.addField("❯ Suggested By:", message.author.tag, true)
+			.addField("❯ Suggested At:", message.createdAt.toDateString(), true)
+			.addField("❯ Suggestion:", suggestion)
+			.setFooter("❯ ID: " + message.author.id)                            
 		})
 		}
 	}

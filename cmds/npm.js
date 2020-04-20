@@ -9,14 +9,14 @@ module.exports = {
 	aliases: ["npm"],
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	global.pkg = args.join(' ')
-	const msg = await message.channel.send("Fetching package...")
+	const msg = await message.channel.send(process.env.loading + " Fetching package...")
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);
 	if (res.status == 404) {
-		return msg.edit(process.env.re + " I could not find the specified package. Please try again")
-	}
+		return msg.edit(process.env.re + " I could not find the specified package");
+	};
 	const body = await res.json();
 	if (body.time.unpublished) {
-		return msg.edit(process.env.re + 'The specified package is unpublished');
+		return msg.edit(process.env.re + ' The specified package is unpublished');
 	}
 	const version = body['dist-tags'] ? body.versions[body['dist-tags'].latest] : {};
 	const dependencies = version.dependencies ? version.dependencies : null;

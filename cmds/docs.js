@@ -11,14 +11,15 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	const queryString = args.join(" ")
 	const res = await fetch(`https://djsdocs.sorta.moe/v1/main/stable/embed?q=${queryString}`);
 	const embed = await res.json();
+	const reactionfilter = (reaction, user) => reaction.emoji.name == "🗑️" && user.id === message.author.id;
 	if(!queryString){
-			await message.delete()
+			await message.delete(3000)
 					.catch((err)=>{});
 			const filter = m => m.author.id === message.author.id;
 			message.channel.send(`${message.author}`, {
 				embed: new Discord.RichEmbed()
 				.setColor(jsonColor)
-				.setDescription("What would you like to search the Discord.js Docs?\n\n> Expires in 20 Seconds, type `cancel` to cancel")
+				.setDescription("What would you like to search the Discord.js Docs for?\n\n> Expires in 20 Seconds, type `cancel` to cancel")
 			})
 					.then(msg => {
 						msg.delete(20000)
@@ -48,7 +49,15 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 			return message.reply(`${process.env.re} ${client.user.username} **couldn't** find the requested information.\nMaybe look for something that actually exists next time?`);
 	};
 
-	await message.channel.send({ embed });
+	let sent = await message.channel.send({ embed });
+	message.awaitReactions(reactionfilter, {
+		max: 1,
+		time: (30 * 1000),
+		errors: ['time']
+	})
+		.then((coll) => {
+			sent.delete();
+		})
 
 }
 }

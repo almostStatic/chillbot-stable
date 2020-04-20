@@ -15,18 +15,27 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if (!userArg) {
 		return msg.edit(`${process.env.re} You need to mention a user or provide a valid user id!`)
 	}
-	let guildMember = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+		function getUserFromMention(mention) {
+			if (!mention) return;
+			if (mention.startsWith('<@') && mention.endsWith('>')) {
+					mention = mention.slice(2, -1);
+					if (mention.startsWith('!')) {
+							mention = mention.slice(1);
+					};
+					return client.users.get(mention);
+			};
+		};
+	if (!args[0]) return message.channel.send('You need to provide a user to update, either by ID or @mention')
+	let usr =  message.guild.member(getUserFromMention(args[0]));
+	if (!usr) usr = message.guild.member(message.guild.members.get(args[0]));	
 	let nick = args.slice(1).join(' ')
-	if (!guildMember) {
-		return msg.edit(`${process.env.re} You need to mention a user!`)
-	};
 
-	message.guild.member(guildMember) 
-		.setNickname(nick, `Responsible User: ${message.author.tag}\nNickname changed at: ${mom(Date.now())}`)
+	message.guild.member(usr) 
+		.setNickname(nick, `Responsible User: ${message.author.tag} (${message.author.id}), Nickname changed at: ${mom(Date.now())}`)
 			.catch(er => {
 				msg.edit(`${process.env.re} I do not have permission to change the nickname of that user!`)
 				return;
 			})
-	msg.edit(`${process.env.gre} I have changed **${guildMember.user.tag}**\'s nickname to **${nick}**!\n\n> Remember nicknames cannot be longre than 32 characters!!`)
+	msg.edit(`${process.env.gre} I have changed **${usr.user.tag}**\'s nickname to **${nick}**!\n\n> Remember nicknames cannot be longre than 32 characters!!`)
 }
 }

@@ -7,20 +7,25 @@ module.exports = {
 	usage: 'avatar <user>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let person = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+	if (!person && args.length) {
+		return message.channel.send (
+			"", { embed: new Discord.RichEmbed().setColor('#da0000').setDescription(`${process.env.re} I can't find that user!`) } 
+		)
+	};
 	if(!person) {
 		message.channel.send("", {
 			embed: new Discord.RichEmbed()
-			.setAuthor(message.author.tag, message.author.avatarUEL)
+			.setAuthor(message.author.tag, message.author.avatarURL, message.author.avatarURL)
 			.setColor(jsonColor)
 			.setImage(message.author.avatarURL)
-		})
+		});
 	} else if (person) {
 		return message.channel.send("", {
 			embed: new Discord.RichEmbed()
-			.setAuthor(person.user.tag, person.user.avatarUEL)
+			.setAuthor(person.user.tag, person.user.avatarURL)
 			.setColor(jsonColor)
 			.setImage(person.user.displayAvatarURL)
 		});
-		}
+		};
 	},
-}
+};

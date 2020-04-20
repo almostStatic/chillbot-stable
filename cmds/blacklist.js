@@ -62,7 +62,7 @@ module.exports = {
 	 	if (person.id == message.author.id) {
 			  message.channel.send("Why would you want to blacklist yourself? :face_palm:");
 				return;		
-		} 
+		};
 		await db.set(id, "Y");
 		message.channel.send(`${process.env.gre} ${TAG} has been blacklisted for: ${reason}`)
 				 try{
@@ -74,7 +74,6 @@ module.exports = {
 			 .setColor("#da0000")
 				.addField("Blacklisted By:", message.author.tag)
 			 .addField("Reason", reason)
-
 		 })
 		 }catch(r){};
 

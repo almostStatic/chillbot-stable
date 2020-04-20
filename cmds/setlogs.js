@@ -30,15 +30,15 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		embed: new Discord.RichEmbed()
 		.setTitle('Logs Channel Update')
 		.setColor(jsonColor)
-		.addField("Updated By", message.author.tag, true)
-		.addField("Updated At", message.createdAt.toDateString(), true)
-		.addField("Updated To", `<#${channel.id}>`)
+		.addField("❯ Updated By", message.author.tag, true)
+		.addField("❯ Updated At", message.createdAt.toDateString(), true)
+		.addField("❯ Updated To", `<#${channel.id}>`)
 	})
 
 	msg.edit("", {
 		embed: new Discord.RichEmbed()
 		.setColor(jsonColor)
-		.setDescription(`${process.env.gre} **${message.author.tag}** has successfully changed the server's log channel to <#${channel.id}>!`)
+		.setDescription(`${process.env.gre} **${message.author.tag}** has successfully updated the server's log channel to <#${channel.id}>!`)
 	});
 }
 }

@@ -9,47 +9,59 @@ module.exports = {
 	usage: 'assign <user> <upgrade|downgrade>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		// >assign @user #upgrade
-<<<<<<< HEAD
+		a = await client.fetchUser(client.owner);
+		let owner_tag = `${a.username}#${a.discriminator}`
 		pre = prefix;
 		let supportServer = client.guilds.get("575388933941231638");
 		let ServerMember = supportServer.member(message.author);
 		if (!ServerMember) {
 			return message.reply("you need to be a member of my support server to even have a dream of this command working.")
 		}
-		let Perms = ["stat", "cc", 'botstaff', 'tester'];
-		let staffRole = supportServer.roles.find(x => x.name == '♕ Bot Staff ♕');
-=======
-		let supportServer = client.guilds.get("575388933941231638");
-		let ServerMember = supportServer.member(message.member);
-		if (!ServerMember) {
-			return message.reply("you need to be a member of my support server to even have a dream of this command working.")
-		}
-		let Perms = ["stat", "cc"];
-		let staffRole = supportServer.roles.find(x => x.name == 'Bot Staff');
->>>>>>> origin/master
+		let Perms = ["stat", "cc", 'botstaff', 'testers', "eval", "dj"];
+		let staffRole = supportServer.roles.find(x => x.name == '♕ Bot Staff ♕')
 		if (!staffRole) return message.reply("Bot Staff role not found in supportServer. Contact an admin in the support server!")
+		let devRole = supportServer.roles.find(r => r.id == '580747547317108738')
 		if (!supportServer.member(message.author).roles.has(staffRole.id)) {
 			return message.channel.send(`${process.env.re} You must be a bot staff to use this command!`)
 		}
-<<<<<<< HEAD
-		
-=======
->>>>>>> origin/master
+
 		if (!args[0]) {
 			return message.channel.send(`${process.env.re} You need to provide a user for this command to work!`)
 		}
 		if (args[0].toLowerCase() == "help") {
 			return message.channel.send("", {
 				embed: new Discord.RichEmbed()
+				.setColor(jsonColor)
 				.setTitle("Assign Help")
 				.setDescription("I see. You are a new member of our bot staff and don't know how to use the `>assign` command...")
 				.addField("Usage", `Using the assign command is simple; use it in the form \`${prefix}assign <@user or ID> <permission>\`.`)
-<<<<<<< HEAD
-				.addField("Assignable Permissions", `**Statistician** (\`stat\`) :\n  - Acess to the \`${prefix}calc <calculation>\`\n\n**Bot Staff** (botstaff) :\n  - Acess to the \`${prefix}\assign <user> <permission>\`\n  - Acess to the \`${pre
-				}changeprefix <server id> <new prefix>\` (for example \`${prefix}prefixchange ${message.guild.id} !!\` will change the prefix for ${message.guild.name} to !!)`)
-=======
-				.addField("Assignable Permissions", `**Statistician** (\`stat\`) : `)
->>>>>>> origin/master
+				.addField("Assignable Permissions", `
+**__CC__** (matches "cc") :
+    - Access to "non-existant" commands 
+
+**__Statistician__** (matches "stat")	 :
+		- Access to \`${prefix}calc <calculation>\` | Run a calculation (allowed by default; unlocked by joining the support server)
+	
+**__Bot Staff__** (matches "botstaff")
+		- Access to \`${prefix}assign\`
+		- Access to \`${prefix}reload <command>\`
+		- Access to \`${prefix}getinv <server id>\`
+		- Access to \`${prefix}guildids\`
+		- Access to \`${prefix}changeprefix <server id> <new prefix>\` | Lets you change the prefix for any server **the bot is in**
+				`)
+				.addField("Assignable Permissions (1024 char limit :/)", `
+	**__Testers__**: (matches "t") :
+		- Noting right now!
+			- maybe a secret channel; any suggestions contact \`${owner_tag}\`
+
+**__♕ Evaluator__** (matches "eval")
+    - Access to \`${prefix}eval <code>\`		
+
+**__DJ__** (matches "dj") :
+    - Some music perks
+		- **NOTE**: This has nothing to do with **this** bot, instead gives permissions related to Rythm
+
+				`)
 			})
 		};
   	let mem = message.guild.members.get(message.mentions.users.first() || message.guild.members.get(args[0]));
@@ -57,7 +69,7 @@ module.exports = {
 		if (!mem) {
 			try {
 				otherUser = await client.fetchUser(args[0]);
-			}catch(e){
+			} catch(e) {
 				otherUser = await client.fetchUser(message.mentions.members.first().user.id)
 			}
 		} else {
@@ -66,15 +78,99 @@ module.exports = {
 		let tag = `${otherUser.username}#${otherUser.discriminator}` || `UNKNOWN#0000`;
 		let upgrade = args[1];
 		if (!upgrade) upgrade = "none given";
+		// assign dj
+		if (upgrade.toLowerCase().startsWith("dj")) {
+			let GuildHashMember = supportServer.members.find(m => m.id == otherUser.id);
+			if (!GuildHashMember) {
+				return message.channel.send("That user is not a member of the support server")
+			}
+			let dj = supportServer.roles.find(r => r.name == 'Dj');
+			if (!dj) return message.channel.send("A role named \"Dj\" was not found.")
+				if (GuildHashMember.roles.has(dj.id)) {
+				GuildHashMember.removeRole(dj.id);
+				return message.channel.send({
+					embed: new Discord.RichEmbed()
+					.setDescription(`${tag} has lost the DJ permission`)
+					.setColor(jsonColor)
+				})
+			}
+			if (!GuildHashMember.roles.has(dj.id)) {
+				GuildHashMember.addRole(dj.id);
+				return message.channel.send({
+					embed: new Discord.RichEmbed()
+					.setDescription(`${tag} has received the DJ permission`)
+					.setColor(jsonColor)
+				})
+			};
+		};
+		// assign ([lar])
+		if (upgrade.startsWith("lar")) {
+			if (![process.env.ownerid, "301855763226165248"].includes(message.author.id)) {
+				return message.channel.send("Only lar can assign this!")
+			}
+			let lar = supportServer.roles.find(r => r.id == '681300669814145049')
+			if (!lar) return message.reply('lar role not found')
+				let d = supportServer.members.find(m => m.id == otherUser.id)
+				if (d.roles.has(lar.id)) {
+				d.removeRole(lar.id);
+				return message.channel.send({
+					embed: new Discord.RichEmbed()
+					.setDescription(`${tag} has lost the ♕ 𝕷𝖆𝖗 role`)
+					.setColor(jsonColor)
+				})
+			}
+			if (!d.roles.has(lar.id)) {
+				d.addRole(lar.id);
+				return message.channel.send({
+					embed: new Discord.RichEmbed()
+					.setDescription(`${tag} has received the ♕ 𝕷𝖆𝖗 role`)
+					.setColor(jsonColor)
+				})
+			};
+		};
 	/*	if (!upgrade.startsWith("cc")) {
 			return message.channel.send(`${process.env.re} Invalid permission; the types of permissions are: ${Perms.map(x => `\`${x}\``.toString()).join(', ')}`)
 		};
 		if (!upgrade.startsWith("stat")) {
 			return message.channel.send(`${process.env.re} Invalid permission; the types of permissions are: ${Perms.map(x => `\`${x}\``.toString()).join(', ')}`)
 		};*/
-<<<<<<< HEAD
+		// ♕ Evaluator assignment (eval)
+		if (upgrade.toLowerCase().startsWith('eval')) {
+			if (!ServerMember.roles.has(devRole.id)) {
+				return message.channel.send("You need to be a developer in order to assign this permission. (as it controls the way the bot behaves in **__every__** guild)")
+			};
+			let Evaluator = supportServer.roles.find(x => x.name == '♕ Evaluator');
+			if (!Evaluator) { return; };
+			let target = supportServer.members.find(m => m.id == otherUser.id)
+
+			if (!target) {
+				return message.channel.send({
+					embed: new Discord.RichEmbed()
+					.setDescription(`I cannot assign ${tag} that permission, as they are not in the support server`)
+					.setColor('#da0000')
+				})
+			} 
+			if (target.roles.has(Evaluator.id)) {
+				target.removeRole(Evaluator.id);
+				return message.channel.send({
+					embed: new Discord.RichEmbed()
+					.setDescription(`${tag} has lost the ♕ Evaluator permissions`)
+					.setColor(jsonColor)
+				})
+			}
+			if (!target.roles.has(Evaluator.id)) {
+				target.addRole(Evaluator.id);
+				return message.channel.send({
+					embed: new Discord.RichEmbed()
+					.setDescription(`${tag} has received the ♕ Evaluator permissions`)
+					.setColor(jsonColor)
+				})
+			}			
+		return;
+		};
 		// ♕ Testers assignment (tester) 
 		if (upgrade.toLowerCase().startsWith("t")) {
+			if (![client.owner, ""].includes(message.author.id)) {};
 			let TestersRole = supportServer.roles.find(r => r.name == '♕ Testers');
 			if (!TestersRole) {
 				return message.channel.send({
@@ -144,8 +240,6 @@ module.exports = {
 				})
 			}
 		};
-=======
->>>>>>> origin/master
 		// cc assignment (fake commands)
 		if (upgrade.startsWith('cc')) {
 			let PERM = await botPerms.get("cc" + otherUser.id);

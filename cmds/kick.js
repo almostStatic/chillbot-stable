@@ -7,6 +7,19 @@ module.exports = {
 	usage: 'kick <user> [reason]',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	let msg = await message.channel.send(`Processing... **Please wait!**`)
+		function getUserFromMention(mention) {
+			if (!mention) return;
+			if (mention.startsWith('<@') && mention.endsWith('>')) {
+					mention = mention.slice(2, -1);
+					if (mention.startsWith('!')) {
+							mention = mention.slice(1);
+					};
+					return client.users.get(mention);
+			};
+		};
+	if (!args[0]) return message.channel.send('You need to provide a user to kick, either by ID or @mention')
+	let usr =  message.guild.member(getUserFromMention(args[0]));
+	if (!usr) usr = message.guild.member(message.guild.members.get(args[0]));
 	let userArg = args[0];
 	let reason = args.slice(1).join(" ")
 	if (!message.guild.me.permissions.has("KICK_MEMBERS")) {
@@ -24,31 +37,30 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		return msg.edit(`${process.env.re} You need to provide a user to kick!`)
 	}
 
-	let guildMember = message.guild.member(message.mentions.users.first() || message.guild.members.get(userArg));
-	let logs = message.guild.channels.find(ch => ch.name == "logs") || message.channel;
-	guildMember.send(`You were kicked from **${message.guild.name}** by **${message.author.tag}**`, {
+	let logs = message.guild.channels.find(ch => ch.name == "logs") || null;
+	usr.send(`You were kicked from **${message.guild.name}** by **${message.author.tag}**`, {
 		embed: new Discord.RichEmbed()
 		.setDescription(`**Reason**: ${reason}`)
 		.setColor(jsonColor)
 	})
-	if(guildMember.permissions.has('KICK_MEMBERS')) {
+	if(usr.permissions.has('KICK_MEMBERS')) {
 		return msg.edit(`${process.env.re} You can't kick your mods! `)
 	}
 	let log = await logs.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Member Kicked")
-		.addField("> Kicked Member", guildMember.user.tag, true)
-		.addField("> Moderator", message.author.tag, true)
-		.addField("> Kicked At", message.createdAt.toDateString())
-		.addField("> Reason", reason)
-		.setFooter(`ID: ${guildMember.user.id}`)
+		.addField("Kicked Member", usr.user.tag, true)
+		.addField("Moderator", message.author.tag, true)
+		.addField("Kicked At", message.createdAt.toDateString(), true)
+		.addField("Reason", reason, true)
+		.setFooter(`ID: ${usr.user.id}`)
 		.setTimestamp()
-		.setThumbnail(guildMember.user.avatarURL)
+		.setThumbnail(usr.user.avatarURL)
 		.setColor(jsonColor)
-	})
+	}).catch((eerr) => {});
 
-	message.guild.member(guildMember).kick(`Responsible User: ${message.author.tag}\nDetails: ${log.url}`)
-	msg.edit(`${process.env.gre} **${guildMember.user.tag}** was kicked!`, {
+	message.guild.member(usr).kick(`Responsible User: ${message.author.tag}\nDetails: ${log.url}`)
+	msg.edit(`${process.env.gre} **${usr.user.tag}** was kicked!`, {
 		embed: new Discord.RichEmbed()
 		.setDescription(`**Reason**: ${reason}`)
 		.setColor(jsonColor)

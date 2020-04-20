@@ -17,13 +17,14 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	}
 
 	let userArg = args[0];
-	let roleArg = args.slice(1).join(" ")
+	let roleArg = args.slice(1).join(" ").toLowerCase();
 
 	if (!userArg) return msg.edit(process.env.re + " Please provide a user arguement")
 	if (!roleArg) return msg.edit(process.env.re + " Please provide a role arguement")
 
 	let guildMember = message.guild.member(message.mentions.users.first() || message.guild.members.get(userArg))
-	let guildRole = message.guild.roles.find(role => role.name == roleArg) || message.mentions.roles.first() || message.guild.roles.find(role => role.id == roleArg);
+	let guildRole = message.guild.roles.find(r => r.name.toLowerCase() == args.slice(1).join(' ').toLowerCase()) || message.guild.roles.find(x => x.name.toLowerCase().startsWith(roleArg)) || message.mentions.roles.first();
+
 
 	if (!guildMember) return msg.edit(`${process.env.re} I cannot find that user!`)
 	if (!guildRole) return msg.edit(process.env.re + " I cannot find that role!")
@@ -34,14 +35,14 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 			msg.edit('', {
 				embed: new Discord.RichEmbed()
 				.setColor(jsonColor)
-				.setDescription(`${guildMember.user.tag} has lost the ${roleArg} role`)
+				.setDescription(`${guildMember.user.tag} has lost the ${guildRole.name} role`)
 			})
 		} else {
 			guildMember.addRole(guildRole.id)
 			msg.edit(``, {
 				embed: new Discord.RichEmbed()
 				.setColor(jsonColor)
-				.setDescription(`${guildMember.user.tag} has received the ${roleArg} role`)
+				.setDescription(`${guildMember.user.tag} has received the ${guildRole.name} role`)
 			})
 		}
 	} catch (e) {

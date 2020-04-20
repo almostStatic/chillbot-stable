@@ -27,7 +27,11 @@ dmUser.send("", {
 	.setFooter(`Sent By: ${message.author.tag}`)
 })
 	.then(() => {
-		message.channel.send(`${process.env.gre} | Your message was sent to **${dmUser.user.tag}**`)
+		message.channel.send("", {
+			embed: new Discord.RichEmbed()
+			.setColor(jsonColor)
+			.setDescription(`${dmUser.user.tag} has received your message`)
+		})
 	})
 		.catch(er => {
 			message.channel.send(`${process.env.re} | Your message was **not** sent to **${dmUser.user.tag}**`)

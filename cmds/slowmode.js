@@ -2,9 +2,10 @@ const Discord = require('discord.js')
 module.exports = {
 	name: "slowmode",
 	aliases: ["slow", 'slowmode'],
+	usage: 'slowmode <number of seconds>',
 	desc: 'Sert slowmode for the current channel, minimum 1 second and maximum 21600 seconds (6 hours)',
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-		let msg = await message.channel.send(`$One moment please...`)
+		let msg = await message.channel.send(`${process.env.loading} One moment please...`)
 		if (!message.member.permissions.has('MANAGE_CHANNELS')) {
 			return msg.edit("You do not have permission to use this command!")
 		} else {
@@ -31,6 +32,5 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 				};
 			};
 		};
-}
-
+	},
 }

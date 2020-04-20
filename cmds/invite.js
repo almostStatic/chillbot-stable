@@ -9,7 +9,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	.setAuthor(message.author.username, message.author.avatarURL)
 	.setTitle("Useful links for ChillBot")
 	.addField("Website", `[Click Here](https://chillbot.asad.codes/)`, true)
-	.addField("Support Server", `[Join For Support](https://discord.gg/CmqEgU7)`, true)
+	.addField("Support Server", `[Join For Support](${process.env.supportServer})`, true)
 	.addField("Bot Invite", `[Invite ChillBot](${inv})`, true)
 	.setColor(jsonColor)
 	//.addFi(`**[Website](https://chillbot.asad.codes)**\n**[Bot Invite](${inv})**\n**[Support Server]()**`).setColor(jsonColor);message.channel.send({ embed })})};

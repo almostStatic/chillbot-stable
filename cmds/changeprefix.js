@@ -4,7 +4,7 @@ const prefixes = new keyv("sqlite://./database/prefixes.sqlite");
 
 module.exports = {
 	name: "change-prefix",
-	aliases: ["changeprefix", 'change-prefix'],
+	aliases: ["changeprefix", 'change-prefix', 'cp'],
 	desc: '**DEV ONLY**- Change the prefix for a certain guild',
 	usage: 'changeprefix <guildid> <new prefix>',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
@@ -14,7 +14,7 @@ module.exports = {
 		if (!mem) {
 			return message.channel.send({
 				embed: new Discord.RichEmbed()
-				.setDescription(`You cannot use this command!`)
+				.setDescription(`Heck! Looks like you're missing the BOT_STAFF permission....`)
 				.setColor(jsonColor)
 			})
 		}
@@ -42,4 +42,8 @@ module.exports = {
 		await prefixes.set("prefix" + guild.id, newPrefix);
 		message.channel.send(`${process.env.gre} Prefix for ${guild.name} was successfully changed to \`${newPrefix}\``)
 	},
-}
+};
+
+
+
+

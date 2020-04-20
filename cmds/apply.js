@@ -7,7 +7,11 @@ module.exports = {
 	aliases: ["apply"],
 	usage: 'Apply for staff in our support server. This goes without saying, but this command can only be used in our support server. Please use the `invite` command for an invite.',
 	async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-		return message.channel.send("Staff Apps are no longer open! Sorry :D")
+		if (message.guild.members.size > 120) {
+			return message.channel.send(
+				`Staff Apps are currently closed :c` 
+			)			
+		}
 		if (message.guild.id != '575388933941231638') {
 			return message.reply("this command only works in our support server!")
 		};

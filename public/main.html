@@ -4,7 +4,11 @@
 		<title>ChillBot Web Dashboard</title>
 			<link href="style.css" rel="stylesheet" type="text/css"/>
 			<p><b>You found ChillBot's home!</b></p>
-	<script src="/home/runner/public/homepagescript.js"></script>
+	<script>
+		fetch('https://api.ipify.org/')
+  .then(res => res.text())
+  .then(b => console.log(b))	
+	</script>
 	<meta property="og:site_name" content="ChillBot Web">
 	<meta property="og:url" content="https://chillbot.asad.codes">
 	<meta property="og:title" content="ChillBot Website (BETA)">

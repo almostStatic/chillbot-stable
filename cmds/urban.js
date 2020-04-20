@@ -26,8 +26,8 @@ module.exports = {
 		.setColor(jsonColor)
 		.setTitle(answer.word)
 		.setURL(answer.permalink)
-		.addField("Definition", trim(answer.definition, 1020))
-		.addField("Example", `\`\`\`css\n${trim(answer.example, 1000)}\n\`\`\``)
+		.addField("❯ Definition", trim(answer.definition, 1020))
+		.addField("❯ Example", `\`\`\`css\n${trim(answer.example, 1000)}\n\`\`\``)
 		.setFooter(`👍 ${answer.thumbs_up} | 👎 ${answer.thumbs_down}`);
 		return message.channel.send({ embed })
 	},

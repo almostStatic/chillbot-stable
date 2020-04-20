@@ -9,6 +9,9 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	if(!message.guild.me.permissions.has("MANAGE_MESSAGES")) {
 		return message.channel.send(`${process.env.re} | I need the **MANAGE MESSAGES** permissions in order for this command to work!`)
 	}
+	if (!message.member.permissions.has('MANAGE_MESSAGES')) {
+		return message.reply("You need the manage messages permission in order to use this command!")
+	}
 	let delCount = args[0]
 	if(isNaN(delCount)) {
 		return message.channel.send(`${process.env.re} You need to provide a valid number of messages to delete`)
