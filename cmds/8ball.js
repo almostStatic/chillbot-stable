@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js")
+const Discord = require("discord.js")
 module.exports = {
 	name: "8ball",
 	aliases: ['8ball', 'b'],
@@ -49,8 +49,8 @@ module.exports = {
 						message.channel.send("An error occured. " + er)
 					})
 			})
-				.catch(() => {
-					message.channel.send(`${process.env.re} You took too long, goodbye! :wave:`)
+				.catch((e) => {
+					message.channel.send(`${process.env.re} You took too long, goodbye! :wave: => \`${e}\``)
 				})
 		return;
 	}
