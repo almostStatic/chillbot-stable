@@ -17,7 +17,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	const body = await res.json();
 	if (body.time.unpublished) {
 		return msg.edit(process.env.re + ' The specified package is unpublished');
-	}
+	};
 	const version = body['dist-tags'] ? body.versions[body['dist-tags'].latest] : {};
 	const dependencies = version.dependencies ? version.dependencies : null;
 	const embed = new Discord.RichEmbed()
@@ -29,12 +29,13 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 		.addField('❯ Version', body['dist-tags'].latest || 'Unknown', true)
 		.addField('❯ License', body.license || 'None', true)
 		.addField('❯ Author', body.author ? body.author.name : 'Unknown', true)
-		.addField('❯ Creation Date', moment.utc(body.time.created).format('YYYY/MM/DD hh:mm:ss'), true)
-		.addField('❯ Modification Date', moment.utc(body.time.modified).format('YYYY/MM/DD hh:mm:ss'), true)
+		.addField('❯ Created On', moment.utc(body.time.created).format('YYYY/MM/DD hh:mm:ss'), true)
+		.addField('❯ Last Modified', moment.utc(body.time.modified).format('YYYY/MM/DD hh:mm:ss'), true)
 		.addField('❯ Main File', version.main || 'index.js', true)
 		.addField('❯ Dependencies', dependencies.length ? dependencies.join(', ') : 'None')
+		.setFooter(`In ${Date.now() - msg.createdTimestamp} MS`)
 //		.addField('❯ Maintainers', maintainers.join(', '));
 
-	return msg.edit("", {embed: embed});
+	return msg.edit("", { embed: embed });
 }
 }

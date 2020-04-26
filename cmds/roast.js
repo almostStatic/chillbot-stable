@@ -16,23 +16,23 @@ if (!args.length) {
 		embed: new Discord.RichEmbed()
 		.setColor(jsonColor)
 		.setDescription(doMagic8BallVoodoo())
-	})
+	});
 }
 let mem = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]))
 if (!mem && args.length) {
 	return message.channel.send(``, {
 		embed: new Discord.RichEmbed()
 		.setColor(jsonColor)
-		.setDescription(`${args.join(' ')}, ${doMagic8BallVoodoo()}`)
-	})
-}
+		.setDescription(`${args.join(' ')}, ${doMagic8BallVoodoo()}`),
+	});
+};
 if(mem.user.bot || (noroast.includes(mem.user.id))) {
 	return message.channel.send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Sorry, the mentioned user cannot be roasted")
 		.setColor(jsonColor)
 	})
-}
+};
 	message.channel.send({
 		embed: new Discord.RichEmbed()
 		.setColor(jsonColor)

@@ -2,7 +2,7 @@ let Discord = require("discord.js");
 let json = require("async-jsonstore-io");
 let keyv = require('keyv');
 let logs = new keyv("sqlite://./database/log.sqlite");
-let colors = new keyv("sqlite://./database/colors.sqlite");
+let colors = new keyv("sqlite://./database/colors.sqlite"); // eslint-disable-line no-unused-vars
 
 module.exports = {
 	name: "eval",
@@ -10,14 +10,13 @@ module.exports = {
 	desc: "Takes some javascript code and evaluates it! This is limited to our bot developers as it is very powerful.",
 	usage: "eval <code>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-	let member = client.guilds.get('575388933941231638').member(message.author);
+	let member = client.guilds.get(process.env.supportServerId).member(message.author);
 	let devs = [process.env.ownerid]
-	if (!member.roles.has('682177621215150082') || (!member)) { // (eval role id) 
+	let role = client.guilds.get(process.env.supportServerId).roles.get('703897730480603156')
+	if (!member.roles.has(role.id) || (!member)) { // (eval role id) 
 		return message.reply("Wha? Why would you ever want to use this command?")	
 	};
-	if (!member && (!devs.includes(message.author.id)) || !member) {
-		return message.reply("You may not use this command")
-	};
+
 	msg = await message.channel.send(
 		`${process.env.loading} **__E__valuating** Please Wait`
 	);
@@ -49,7 +48,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 				evaled = eval(code);
 			};
 		if (typeof evaled !== "string")
-			evaled = await require("util")
+			evaled = require("util")
 				.inspect(evaled);
 			let cleaned = await clean(evaled);
 			cleaned = client.trim(cleaned, 2030)

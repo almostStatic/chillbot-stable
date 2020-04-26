@@ -39,6 +39,12 @@ const bodyParser = require('body-parser');
 client.commands = new Discord.Collection();
 client.owner = process.env.ownerid;
 client.config = {
+	evalRoleID: "703897730480603156",
+	readyChannel: "703892331681677343",
+	errorChannel: "703892332348702720",
+	dmChannel: "703892332348702720",
+	serverJoins: "703892333003014164",
+	memberLog: "703892334449786920",
 	defaultHexColor: '#F385C4'
 };
 client.trim = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
@@ -78,6 +84,12 @@ app.get('/', (req, res) => {
 
 app.get('/reportbug', (req, res) => {
 	res.sendFile(process.cwd() + '/public/reportbug/main.html')
+});
+
+app.get('/ping', (req, res) => {
+	res
+		.status(200)
+		.json({ timestamp: Date.now() });
 });
 
 app.get('/report-bug', (request, result) => {
@@ -178,12 +190,12 @@ client.on('messageDelete', async(msg) => {
 });
 
 client.on("disconnected", async() => {
-	client.channels.get("659726031946776596").send(`**:warning: The client websocket has disconnected and will no longer attempt to reconnect.**\n\(Event Timestamp: ${Moment(Date.now())})`)
+	client.channels.get(client.config.errorChannel).send(`**:warning: The client websocket has disconnected and will no longer attempt to reconnect.**\n\(Event Timestamp: ${Moment(Date.now())})`);
 });
 
 client.on('guildMemberRemove', async(member) => {
-	if (member.guild.id == '575388933941231638') {
-			client.channels.get('689093231111176199').send({
+	if (member.guild.id == process.env.supportServerId) {
+			client.channels.get(client.config.memberLog).send({
 				embed: new Discord.RichEmbed()
 				.setTimestamp()
 				.setColor('#da0000')
@@ -198,7 +210,7 @@ client.on("guildMemberAdd", async(member) => {
 	if (member.user.bot) return;
 		let owner = client.users.get(client.owner).tag;
 		let channel = member.guild.channels.find(x => x.name == 'general');
-	if (['575388933941231638'].includes(member.guild.id)){
+	if ([process.env.supportServerId].includes(member.guild.id)){
 		if (['462220963224879105', '157558716844081152', '336920581624692737', '540130125136658432', '163715276733415426', '684368759581835303'].includes(member.user.id)) {
 			let muted = member.guild.roles.find(x=>x.name =='Muted');
 			let val = await wtf.get(member.user.id)
@@ -233,7 +245,7 @@ client.on("guildMemberAdd", async(member) => {
 			}).catch((error) => {  });
 		}
 	};
-	if (member.guild.id == '575388933941231638') {
+	if (member.guild.id == process.env.supportServerId) {
 		if (parseInt(member.user.createdTimestamp) > Date.now() - 1209600000) {
 			let mute = member.guild.roles.find(r => r.name == 'Muted')
 			let role = member.guild.roles.find(x => x.name == 'Member')
@@ -276,7 +288,7 @@ client.on("guildMemberAdd", async(member) => {
 			member.addRole(stat.id, "Granting permission to use the calc command");
 			member.addRole(role.id, `Automatic role added; Member`)
 		}
-		client.channels.get('689093231111176199').send({
+		client.channels.get(client.config.memberLog).send({
 			embed: new Discord.RichEmbed()
 			.setTimestamp()
 			.setColor('#00FF0C')
@@ -289,18 +301,13 @@ client.on("guildMemberAdd", async(member) => {
 });
 
 client.on("reconnecting", () => {
-	client.channels.get('587603328142147584')
+	client.channels.get(client.config.readyChannel)
 		.send("", {
 			embed: new Discord.RichEmbed()
 			.setTitle("Reconnecting...")
-			.addField("Disconnected At", Moment(Date.now()))
 			.setColor([255, 156, 0])
 		});
 });
-	console.log(`
-	HeapUsed: ${process.memoryUsage().heapUsed / 1024 / 1024}
-	HeapTotal: ${process.memoryUsage().heapTotal / 1024 / 1024}
-	`)
 
 client.on("ready", async() => {
 	console.log(`
@@ -333,7 +340,7 @@ client.on("ready", async() => {
     });
 	console.log(`${client.user.tag} is now online!`);
 	console.log(`Event Timestamp: ${Moment(Date.now())}`);
-	client.channels.get('575388934456999947').send(``, {
+	client.channels.get(client.config.readyChannel).send(``, {
 			embed: new Discord.RichEmbed()
 			.setTitle("ChillBot is online")
 			.setDescription(`**Event Timestamp**: ${Moment(Date.now())}\n**Guilds**: ${client.guilds.size} | **Channels**: ${client.channels.size} | **Discod.js** v ${Discord.version} | **Memory Usage:** ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)} MB`)
@@ -370,7 +377,7 @@ client.on("ready", async() => {
 */
 client.on('guildCreate', async(server) => {
 	T = await client.users.get(process.env.ownerid).tag;
-	client.channels.get("659506604630081547")
+	client.channels.get(client.config.serverJoins)
 		.send("", {
 			embed: new Discord.RichEmbed()
 			.setColor([0, 255, 0])
@@ -400,7 +407,7 @@ client.on('guildCreate', async(server) => {
 });
 
 client.on("guildDelete", (server) => {
-	client.channels.get("659506604630081547")
+	client.channels.get(client.config.serverJoins)
 		.send("", {
 			embed: new Discord.RichEmbed()
 			.setColor([255, 0, 0])
@@ -421,7 +428,7 @@ client.on("guildDelete", (server) => {
 });
 
 client.on("error", async (err) => {
-	client.channels.get('575390425259704320').send("", {
+	client.channels.get(client.config.errorChannel).send("", {
 		embed: new Discord.RichEmbed()
 		.setColor("RED")
 		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
@@ -431,7 +438,7 @@ client.on("error", async (err) => {
 
 process.on("unhandledRejection", (err) => {
 		console.error(err);
-		client.channels.get('575390425259704320').send("", {
+		client.channels.get(client.config.errorChannel).send("", {
 		embed: new Discord.RichEmbed()
 		.setColor("RED")
 		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
@@ -440,7 +447,7 @@ process.on("unhandledRejection", (err) => {
 });
 
 client.on("reconnecting", () => {
-	client.channels.get('587603328142147584').send("", {
+	client.channels.get(client.config.readyChannel).send("", {
 		embed: new Discord.RichEmbed()
 		.setTitle("Reconnecting...")
 		.setFooter(`Client Disconnected`)
@@ -472,7 +479,7 @@ client.on("message", async(message) => {
 		if (message.author.bot) return;
 		if (message.webhookID) return;
 		if (message.channel.type == "dm") {
-			let myCh = await client.channels.get('600639235938320399')
+			let myCh = await client.channels.get(client.config.dmChannel)
 	
 		 return myCh.send(`**${message.author.tag}**: ${message.content}`, {
 			embed: new Discord.RichEmbed()
@@ -484,11 +491,11 @@ client.on("message", async(message) => {
 
 	const inviteRegex = new RegExp('(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]')
 	const invResult = await inviteRegex.test(message.content);
-	if (invResult == true && message.guild.id == '575388933941231638') {
+	if (invResult == true && message.guild.id == process.env.supportServerId) {
 		if (message.member.permissions.has('MANAGE_GUILD')) {
 			return message.delete();
 		};
-		message.delete(100)
+		message.delete(100);
 		message.channel.send({
 			embed: new Discord.RichEmbed()
 			.setDescription(`${message.author.tag} has been removed from ${message.guild.name} for "[AUTOMOD] posting invites". They were sent the following message:`)
@@ -532,8 +539,6 @@ client.on("message", async(message) => {
 	if(!jsonColor) {
 		jsonColor = "#0CEADC";
 	};
-	let tag;
-	var _u;
 	if (!command && segPerms == 'Y') {
 		let [arg] = args;
 		if (!arg) {
@@ -635,4 +640,4 @@ app.get('/*', (req, res) => {
 
 app.listen(3000, () => console.log(`Server Started`));
 
-	client.login(process.env.token);
+client.login(process.env.token);

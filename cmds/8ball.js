@@ -1,4 +1,4 @@
-const Discord = require("discord.js")
+const { RichEmbed } = require("discord.js")
 module.exports = {
 	name: "8ball",
 	aliases: ['8ball', 'b'],
