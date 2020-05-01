@@ -15,7 +15,6 @@ const cmdCount = new keyv("sqlite://./database/cmdCount.sqlite");
 const hides = new keyv('sqlite://./database/hides.sqlite')
 const snipes = new keyv("sqlite://./database/snipes.sqlite");
 const prefixes = new keyv("sqlite://./database/prefixes.sqlite");
-const mutes = new keyv('sqlite://./database/mutes.sqlite');
 const blacklisted = new keyv("sqlite://./database/blacklisted.sqlite");
 const logs = new keyv("sqlite://./database/log.sqlite");
 const colors = new keyv("sqlite://./database/colors.sqlite");
@@ -459,7 +458,6 @@ client.on("reconnecting", () => {
 client.on("message", async(message) => {
 	if(message.content.includes(client.token.substring(0,8)) || message.content.includes(client.token.substring(8,16)) || message.content.includes(client.token.substring(16,24)) || message.content.includes(client.token.substring(24,32))) message.delete()
 
-	ownertag = await client.users.get(client.owner).tag;
 	// functions
 
 	async function error(err) {
@@ -488,7 +486,7 @@ client.on("message", async(message) => {
 			.setTimestamp()
 		});
 	};
-
+	ownertag = await client.users.get(client.owner).tag;
 	const inviteRegex = new RegExp('(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]')
 	const invResult = await inviteRegex.test(message.content);
 	if (invResult == true && message.guild.id == process.env.supportServerId) {
