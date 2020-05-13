@@ -7,8 +7,8 @@ module.exports = {
 	desc: "Search the [discord.js](https://www.npmjs.com/package/discord.js) documentation, most useful for bot developers! This runs on the stable branch",
 	usage: "docs <query>",
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
-
-	const queryString = args.join(" ")
+	timeout = (20) * 1000;
+	const queryString = args.join(' ')
 	const res = await fetch(`https://djsdocs.sorta.moe/v1/main/stable/embed?q=${queryString}`);
 	const embed = await res.json();
 	const reactionfilter = (reaction, user) => reaction.emoji.name == "🗑️" && user.id === message.author.id;
@@ -28,6 +28,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 			message.channel.awaitMessages(filter, {
 					max: 1,
 					time: 20000,
+					errors: ['time'],
 			}).then(async(collected)=>{
 					if (collected.first().content.toLowerCase() == 'cancel') {
 							return message.reply(process.env.gre + ' Command cancelled')
@@ -50,14 +51,15 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	};
 
 	let sent = await message.channel.send({ embed });
-	message.awaitReactions(reactionfilter, {
+	await sent.react('🗑️');
+	sent.awaitReactions(reactionfilter, {
 		max: 1,
-		time: (30 * 1000),
-		errors: ['time']
-	})
-		.then((coll) => {
-			sent.delete();
-		})
-
-}
+		time: timeout,
+		errors: ['time'],
+	}).then((collection) => {
+		sent.delete();
+		message.delete();
+	}).catch(async() => {sent.edit({ embed: new Discord.RichEmbed(sent.embeds[0]).setFooter('This message is no longer active.').setTimestamp
+	().setColor('#da0000')});sent.clearReactions()})
+	},
 }

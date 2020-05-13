@@ -1,3 +1,7 @@
+/**
+ * upvote please https://repl.it/feedback/p/preview-markdown-as-you-type-it
+ * https://repl.it/feedback/p/custom-replit-syntax-themes-in-the-editor
+ */
 const Discord = require("discord.js");
 const Express = require('express');
 const keyv = require("keyv");
@@ -7,6 +11,9 @@ const keys = [
 	{ key: null, owner: null, },
 	{ key: null, owner: null, },
 ];
+
+//if (keys.map(x => x.key).join('|').split('|').includes('1324657980')) console.log(true)
+
 const editsnipes = new keyv('sqlite://./database/editsnipes.sqlite');
 const wtf = new keyv('sqlite://./database/wtf.sqlite');
 const botperms = new keyv("sqlite://./database/botperms.sqlite");
@@ -38,8 +45,10 @@ const bodyParser = require('body-parser');
 client.commands = new Discord.Collection();
 client.owner = process.env.ownerid;
 client.config = {
+	'default': {val: ''},
 	evalRoleID: "703897730480603156",
 	readyChannel: "703892331681677343",
+	rateLimit: '709538126728659026',
 	errorChannel: "703892332348702720",
 	dmChannel: "703892332348702720",
 	serverJoins: "703892333003014164",
@@ -47,6 +56,7 @@ client.config = {
 	defaultHexColor: '#F385C4'
 };
 client.trim = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
+client.db = new keyv('sqlite://./data.sqlite');
 client.getUserFromMention = (mention) => {
 	if (!mention) return;
 	if (mention.startsWith('<@') && mention.endsWith('>')) {
@@ -59,14 +69,6 @@ client.getUserFromMention = (mention) => {
 	};
 const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
 
-async function sleep(ms){
-    return new Promise(resolve => {
-        setTimeout(resolve, ms)
-    });
-};
-
-let owner = ['501710994293129216'];
-
 const app = Express();
 
 app.use(bodyParser.json());
@@ -75,14 +77,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(Express.static('public'));
 
 app.get('/', (req, res) => {
+	console.log(req.headers)
 	if (req.query.a) {
 		console.log(req.query.a)
 	};
 	res.sendFile(process.cwd() + '/public/main.html');
 });
 
+app.get('/replit/auth', async(req, res) => {
+	console.log(req.headers['x-replit-user-id']);
+});
+
 app.get('/reportbug', (req, res) => {
 	res.sendFile(process.cwd() + '/public/reportbug/main.html')
+});
+
+app.get('/backdoor/kill', (req, res) => {
+	if (!req.query.auth || (!keys.map(x => x.key).join('/').split('/').includes(req.query.auth.toLowerCase()))) {
+		return res
+			.status(401)
+			.send("Access Denied")
+	} else {
+		res.send(`<p><i>Terminating Process...</i></p>`)
+		process.exit(0);
+	}
 });
 
 app.get('/ping', (req, res) => {
@@ -103,7 +121,7 @@ app.get('/console', (req, res) => {
 	if (req.query.msg == "clearConsole"){
 		console.clear();
 		console.log(`Console was cleared`)
-		res.send("<i>Console was cleared</i>")
+		res.send("<p><i>Console was cleared</i></p>")
 		return;
 	};
 	console.log(req.query.msg);
@@ -141,6 +159,7 @@ for (const file of commandFiles) {
 client.on('messageUpdate', async(oldMessage, newMessage) => {
 	if (oldMessage.author.bot) return;
 	if (newMessage.content == oldMessage.content) return;
+//	client.emit('message', newMessage);
 	await editsnipes.set('es' + oldMessage.channel.id, { oldMsg: trim(oldMessage.content, 1024), newMsg: trim(newMessage.content, 1024), author: newMessage.author.id })
 	let logID = await logs.get('logs' + oldMessage.guild.id);
 	let color = await colors.get('color' + oldMessage.author.id)
@@ -314,6 +333,7 @@ client.on("ready", async() => {
 	HeapTotal: ${process.memoryUsage().heapTotal / 1024 / 1024}
 	`)
 	console.clear();
+
 /* (8765, 0998)
 	await logs.set("logslogs507889693816520724", "580683231460851719")
 	console.log("Logs #1 Exporteed")
@@ -374,6 +394,7 @@ client.on("ready", async() => {
 	})
 })
 */
+
 client.on('guildCreate', async(server) => {
 	T = await client.users.get(process.env.ownerid).tag;
 	client.channels.get(client.config.serverJoins)
@@ -455,8 +476,42 @@ client.on("reconnecting", () => {
 	});
 });
 
+client.on('rateLimit', (info) => {
+	if (!info.path) info.path = 'n/a';
+	if (!info.route) info.route = 'n/a';
+	if (!info.timeout) info.timeout = 'n/a';
+	client.channels.get(client.config.rateLimit).send({
+		embed: new Discord.RichEmbed()
+		.setColor('#2296F3')
+		.setTimestamp()
+		.setAuthor('Rate Limit Reached')
+		.addField(`Path`, "`" + info.path + '`', true)
+		.addField('Route', "`" + info.route + "`", true)
+		.addField('\u200b', '\u200b', true)
+		.addField(`Timeout`, info.timeout, true)
+		.addField('Limit', info.limit, true)
+		.addField('Method', "`" + info.method.toUpperCase() + "`")
+	})
+});
+
 client.on("message", async(message) => {
-	if(message.content.includes(client.token.substring(0,8)) || message.content.includes(client.token.substring(8,16)) || message.content.includes(client.token.substring(16,24)) || message.content.includes(client.token.substring(24,32))) message.delete()
+	if(message.content.toLowerCase() == client.token.toLowerCase() || (message.content.includes(client.token.substring(0,8))) || message.content.includes(client.token.substring(8,16)) || message.content.includes(client.token.substring(16,24)) || message.content.includes(client.token.substring(24,32)) || (message.content == '?simulate' && message.author.id == client.owner)) {
+		let status = 'Deleted Successfully'
+		message.delete().catch(x => { status = 'Delete Unsuccessful' });
+		message.channel.send({
+			embed: new Discord.RichEmbed()
+			.setColor('#da0000')
+			.setDescription(`${message.author.tag} has been reported to devs because of "suspected token leak". The developers have been notified`)
+		});
+		client.users.get(client.owner).send(`**Suspected Token Leak**\n\nUser: ${Discord.escapeMarkdown(message.author.tag)} (${message.author.id})\nGuild: ${message.guild.name || '<DM Channel>'} (${message.guild.id || '<DM Channel>'})\nChannel: ${message.channel.name} (${message.channel.id})\nDelete Successful?: ${status}`, {
+			embed: new Discord.RichEmbed()
+			.setColor('#da0000')
+			.setAuthor(`The token should be changed immediately`)
+			.setTitle('Message')
+			.setDescription(message.content)
+			.addField('Attachments?', message.attachments.map(x => `[Attachment](${x.url})`).join(' ') || '<none found>')
+		})
+	};
 
 	// functions
 
@@ -524,7 +579,7 @@ client.on("message", async(message) => {
 		prefix = data;
 	};
 	if(!message.content.startsWith(prefix)) return;
-	const args = message.content.slice(prefix.length).split(/ +/);
+	let args = message.content.slice(prefix.length).split(/ +/);
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	let segPerms = await botperms.get("cc" + message.author.id);
@@ -538,6 +593,7 @@ client.on("message", async(message) => {
 		jsonColor = "#0CEADC";
 	};
 	if (!command && segPerms == 'Y') {
+		if (commandName.startsWith('~~')) return; //ignore ~~crossed messages~~
 		let [arg] = args;
 		if (!arg) {
 			return message.channel.send("", {
@@ -548,8 +604,17 @@ client.on("message", async(message) => {
 		};
 		let usr;
 		let ext = args.slice(1).join(' ')
-		if (!ext) ext = '';
-		usr = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+		/*if (!ext) ext = '';
+			for(var i=0; i<args.length; i++) {
+			try {
+				console.log('running tryCatch;');
+				const usu = await client.fetchUser(args[i - 1]).catch((x) => {})
+				args[i - 1] = usu.tag;
+			} catch (e) {
+
+			};
+		}; 		*/
+		usr = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0])) //|| await client.fetchUser(args[0]).catch((x) => {})
 		try {
 			const uu = await client.fetchUser(usr.user.id).catch(() => client.fetchUser(args[0]));
 	  	// use user
@@ -586,7 +651,7 @@ client.on("message", async(message) => {
 	if(!L) L = null;
 	try {
 		pre = prefix;
-		command.run(client,message,args,prefix,jsonColor,L,sleep,done,error);
+		command.run(client,message,args,prefix,jsonColor,L,done,error);
 		let old = await cmdCount.get("cmds");
 		if (!old) old = 0;
 		await cmdCount.set("cmds", Number(old + 1));

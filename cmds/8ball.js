@@ -34,7 +34,8 @@ module.exports = {
 		let filter = m => m.author.id === message.author.id;
 		message.channel.awaitMessages(filter, {
 			max: 1,
-			time: 10000
+			time: 10000,
+			errors: ['time'],
 		})
 			.then(async(col) => {
 				if (col.first().content.toLowerCase() == 'cancel') {
