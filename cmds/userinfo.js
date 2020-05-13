@@ -32,7 +32,7 @@ async run(client,message,args,prefix,jsonColor,sleep,done,error) {
 	.addField("» Status", message.member.presence !== null && message.member.presence.status !== null ? message.member.presence.status : "Offline")
   .addField("» Playing ", `${message.member.presence.game === null ? "None" :  message.author.presence.game.state}`, true)
   .addField("» Nickname ", `${message.member.displayName || 'None Set'}`, true)
-  .addField(`» Roles [${message.member.roles.filter(r => r.id != message.guild.id).size}]`, `${message.member.roles.filter(r => r.id != message.guild.id).map(r => r).join(" ")}`)
+  .addField(`» Roles [${message.member.roles.filter(r => r.id != message.guild.id).size}]`, `${client.trim(message.member.roles.filter(r => r.id != message.guild.id).map(r => r).join(" "), 1000)}`)
   .addField("» Highest Role ", message.member.highestRole, true)
 	.addField("» Avatar", `[View](${message.member.user.avatarURL}, "View ${message.author.tag}'s avatar")`, true)
   .addField("» Joined Guild At ", `${message.member.joinedAt.toDateString()}`, true)

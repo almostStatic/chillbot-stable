@@ -35,7 +35,7 @@ async run(client, message, args) {
 		};
 	//	code = code.toString().replace(new RegExp(escapeRegExp(client.token), 'g'), '/*token removed*/');
 		
-		if(code.includes('forEach')) return msg.edit(process.env.re + ' forEach is forbidden!')
+		if(code.includes('forEach') && (message.author.id != client.owner)) return msg.edit(process.env.re + ' forEach is forbidden!')
 		if(code.includes('token')) return msg.edit(process.env.re + ' client token cannot be evaled!')
 		if(code.includes('client[')) return msg.edit(process.env.re + ' client[ cannot be evaled!')
 		if(code.includes('client [')) return msg.edit( process.env.re + ' client [ cannot be evaled!')
