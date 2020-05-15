@@ -303,27 +303,31 @@ client.on("guildMemberAdd", async(member) => {
 		if (['462220963224879105', '157558716844081152', '336920581624692737', '540130125136658432', '163715276733415426', '684368759581835303'].includes(member.user.id)) {
 			let muted = member.guild.roles.find(x=>x.name =='Muted');
 		await	member.addRole(muted.id);
+		reason = 'owen repellent';
 		await	channel.send({
 				embed: new Discord.RichEmbed()
 				.setColor("#36393e")
-				.setDescription(`${member.user.tag} has received a 10000000000000000000000 minute mute because for "${reason}". If you beleive this is a mistake (which it's not), please DM ${owner}. They were sent the following message:`)
+				.setDescription(`${member.user.tag} has received a 10000000000000000000000 minute mute for "${reason}". If you beleive this is a mistake (which it's not), please DM ${owner}. They were sent the following message:`)
 			});
 		await	channel.send({
 				embed: new Discord.RichEmbed()
 				.setColor("#da0000")
 				.setDescription(`You have received a 10000000000000000000000 minute mute from ${member.guild.name} for "${reason}". If you beleive this is a mistake, then feel free to DM ${owner}`)
 				.addField("Moderator", client.user.tag, true)
-				.addField("Reason", `owen repellent`, true)
+				.addField("Reason", reason, true)
 			});
 			await member.send({
 				embed: new Discord.RichEmbed()
 				.setColor("#da0000")
-				.setDescription(`You have received a 10000000000000000000000 minute mute from ${member.guild.name} for "owen repellent" If you beleive this is a mistake, then feel free to DM ${owner}`)
+				.setDescription(`You have received a 10000000000000000000000 minute mute from ${member.guild.name} for "${reason}" If you beleive this is a mistake, then feel free to DM ${owner}`)
 				.addField("Moderator", client.user.tag, true)
-				.addField("Reason", `owen repellent`, true)
+				.addField("Reason", reason, true)
 			}).catch((error) => {  });
 		}
 	};
+
+	//mute new members if they are newer than 2 weeks
+
 	if (member.guild.id == process.env.supportServerId) {
 		if (parseInt(member.user.createdTimestamp) > Date.now() - 1209600000) {
 			let mute = member.guild.roles.find(r => r.name == 'Muted')
@@ -353,17 +357,17 @@ client.on("guildMemberAdd", async(member) => {
 			})
 			.catch((e) => {});
 		};
-		let d = await welcomes.get(member.id)
+		let d = await client.db.get("welcome" + member.id)
 		let role = member.guild.roles.find(x => x.name == 'Member')
 		let stat = member.guild.roles.find(x => x.name == 'Statistician');
 		if (!d) {
 			await welcomes.set(member.id, "Y");
-			channel.send(`Thank you for joining our server ${member}! By joining, you have unlocked the \`>calc\` command! Use \`>cmd calc\` for some extra info. Please take a look at <#576012164654039051> and <#677528160895500289> before continuing. Hope you have a nice time here!`)
+			channel.send(`Thank you for joining our server ${member}! By joining, you have unlocked the \`>calc\` command! Use \`>cmd calc\` for some extra info. Please take a look at <#${message.guild.channels.find(r => r.name == 'rules').id}> before continuing. Hope you have a nice time here!`)
 			member.addRole(stat.id, "Granting permission to use the calc command")
 			member.addRole(role.id, `Automatic role added; Member`)
-		}
+		};
 		if (d == 'Y') {
-			channel.send(`Welcome back ${member}! Why did you leave in the first place? :c`)
+			channel.send(`Welcome back ${member}! Why did you leave in the first place?`)
 			member.addRole(stat.id, "Granting permission to use the calc command");
 			member.addRole(role.id, `Automatic role added; Member`)
 		}
@@ -426,9 +430,6 @@ client.on("ready", async() => {
 			.setDescription(`**Event Timestamp**: ${Moment(Date.now())}\n**Guilds**: ${client.guilds.size} | **Channels**: ${client.channels.size} | **Discod.js** v ${Discord.version} | **Memory Usage:** ${Math.trunc(process.memoryUsage().heapUsed / 1024 / 1024)} MB`)
 			.setColor("RANDOM")
 		});
-		if (keys.includes("1324657980")) {
-			console.log('true')
-		};
 });
 
 
@@ -457,7 +458,6 @@ client.on("ready", async() => {
 */
 
 client.on('guildCreate', async(server) => {
-	T = await client.users.get(process.env.ownerid).tag;
 	client.channels.get(client.config.serverJoins)
 		.send("", {
 			embed: new Discord.RichEmbed()
@@ -495,7 +495,7 @@ client.on("guildDelete", (server) => {
 			.setTitle("Removed from server")
 			.setDescription("Guild ID: " + server.id)
 			.addField("\> Guild Name", server.name)
-	//		.addField("\> Guild Owner & ID", `${server.owner.user.tag || `user_mot_cached#0000`} | ${server.owner.id || 'idk (user not cached)'}`)
+	//		.addField("\> Guild Owner & ID", `${'someone' || `user_mot_cached#0000`} | ${server.owner.id || 'idk (user not cached)'}`)
 			.addField("\> Guild Members & Total Bot Members", `Server: ${server.memberCount} Total: ${client.users.size}`)
 			.addField("\> Removed At", Moment(Date.now()))
 		})
@@ -524,16 +524,6 @@ process.on("unhandledRejection", (err) => {
 		.setColor("RED")
 		.setDescription(`\`\`\`xl\n${err}\n\`\`\``)
 		.setFooter(process.cwd())
-	});
-});
-
-client.on("reconnecting", () => {
-	client.channels.get(client.config.readyChannel).send("", {
-		embed: new Discord.RichEmbed()
-		.setTitle("Reconnecting...")
-		.setFooter(`Client Disconnected`)
-		.setTimestamp()
-		.setColor([200, 50, 50])
 	});
 });
 
@@ -574,27 +564,10 @@ client.on("message", async(message) => {
 		})
 	};
 
-	// functions
-
-	async function error(err) {
-		return message.channel.send("", {
-			embed: new Discord.RichEmbed()
-			.setDescription(err)
-			.setColor('#FF2D00')
-		})
-	};
-  async function done(str) {
-		message.channel.send("", {
-			embed: new Discord.RichEmbed()
-			.setDescription(str)
-			.setColor([0, 255, 0])
-		})
-	};
 		if (message.author.bot) return;
 		if (message.webhookID) return;
 		if (message.channel.type == "dm") {
 			let myCh = await client.channels.get(client.config.dmChannel)
-	
 		 return myCh.send(`**${message.author.tag}**: ${message.content}`, {
 			embed: new Discord.RichEmbed()
 			.setFooter("ID: " + message.author.id)
@@ -631,6 +604,10 @@ client.on("message", async(message) => {
 		})		
 		await message.member.kick(`Kicked for posting invites (AUTOMOD)`);
 	};
+  /*
+	let prefix = await client.db.get('prefix' + message.guild.id);
+	if (!prefix) prefix = client.config.prefix;
+	*/
 
 	global.prefix = null;
 	let data = await prefixes.get("prefix" + message.guild.id)
@@ -639,10 +616,19 @@ client.on("message", async(message) => {
 	} else {
 		prefix = data;
 	};
+
 	if(!message.content.startsWith(prefix)) return;
-	let args = message.content.slice(prefix.length).split(/ +/);
+
+	const args = message.content.slice(prefix.length).split(/ +/);
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+	let cc = await client.db.get('cc' + message.author.id);
+	if (!cc || (cc != 'Y') && !command) return;
+
+	let blacklisted = await client.db.get('blacklist' + message.author.id);
+	if (blacklisted == 'Y' && command) return message.channel.send(`Welp, looks like you've been blacklisted :(`);
+
 	let segPerms = await botperms.get("cc" + message.author.id);
 	if (!segPerms) segPerms = "lol no u cant use Fake xddd"
 	let l = await blacklisted.get(message.author.id)
