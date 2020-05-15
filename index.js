@@ -623,12 +623,62 @@ client.on("message", async(message) => {
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
+	message.author.color = await client.db.get('color' + message.author.id);
+	if (!message.author.color) message.author.color = client.config.defaultHexColor;
+		message.guild.logs = await client.db.get('logs' + message.guild.id);
+	if (!message.guild.logs) message.guild.logs = null;
+	/*
 	let cc = await client.db.get('cc' + message.author.id);
-	if (!cc || (cc != 'Y') && !command) return;
+	if (!cc) cc = 'lol no';
+	if (cc == 'Y') && !command) {
+		if (commandName.startsWith('~~')) return; //ignore ~~crossed messages~~
+		let [arg] = args;
+		if (!arg) {
+			return message.channel.send("", {
+				embed: new Discord.RichEmbed()
+				.setColor(message.author.color)
+				.setDescription(`${message.author.tag} has ${message.content.slice(prefix.length).split(/ +/).shift()}ed in chat`)
+			});
+		};
+		let usr;
+		let ext = args.slice(1).join(' ')
+		if (!ext) ext = '';
+		usr = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+		try {
+			const uu = await client.fetchUser(usr.user.id).catch(() => client.fetchUser(args[0]));
+		t = `${uu.username}#${uu.discriminator}`;
+		if (commandName == "give" && t) {
+		return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`${t} has received ${ext}`)
+				.setColor(message.author.color)
+			});			
+		};
+		if (commandName == "take" && t) {
+		return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`${t} has lost ${ext}`)
+				.setColor(message.author.color)
+			});			
+		};
+		return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`${message.author.tag} has ${message.content.slice(prefix.length).split(/ +/).shift()}ed ${t} ${ext}`)
+				.setColor(message.author.color)
+			});
+		} catch(e) {
+  		return message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setColor(message.author.color)
+				.setDescription(`${message.author.tag} has ${message.content.slice(prefix.length).split(/ +/).shift()}ed ${args[0]} ${ext}`)
+			})
+		}		
+	} else {};
+	if (!command && (cc != 'Y')) return;
 
 	let blacklisted = await client.db.get('blacklist' + message.author.id);
 	if (blacklisted == 'Y' && command) return message.channel.send(`Welp, looks like you've been blacklisted :(`);
-
+*/
 	let segPerms = await botperms.get("cc" + message.author.id);
 	if (!segPerms) segPerms = "lol no u cant use Fake xddd"
 	let l = await blacklisted.get(message.author.id)
@@ -639,6 +689,7 @@ client.on("message", async(message) => {
 	if(!jsonColor) {
 		jsonColor = "#0CEADC";
 	};
+
 	if (!command && segPerms == 'Y') {
 		if (commandName.startsWith('~~')) return; //ignore ~~crossed messages~~
 		let [arg] = args;
@@ -651,20 +702,10 @@ client.on("message", async(message) => {
 		};
 		let usr;
 		let ext = args.slice(1).join(' ')
-		/*if (!ext) ext = '';
-			for(var i=0; i<args.length; i++) {
-			try {
-				console.log('running tryCatch;');
-				const usu = await client.fetchUser(args[i - 1]).catch((x) => {})
-				args[i - 1] = usu.tag;
-			} catch (e) {
-
-			};
-		}; 		*/
-		usr = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0])) //|| await client.fetchUser(args[0]).catch((x) => {})
+		if (!ext) ext = '';
+		usr = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0])) 
 		try {
 			const uu = await client.fetchUser(usr.user.id).catch(() => client.fetchUser(args[0]));
-	  	// use user
 		t = `${uu.username}#${uu.discriminator}`;
 		if (commandName == "give" && t) {
 		return message.channel.send({
@@ -702,6 +743,10 @@ client.on("message", async(message) => {
 		let old = await cmdCount.get("cmds");
 		if (!old) old = 0;
 		await cmdCount.set("cmds", Number(old + 1));
+		/*
+		oldCmds = await client.db.get('cmds');
+		await client.db.set("cmds", Number(oldCmds + 1));
+		*/
 	} catch (error) {
 		console.error(error);
 		message.channel.send("", {
@@ -714,7 +759,6 @@ client.on("message", async(message) => {
 				.addField(" Error", error.length >= 1024 ? "The error was too long! It was logged with ID " + message.id : error)
 		});
 	};
-//		commandfile.run(client,message,args,prefix,jsonColor,L,sleep,done,error)
 });
 
 app.get('/reveal', async(req, res) => {
@@ -725,7 +769,13 @@ app.get('/reveal', async(req, res) => {
 	if (!ch) {
 		return res.send("Error: " + client.user.username + " no longer has access to the channel provided ")
 	};
-	let hidden = await hides.get(req.query.channel);
+	/*
+		let hidden = await client.db.get(req.query.channel);
+	if (!hidden) {
+		return res.send("Hide data not found, get support at " + process.env.supportServer)
+	};
+	*/
+	let hidden = await hides.get('hide' + req.query.channel);
 	if (!hidden) {
 		return res.send("Hide data not found, get support at " + process.env.supportServer)
 	};
@@ -738,9 +788,7 @@ app.get('/reveal', async(req, res) => {
 			embed: received,
 		})
 	});
-	await hides.set(req.query.channel, {
-		status: 'N'
-	})
+	await client.db.delete('hide' + req.query.channel)
 	res.send('<scr' +'ipt>window.close()</scr'+'ipt>')
 });
 
