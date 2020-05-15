@@ -29,34 +29,10 @@ module.exports = {
 			'Yes - Definitely'
 	];
 	if (!question) {
-		 message.reply('What question should I answer?\n\nExpires in 10 seconds, type `cancel` to cancel!')
-			.then(msg => msg.delete(10000))
-		let filter = m => m.author.id === message.author.id;
-		message.channel.awaitMessages(filter, {
-			max: 1,
-			time: 10000,
-			errors: ['time'],
-		})
-			.then(async(col) => {
-				if (col.first().content.toLowerCase() == 'cancel') {
-					return message.channel.send(`${process.env.gre} ${message.author}, command Cancelled!`)
-				}
-				const embed = new Discord.RichEmbed()
-				.setColor(jsonColor)
-				.setAuthor(`8ball`, 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png')
-				.addField('Info:', `**Your Question:** ${col.first().content}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`);
-				message.channel.send({embed})
-					.catch(er => {
-						message.channel.send("An error occured. " + er)
-					})
-			})
-				.catch((e) => {
-					message.channel.send(`${process.env.re} You took too long, goodbye! :wave: => \`${e}\``)
-				})
-		return;
+		return message.channel.send(`:x: You need to ask me a question...`)
 	}
 	const embed = new Discord.RichEmbed()
-	.setColor(jsonColor)
+	.setColor(message.author.color)
 .setAuthor(`8ball`, 'http://8ballsportsbar.com/wp-content/uploads/2016/02/2000px-8_ball_icon.svg_.png')
 .addField('Info:', `**Your Question:** ${question}\n**My Prediction:** ${answers[~~(Math.random() * answers.length)]}`);
 	message.channel.send({embed}).catch(e => console.error(e))

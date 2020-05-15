@@ -12,13 +12,13 @@ module.exports = {
 				`Staff Apps are currently closed :c` 
 			)			
 		}
-		if (message.guild.id != '575388933941231638') {
+		if (message.guild.id != process.env.supportServerId) {
 			return message.reply("this command only works in our support server!")
 		};
-		let supportServer = client.guilds.get('575388933941231638');
+		let supportServer = client.guilds.get(process.env.supportServerId);
 		let oldApp = supportServer.channels.find(x => x.name == `app-${message.author.id}`);
 		if (oldApp) {
-			return message.channel.send("You must wait another 100000000000000 minutes before using this command again!");
+			return message.channel.send("You've already applied for staff! " + oldApp);
 		} else { oldApp = null; };
 		message.member.addRole("680520407727472642") //add i wanna be staff role
 		let appChannel = await supportServer.createChannel(`app-${message.author.id}`, {
