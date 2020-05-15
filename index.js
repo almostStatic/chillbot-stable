@@ -183,7 +183,26 @@ client.on('messageUpdate', async(oldMessage, newMessage) => {
 	if (oldMessage.author.bot) return;
 	if (newMessage.content == oldMessage.content) return;
 //	client.emit('message', newMessage);
+	await client.db.set('es' + oldMessage.channel.id, { oldMsg: trim(oldMessage.content, 1024), newMsg: trim(newMessage.content, 1024), author: newMessage.author.id })
 	await editsnipes.set('es' + oldMessage.channel.id, { oldMsg: trim(oldMessage.content, 1024), newMsg: trim(newMessage.content, 1024), author: newMessage.author.id })
+	/*
+	let logID = await client.db.get('logs' + oldMessage.guild.id);
+	let color = await client.db.get('color' + oldMessage.author.id)
+	if (!color) color = client.config.defaultHexColor;
+	if (!logID) return;
+	let channel = await newMessage.guild.channels.find(c => c.id == logID);
+	if (!channel) return;
+	channel.send("", {
+		embed: new Discord.RichEmbed()
+		.setTitle('Message Edited in #' + oldMessage.channel.name)
+		.setThumbnail(oldMessage.author.avatarURL)
+		.setColor(color)
+		.addField("Old Message", trim(oldMessage.content, 1024), true)
+		.addField("New Message", trim(newMessage.content, 1024), true)
+		.setFooter("Edited At", newMessage.author.avatarURL)
+		.setTimestamp()
+	})
+	*/
 	let logID = await logs.get('logs' + oldMessage.guild.id);
 	let color = await colors.get('color' + oldMessage.author.id)
 	if (!color) color = client.config.defaultHexColor;
@@ -204,6 +223,33 @@ client.on('messageUpdate', async(oldMessage, newMessage) => {
 
 client.on('messageDelete', async(msg) => {
 	if (msg.author.bot) return;
+	/*
+		var color = await client.db.get('color' + msg.author.id)
+		if (!color) {
+			color = msg.member.displayColor;
+		};
+		await client.db.set('snipe' + msg.channel.id, {
+			author: msg.author.id,
+			content: msg.content,
+		})
+	client.db.get('logs' + msg.guild.id)
+		.then((result) => {
+				if(!result) { return; }
+				let channel = msg.guild.channels.find(ch => ch.id == result)
+				if(!channel) return;
+					channel.send("", {
+					embed: new Discord.RichEmbed()
+					.setTitle("Message Deleted")
+					.setThumbnail(msg.author.avatarURL)
+					.addField("Author", msg.author.tag, true)
+					.addField("Deleted At", msg.createdAt.toDateString(), true)
+					.addField("Channel", msg.channel, true)
+					.addField("Message", msg.content)
+					.setColor(color)
+					.setTimestamp()
+					})
+			}).catch((err) => {  });*/
+/**above is merged into 1 db version */
 		var jsonColor = await colors.get('color' + msg.author.id)
 		if (!jsonColor) {
 			jsonColor = msg.member.displayColor;
@@ -250,30 +296,22 @@ client.on('guildMemberRemove', async(member) => {
 client.on("guildMemberAdd", async(member) => {
 	if (member.user.bot) return;
 		let owner = client.users.get(client.owner).tag;
+
 		let channel = member.guild.channels.find(x => x.name == 'general');
+		//owen repellent below;
 	if ([process.env.supportServerId].includes(member.guild.id)){
 		if (['462220963224879105', '157558716844081152', '336920581624692737', '540130125136658432', '163715276733415426', '684368759581835303'].includes(member.user.id)) {
 			let muted = member.guild.roles.find(x=>x.name =='Muted');
-			let val = await wtf.get(member.user.id)
-			if (val == 'Y') {
-				await member.addRole(muted.id)
-				return;
-			}
-			if (!val) { 
-				val = "N"
-				wtf.set(member.user.id, 'Y')
-			 }
 		await	member.addRole(muted.id);
-		await	wtf.set(member.user.id, 'Y');
 		await	channel.send({
 				embed: new Discord.RichEmbed()
 				.setColor("#36393e")
-				.setDescription(`${member.user.tag} has received a 10000000000000000000000 minute mute for "owen repellent". If you beleive this is a mistake (which it's not), please DM ${owner}. They were sent the following message:`)
+				.setDescription(`${member.user.tag} has received a 10000000000000000000000 minute mute because for "${reason}". If you beleive this is a mistake (which it's not), please DM ${owner}. They were sent the following message:`)
 			});
 		await	channel.send({
 				embed: new Discord.RichEmbed()
 				.setColor("#da0000")
-				.setDescription(`You have received a 10000000000000000000000 minute mute from ${member.guild.name} for "owen repellent". If you beleive this is a mistake, then feel free to DM ${owner}`)
+				.setDescription(`You have received a 10000000000000000000000 minute mute from ${member.guild.name} for "${reason}". If you beleive this is a mistake, then feel free to DM ${owner}`)
 				.addField("Moderator", client.user.tag, true)
 				.addField("Reason", `owen repellent`, true)
 			});
