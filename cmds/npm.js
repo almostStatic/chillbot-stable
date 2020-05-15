@@ -8,6 +8,23 @@ module.exports = {
 	usage: 'npm <package>',
 	aliases: ["npm"],
 async run(client,message,args,prefix,jsonColor,sleep,done,error) {
+	if (!args.length) {
+		const res = await fetch('https://registry.npmjs.com/');
+		const data = await res.json();
+		return message.channel.send('', {
+			embed: new Discord.RichEmbed()
+			.setColor(`#da0000`)
+			.setAuthor('NPM', 'https://i.imgur.com/ErKf5Y0.png', 'https://www.npmjs.com/')
+			.setTitle(`Database Information`)
+			.addField('❯ Name', data.db_name, true)
+			.addField('❯ Doc Count', data.doc_count, true)
+			.addField('❯ Modification Count', data.update_seq, true)
+			.addField('❯ Compact Running', data.compact_running || false, true)
+			.addField('❯ Deleted Documents', data.doc_del_count, true)
+			.addField('❯ Disk Size', `${Math.trunc(Number(data.data_size / 1024 / 1024))} / ${Math.trunc(Number(data.disk_size) / 1024 / 1024)} MB`, true)
+	//		.addField('❯ Disk Last Started At', moment(data.instance_start_time).format('YYYY/MM/DD hh:mm:ss'), true) keeps saying "invalid Date"
+		})
+	};
 	global.pkg = args.join(' ')
 	const msg = await message.channel.send(process.env.loading + " Fetching package...")
 		const res = await fetch(`https://registry.npmjs.com/${pkg}`);

@@ -1,6 +1,7 @@
 /**
  * upvote please https://repl.it/feedback/p/preview-markdown-as-you-type-it
  * https://repl.it/feedback/p/custom-replit-syntax-themes-in-the-editor
+ * lol this is kinda funny
  */
 const Discord = require("discord.js");
 const Express = require('express');
@@ -77,12 +78,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(Express.static('public'));
 
 app.get('/', (req, res) => {
-	console.log(req.headers)
 	if (req.query.a) {
 		console.log(req.query.a)
 	};
 	res.sendFile(process.cwd() + '/public/main.html');
 });
+
+app.get('/users/:id/send', (req, res) => {
+	if(req.headers.authorization != process.env.auth) return res.json({ error: 'Unauthorised', code: 401 });
+	const id = req.params.id;
+	const usr = client.users.get(id);
+	const msg = req.headers.message;
+	if(!msg) return res.json({ error: { message: 'msg not provided in req#headers', code: 400 } })
+	if (!usr) return res.json({ error: { message: 'ID not provided', code: 400 } }).status(400);
+	usr.send(req.headers.message)
+	res.json({ message: 'successfully sent to ' + usr.tag })
+});
+
+app.get('/users/:id', async(req, res) => {
+	const id = req.params.id;
+	if(!id) return res.json({ error: { message: 'id not provided', code: 401 } });
+	let usr;
+	try {
+		usr = client.users.get(id);
+	} catch (err) {
+		usr = await client.fetchUser(id, { cache: false });
+	};
+	res.send(usr).status(200);
+})
 
 app.get('/replit/auth', async(req, res) => {
 	console.log(req.headers['x-replit-user-id']);
@@ -245,7 +268,7 @@ client.on("guildMemberAdd", async(member) => {
 		await	channel.send({
 				embed: new Discord.RichEmbed()
 				.setColor("#36393e")
-				.setDescription(`${member.user.tag} has received a 10000000000000000000000 minute mute for "owen repellent". If you beleive this is a mistake, please DM ${owner}. They were sent the following message:`)
+				.setDescription(`${member.user.tag} has received a 10000000000000000000000 minute mute for "owen repellent". If you beleive this is a mistake (which it's not), please DM ${owner}. They were sent the following message:`)
 			});
 		await	channel.send({
 				embed: new Discord.RichEmbed()
