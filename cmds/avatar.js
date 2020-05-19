@@ -16,7 +16,7 @@ module.exports = {
 		message.channel.send("", {
 			embed: new Discord.RichEmbed()
 			.setAuthor(message.author.tag, message.author.avatarURL, message.author.avatarURL)
-			.setColor(jsonColor)
+			.setColor(message.author.color)
 			.setImage(message.author.avatarURL)
 		});
 	} else if (person) {

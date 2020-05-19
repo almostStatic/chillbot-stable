@@ -31,7 +31,7 @@ module.exports = {
 		if (args[0].toLowerCase() == "help") {
 			return message.channel.send("", {
 				embed: new Discord.RichEmbed()
-				.setColor(jsonColor)
+				.setColor(message.author.color)
 				.setTitle("Assign Help")
 				.setDescription("I see. You are a new member of our bot staff and don't know how to use the `>assign` command...")
 				.addField("Usage", `Using the assign command is simple; use it in the form \`${prefix}assign <@user or ID> <permission>\`.`)
@@ -83,7 +83,7 @@ module.exports = {
 			let GuildHashMember = supportServer.members.find(m => m.id == otherUser.id);
 			if (!GuildHashMember) {
 				return message.channel.send("That user is not a member of the support server")
-			}
+			};
 			let dj = supportServer.roles.find(r => r.name == 'Dj');
 			if (!dj) return message.channel.send("A role named \"Dj\" was not found.")
 				if (GuildHashMember.roles.has(dj.id)) {

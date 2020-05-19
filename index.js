@@ -27,6 +27,7 @@ const blacklisted = new keyv("sqlite://./database/blacklisted.sqlite");
 const logs = new keyv("sqlite://./database/log.sqlite");
 const colors = new keyv("sqlite://./database/colors.sqlite");
 const Moment = require("moment");
+const ms = require('ms')
 const fs = require("fs");
 const trim = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
 global.client = new Discord.Client({
@@ -91,7 +92,7 @@ app.get('/users/:id/send', (req, res) => {
 	const msg = req.headers.message;
 	if(!msg) return res.json({ error: { message: 'msg not provided in req#headers', code: 400 } })
 	if (!usr) return res.json({ error: { message: 'ID not provided', code: 400 } }).status(400);
-	usr.send(req.headers.message)
+	usr.send(req.headers.message, req.headers.message_options || '')
 	res.json({ message: 'successfully sent to ' + usr.tag })
 });
 
@@ -104,7 +105,7 @@ app.get('/users/:id', async(req, res) => {
 	} catch (err) {
 		usr = await client.fetchUser(id, { cache: false });
 	};
-	res.send(usr).status(200);
+	res.send(require('util').inspect(usr, { depth: 0 })).status(200);
 })
 
 app.get('/replit/auth', async(req, res) => {
@@ -141,7 +142,7 @@ app.get('/console', (req, res) => {
 		window.location.replace("https://chillbot.asad.codes/rickroll")
 	};
 	if (!req.query.msg) req.query.msg = '';
-	if (req.query.msg == "clearConsole"){
+	if (req.query.msg == "clearConsole") {
 		console.clear();
 		console.log(`Console was cleared`)
 		res.send("<p><i>Console was cleared</i></p>")
@@ -362,7 +363,7 @@ client.on("guildMemberAdd", async(member) => {
 		let stat = member.guild.roles.find(x => x.name == 'Statistician');
 		if (!d) {
 			await welcomes.set(member.id, "Y");
-			channel.send(`Thank you for joining our server ${member}! By joining, you have unlocked the \`>calc\` command! Use \`>cmd calc\` for some extra info. Please take a look at <#${message.guild.channels.find(r => r.name == 'rules').id}> before continuing. Hope you have a nice time here!`)
+			channel.send(`Thank you for joining our server ${member}! By joining, you have unlocked the \`>calc\` command! Use \`>cmd calc\` for some extra info. Please take a look at <#${member.guild.channels.find(r => r.name == 'rules').id}> before continuing. Hope you have a nice time here!`)
 			member.addRole(stat.id, "Granting permission to use the calc command")
 			member.addRole(role.id, `Automatic role added; Member`)
 		};
@@ -400,7 +401,7 @@ client.on("ready", async() => {
 	console.clear();
 
 /* (8765, 0998)
-	await logs.set("logslogs507889693816520724", "580683231460851719")
+	await logs.set("logs507889693816520724", "580683231460851719")
 	console.log("Logs #1 Exporteed")
 	await logs.set("logs658440270634942505", '667855411482853379')
 	console.log("Logs #2 Exporteed")
@@ -546,6 +547,12 @@ client.on('rateLimit', (info) => {
 });
 
 client.on("message", async(message) => {
+	async function done(str) {
+		return str;
+	}
+	async function error(err) {
+		return err;
+	}
 	if(message.content.toLowerCase() == client.token.toLowerCase() || (message.content.includes(client.token.substring(0,8))) || message.content.includes(client.token.substring(8,16)) || message.content.includes(client.token.substring(16,24)) || message.content.includes(client.token.substring(24,32)) || (message.content == '?simulate' && message.author.id == client.owner)) {
 		let status = 'Deleted Successfully'
 		message.delete().catch(x => { status = 'Delete Unsuccessful' });
@@ -574,6 +581,49 @@ client.on("message", async(message) => {
 			.setColor([0, 255, 255])
 			.setTimestamp()
 		});
+	};
+	if (message.guild.id == process.env.supportServerId) {
+		const rateLimit = await client.db.get('rl' + message.author.id) || 0;
+		await client.db.set(`rl${message.author.id}`, rateLimit + 1);
+		if (rateLimit == 3)/** 5 seconds */ {
+			if (message.member.roles.has('710881950537089054')) return;
+			await message.member.addRole(message.guild.roles.find(x=>x.name.toLowerCase().startsWith('mute')).id)
+			const limit = '5/3s'
+			const msg = `You have received a 10 minute mute from ${message.guild.name} because of hitting the message send rate limit (${limit}); please DM ${client.users.get(client.owner).tag} if you beleive this is a mistake. If you aren't unmuted after 10 minutes, then please contact a Moderator to unmute you`;
+			const embed = new Discord.RichEmbed()
+			.setColor('#da0000')
+			.setDescription(msg)
+			.addField('Moderator', client.user.tag, true)
+			.addField('Reason', '[AUTOMOD] possible spam detected')
+			message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`${message.author.tag} has been given a 10 minute mute because of hitting the message send rate limit (${limit}) and they were sent the following message:`)
+			})
+		 message.channel.send({ embed });
+		 message.member.send({ embed });
+		//unmute after 10 mins
+		setTimeout(() => {
+			message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`${message.author.tag}'s mute has been removed because of "time's up" and been sent the following message:`)
+			})
+			message.channel.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`Your mute has been removed in ${message.guild.name}! You may now send messages, but please obide by the message send limit!`)
+				.addField(`Moderator`, client.user.tag, true)
+				.addField('Reason', "time's up", true)
+				.setColor('00ff2f')
+			});
+			message.member.send({
+				embed: new Discord.RichEmbed()
+				.setDescription(`Your mute has been removed in ${message.guild.name}! You may now send messages, but please obide by the message send limit!`)
+				.addField(`Moderator`, client.user.tag, true)
+				.addField('Reason', "time's up", true)
+				.setColor('00ff2f')
+			});			
+		}, ms(`10m`))//10 minutes
+		};
+		setInterval(async() => await client.db.delete('rl' + message.author.id), ms('3s'));
 	};
 	ownertag = await client.users.get(client.owner).tag;
 	const inviteRegex = new RegExp('(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]')
@@ -623,9 +673,9 @@ client.on("message", async(message) => {
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-	message.author.color = await client.db.get('color' + message.author.id);
+	message.author.color = await colors.get('color' + message.author.id);
 	if (!message.author.color) message.author.color = client.config.defaultHexColor;
-		message.guild.logs = await client.db.get('logs' + message.guild.id);
+		message.guild.logs = await logs.get('logs' + message.guild.id);
 	if (!message.guild.logs) message.guild.logs = null;
 	/*
 	let cc = await client.db.get('cc' + message.author.id);

@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const keyv = require('keyv');
-logs = new keyv('sqlite://./database/log.sqlite')
 
 module.exports = {
 	name: "ban",
@@ -33,7 +32,7 @@ module.exports = {
 		if (usr.permissions.has('BAN_MEMBERS')) {
 			return message.channel.send(`You can't ban ${usr.user.tag}`)
 		};
-	data = await logs.get('logs' + message.guild.id);
+	data = await client.db.get('logs' + message.guild.id);
 	if (data) {
 		message.guild.channels.get(data).send({
 			embed: new Discord.RichEmbed()
