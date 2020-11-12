@@ -65,5 +65,4 @@ let myDate = new Date(client.readyTimestamp);
 					});
 }
 
-
 }
