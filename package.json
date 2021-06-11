@@ -92,7 +92,7 @@
     "negotiator": "^0.6.2",
     "node-fetch": "^2.6.0",
     "node-os-utils": "^1.2.2",
-    "normalize-url": "^4.5.0",
+    "normalize-url": "^4.5.1",
     "oauth-sign": "^0.9.0",
     "on-finished": "^2.3.0",
     "once": "^1.4.0",
